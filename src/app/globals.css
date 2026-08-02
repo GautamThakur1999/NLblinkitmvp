@@ -1,26 +1,101 @@
 @import "tailwindcss";
-
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+@import url("https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200");
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-surface: #fcf9f8;
+  --color-surface-dim: #dcd9d9;
+  --color-surface-bright: #fcf9f8;
+  --color-surface-container-lowest: #ffffff;
+  --color-surface-container-low: #f6f3f2;
+  --color-surface-container: #f0eded;
+  --color-surface-container-high: #eae7e7;
+  --color-surface-container-highest: #e5e2e1;
+  --color-on-surface: #1b1b1c;
+  --color-on-surface-variant: #4e4634;
+  --color-inverse-surface: #303030;
+  --color-inverse-on-surface: #f3f0ef;
+  --color-outline: #7f7662;
+  --color-outline-variant: #d1c5ae;
+  --color-surface-tint: #755b00;
+  --color-primary: #755b00;
+  --color-on-primary: #ffffff;
+  --color-primary-container: #f8cb46;
+  --color-on-primary-container: #6e5600;
+  --color-inverse-primary: #edc13d;
+  --color-secondary: #006e16;
+  --color-on-secondary: #ffffff;
+  --color-secondary-container: #8ffb87;
+  --color-on-secondary-container: #007518;
+  --color-tertiary: #5d5f5f;
+  --color-on-tertiary: #ffffff;
+  --color-tertiary-container: #d0d0d0;
+  --color-on-tertiary-container: #575959;
+  --color-error: #ba1a1a;
+  --color-on-error: #ffffff;
+  --color-error-container: #ffdad6;
+  --color-on-error-container: #93000a;
+  --color-primary-fixed: #ffe08f;
+  --color-primary-fixed-dim: #edc13d;
+  --color-on-primary-fixed: #241a00;
+  --color-on-primary-fixed-variant: #584400;
+  --color-secondary-fixed: #8ffb87;
+  --color-secondary-fixed-dim: #74dd6e;
+  --color-on-secondary-fixed: #002203;
+  --color-on-secondary-fixed-variant: #00530e;
+  --color-tertiary-fixed: #e2e2e2;
+  --color-tertiary-fixed-dim: #c6c6c7;
+  --color-on-tertiary-fixed: #1a1c1c;
+  --color-on-tertiary-fixed-variant: #454747;
+  --color-background: #fcf9f8;
+  --color-on-background: #1b1b1c;
+  --color-surface-variant: #e5e2e1;
+
+  --font-inter: "Inter", sans-serif;
+
+  --spacing-base: 4px;
+  --spacing-xs: 8px;
+  --spacing-sm: 12px;
+  --spacing-md: 16px;
+  --spacing-lg: 24px;
+  --spacing-xl: 32px;
+  --spacing-2xl: 48px;
+  --spacing-gutter: 20px;
+  --spacing-container-max: 1280px;
+
+  --radius-sm: 0.25rem;
+  --radius-DEFAULT: 0.5rem;
+  --radius-md: 0.75rem;
+  --radius-lg: 1rem;
+  --radius-xl: 1.5rem;
+  --radius-full: 9999px;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+@utility text-display-lg { font-size: 48px; line-height: 56px; font-weight: 800; letter-spacing: -0.02em; font-family: var(--font-inter); }
+@utility text-headline-lg { font-size: 32px; line-height: 40px; font-weight: 700; letter-spacing: -0.01em; font-family: var(--font-inter); }
+@utility text-headline-md { font-size: 24px; line-height: 32px; font-weight: 700; font-family: var(--font-inter); }
+@utility text-headline-sm { font-size: 20px; line-height: 28px; font-weight: 600; font-family: var(--font-inter); }
+@utility text-body-lg { font-size: 18px; line-height: 26px; font-weight: 400; font-family: var(--font-inter); }
+@utility text-body-md { font-size: 16px; line-height: 24px; font-weight: 400; font-family: var(--font-inter); }
+@utility text-body-sm { font-size: 14px; line-height: 20px; font-weight: 400; font-family: var(--font-inter); }
+@utility text-label-lg { font-size: 14px; line-height: 20px; font-weight: 600; letter-spacing: 0.01em; font-family: var(--font-inter); }
+@utility text-label-md { font-size: 12px; line-height: 16px; font-weight: 600; letter-spacing: 0.02em; font-family: var(--font-inter); }
+
+@utility ai-glow {
+  background-color: rgba(248, 203, 70, 0.05);
+}
+
+@utility ai-chip {
+  background-color: rgba(248, 203, 70, 0.2);
+  color: #1b1b1c;
+}
+
+@utility nudge-gradient {
+  border: 1px solid;
+  border-image: linear-gradient(45deg, rgba(248, 203, 70, 0.3), rgba(248, 203, 70, 0.8)) 1;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: var(--font-sans), Arial, Helvetica, sans-serif;
+  background-color: var(--color-background);
+  color: var(--color-on-background);
+  font-family: var(--font-inter);
 }

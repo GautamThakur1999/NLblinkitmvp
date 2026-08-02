@@ -204,8 +204,7 @@ function PersonaPanel({ personaKey, persona }: {
 
 // ── Discovery Rail ────────────────────────────────────────────────────────────
 function DiscoveryRail({
-  occasion, lastAnchor, cartSkuIds, onAddSuggestion, onDismiss,
-  personaKey, persona, renderTimeMs, isLoading, showReason,
+  occasion, cartSkuIds, onAddSuggestion, isLoading, showReason,
 }: {
   occasion: OccasionResult | null;
   lastAnchor: Sku | null;
@@ -218,53 +217,28 @@ function DiscoveryRail({
   isLoading: boolean;
   showReason: boolean;
 }) {
-  return (
-    <aside className="flex flex-col flex-1 overflow-y-auto" aria-live="polite">
-      {/* Header */}
-      <div className="px-gutter py-sm border-b border-surface-container-highest flex items-center justify-between flex-shrink-0">
-        <div className="flex items-center gap-1.5">
-          <span className="material-symbols-outlined text-primary text-[18px]">auto_awesome</span>
-          <span className="font-label-md text-label-md text-on-surface-variant uppercase">Occasion Engine</span>
-        </div>
-        {renderTimeMs !== null && (
-          <span className={`font-label-md text-label-md px-1.5 py-0.5 rounded ${renderTimeMs < 300 ? "bg-secondary-container text-on-secondary-container" : "bg-error-container text-on-error-container"}`}>
-            {renderTimeMs}ms {renderTimeMs < 300 ? "✓" : "✗ R8"}
-          </span>
-        )}
-      </div>
+  if (!isLoading && !occasion) return null;
 
+  return (
+    <aside className="flex flex-col flex-1" aria-live="polite">
       {isLoading ? (
         <div className="flex-1 flex items-center justify-center py-2xl">
-          <div className="animate-spin w-5 h-5 border-2 border-primary border-t-transparent rounded-full" />
+          <div className="animate-spin w-6 h-6 border-2 border-primary border-t-transparent rounded-full" />
         </div>
       ) : occasion ? (
-        <div className="p-gutter space-y-sm ai-glow h-full">
-          {lastAnchor && (
-            <div className="flex items-center gap-2 font-label-md text-label-md text-secondary">
-              <span className="material-symbols-outlined text-[16px]">check_circle</span><span className="truncate">{lastAnchor.name} added</span>
-            </div>
-          )}
-          <div className="h-px bg-outline-variant/30" />
-          <p className="font-headline-sm text-headline-sm text-on-surface">{occasion.headline}</p>
+        <div className="p-gutter space-y-md animate-in fade-in slide-in-from-bottom-2 duration-300">
+          <div className="flex items-center gap-2 mb-2">
+            <span className="material-symbols-outlined text-secondary text-[24px]">sparkles</span>
+            <p className="font-headline-sm text-headline-sm text-on-surface font-bold">{occasion.headline}</p>
+          </div>
           <div className="space-y-sm">
             {occasion.suggestions.map(sug => (
               <SuggestionCard key={sug.sku_id} sug={sug} onAdd={onAddSuggestion}
                 inCart={cartSkuIds.has(sug.sku_id)} showReason={showReason} />
             ))}
           </div>
-          {/* P13-11: Dismiss tracking */}
-          <button
-            onClick={onDismiss}
-            className="w-full py-sm rounded-lg font-label-md text-label-md text-on-surface-variant hover:bg-surface-container-highest transition-colors mt-sm border border-surface-container-high"
-          >
-            Dismiss suggestions
-          </button>
         </div>
-      ) : (
-        <div className="flex-1">
-          <PersonaPanel personaKey={personaKey} persona={persona} />
-        </div>
-      )}
+      ) : null}
     </aside>
   );
 }
@@ -579,48 +553,16 @@ export default function DemoPage() {
 
   return (
     <div className="min-h-screen bg-surface flex flex-col font-inter">
-      <DemoBanner />
-
       {/* Nav */}
-      <header className="bg-surface-container-lowest border-b border-surface-container-high px-gutter py-sm flex items-center gap-md flex-shrink-0 z-10 h-[88px]">
+      <header className="bg-surface-container-lowest border-b border-surface-container-high px-gutter py-sm flex items-center justify-between flex-shrink-0 z-10 h-[72px]">
         <div className="flex items-center gap-2 font-headline-md text-headline-md font-black text-primary">
-          <span className="material-symbols-outlined fill">auto_awesome</span>
-          <span>Blinkit</span>
-          <span className="font-label-md text-label-md bg-surface-container text-on-surface-variant px-2 py-0.5 rounded-full font-normal">Occasion Engine Demo</span>
+          <span className="text-secondary text-2xl font-bold">blinkit</span>
         </div>
-        <div className="flex-1" />
-        {/* P12-19: Persona switcher */}
-        <div className="flex items-center gap-sm">
-          <span className="font-label-md text-label-md text-on-surface-variant hidden lg:block">Persona:</span>
-          <select
-            value={personaKey}
-            onChange={e => switchPersona(e.target.value as PersonaKey)}
-            className="font-label-md text-label-md border border-surface-container-high rounded-lg px-2 py-1.5 bg-surface-container-lowest text-on-surface outline-none"
-          >
-            <option value="user_segment_a_hero">A — Hero (3 categories)</option>
-            <option value="user_segment_b_suppression">B — Suppression (Home & Office)</option>
-          </select>
-        </div>
-        {/* P13-10: Reason A/B toggle */}
-        <div className="flex items-center gap-sm font-label-md text-label-md">
-          <span className="text-on-surface-variant hidden lg:block">Reasons</span>
-          <button
-            onClick={() => setReasonVisible(v => !v)}
-            className={`w-10 h-5 rounded-full transition-colors relative ${reasonVisible ? "bg-secondary" : "bg-surface-container-highest"}`}
-          >
-            <span className={`absolute top-0.5 w-4 h-4 rounded-full bg-surface-container-lowest shadow-sm transition-transform ${reasonVisible ? "translate-x-5" : "translate-x-0.5"}`} />
-          </button>
-          <span className={`hidden lg:block ${reasonVisible ? "text-secondary font-medium" : "text-on-surface-variant"}`}>
-            {reasonVisible ? "ON" : "off"}
-          </span>
-        </div>
+        
         {/* Cart */}
-        <div className="flex items-center gap-1.5 font-label-lg text-label-lg font-bold text-on-surface">
-          <span className="material-symbols-outlined">shopping_cart</span> <span>{cart.length}</span>
+        <div className="flex items-center gap-1.5 font-label-lg text-label-lg font-bold text-on-surface bg-primary-container text-on-primary-container px-4 py-2 rounded-xl">
+          <span className="material-symbols-outlined text-[20px]">shopping_cart</span> <span>{cart.length > 0 ? `₹${totalCartValue}` : "My Cart"}</span>
         </div>
-        <button onClick={resetDemo} className="font-label-md text-label-md text-on-surface-variant hover:text-on-surface transition-colors">
-          ↺ Reset
-        </button>
       </header>
 
       {/* Body: main + rail */}
@@ -661,39 +603,45 @@ export default function DemoPage() {
             </div>
           </section>
 
-          {/* Cart summary with remove (P13-3) */}
-          {cart.length > 0 && (
-            <section className="px-gutter py-md border-t border-surface-container-highest bg-surface-container-lowest">
-              <h2 className="font-label-md text-label-md text-on-surface-variant uppercase mb-sm">
-                Cart ({cart.length} items)
-              </h2>
-              <div className="space-y-sm mb-sm">
+          {/* Removed original Cart summary to move it to the right rail */}
+
+        {/* Right rail wrapper (Customer-facing Cart & Suggestions) */}
+        <div className="w-80 lg:w-[400px] flex-shrink-0 h-full flex flex-col bg-surface-container-lowest border-l border-surface-container-high overflow-y-auto">
+          
+          {/* Consumer Cart summary */}
+          <div className="px-gutter py-md border-b border-surface-container-highest bg-surface-container-lowest">
+            <h2 className="font-headline-sm text-headline-sm text-on-surface mb-sm">
+              My Cart ({cart.length} items)
+            </h2>
+            {cart.length === 0 ? (
+              <p className="font-body-md text-body-md text-on-surface-variant">Your cart is empty.</p>
+            ) : (
+              <div className="space-y-sm mb-md">
                 {cart.map(sku => (
                   <div key={sku.sku_id} className="flex items-center justify-between font-label-md text-label-md bg-surface-container rounded-lg px-3 py-2">
-                    <span className="text-on-surface">{sku.name} · ₹{sku.price}</span>
-                    <div className="flex items-center gap-2">
-                      {!persona.purchased_l1s.includes(sku.l1_category) && (
-                        <span className="text-secondary font-bold px-1.5 py-0.5 bg-secondary-container rounded text-xs">New L1</span>
-                      )}
-                      {/* P13-3: Remove button — reverses CER count */}
+                    <span className="text-on-surface font-medium">{sku.name}</span>
+                    <div className="flex items-center gap-3">
+                      <span className="text-on-surface-variant font-bold">₹{sku.price}</span>
                       <button onClick={() => handleRemoveFromCart(sku.sku_id)}
-                        className="text-on-surface-variant hover:text-error transition-colors font-bold"><span className="material-symbols-outlined text-[16px]">close</span></button>
+                        className="text-on-surface-variant hover:text-error transition-colors flex items-center">
+                        <span className="material-symbols-outlined text-[18px]">delete</span>
+                      </button>
                     </div>
                   </div>
                 ))}
               </div>
+            )}
+            {cart.length > 0 && (
               <button
                 onClick={() => setCheckoutStarted(true)}
-                className="w-full py-md bg-secondary text-on-secondary font-label-lg text-label-lg font-bold rounded-xl hover:bg-[#005a12] transition-colors active:scale-95 shadow-sm"
+                className="w-full py-md bg-secondary text-on-secondary font-label-lg text-label-lg font-bold rounded-xl hover:bg-[#005a12] transition-colors active:scale-95 shadow-sm flex items-center justify-between px-4"
               >
-                {checkoutStarted ? "✓ Checkout started" : `Checkout · ₹${totalCartValue}`}
+                <span>{checkoutStarted ? "Processing..." : `₹${totalCartValue}`}</span>
+                <span>{checkoutStarted ? "✓" : "Proceed to Checkout >"}</span>
               </button>
-            </section>
-          )}
-        </main>
+            )}
+          </div>
 
-        {/* Right rail wrapper */}
-        <div className="w-80 lg:w-[360px] flex-shrink-0 h-full flex flex-col bg-surface-container-lowest border-l border-surface-container-high overflow-y-auto">
           <DiscoveryRail
             occasion={occasion}
             lastAnchor={lastAnchor}
@@ -702,22 +650,10 @@ export default function DemoPage() {
             onDismiss={handleDismiss}
             personaKey={personaKey}
             persona={persona}
-            renderTimeMs={lastRenderMs}
+            renderTimeMs={null}
             isLoading={isLoading}
-            showReason={reasonVisible}
+            showReason={true}
           />
-          <MetricsPanel
-            impressions={impressions}
-            newL1Adds={newL1Adds}
-            dismissals={dismissals}
-            baseL1Count={baseL1Count}
-            currentL1Count={currentL1Count}
-            lastRenderMs={lastRenderMs}
-            networkCalls={networkCalls}
-            checkoutStarted={checkoutStarted}
-            occasionStats={occasionStats}
-          />
-          <TriggerLog log={triggerLog} />
         </div>
       </div>
     </div>
