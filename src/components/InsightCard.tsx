@@ -24,52 +24,52 @@ export default function InsightCard({ insight }: { insight: InsightData }) {
   const lowEntropy = insight.source_entropy < 0.5;
 
   return (
-    <div className="border border-neutral-200 dark:border-neutral-800 rounded-xl p-5 mb-4 bg-white dark:bg-neutral-900 shadow-sm transition-all">
-      <div className="flex justify-between items-start mb-3">
-        <h3 className="text-lg font-semibold text-neutral-900 dark:text-neutral-100 leading-tight">
+    <div className="border border-surface-container-high rounded-xl p-md mb-md bg-surface-container-lowest shadow-[0px_4px_12px_rgba(0,0,0,0.05)] transition-all">
+      <div className="flex justify-between items-start mb-sm">
+        <h3 className="font-headline-sm text-headline-sm text-on-surface leading-tight">
           {insight.title}
         </h3>
-        <div className="flex gap-2 flex-shrink-0 ml-4">
+        <div className="flex gap-2 flex-shrink-0 ml-md">
           {insight.is_competitor_only && (
-            <span className="px-2 py-1 text-xs font-medium bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400 rounded-md">
+            <span className="px-2 py-1 font-label-md text-label-md bg-error-container text-on-error-container rounded-md">
               Competitor Only
             </span>
           )}
           {lowConfidence && (
-            <span className="px-2 py-1 text-xs font-medium bg-orange-100 text-orange-700 dark:bg-orange-900/30 dark:text-orange-400 rounded-md">
+            <span className="px-2 py-1 font-label-md text-label-md bg-primary-container text-on-primary-container rounded-md">
               Low Confidence
             </span>
           )}
           {lowEntropy && (
-            <span className="px-2 py-1 text-xs font-medium bg-yellow-100 text-yellow-700 dark:bg-yellow-900/30 dark:text-yellow-400 rounded-md">
+            <span className="px-2 py-1 font-label-md text-label-md bg-primary-container text-on-primary-container rounded-md">
               Single Source
             </span>
           )}
         </div>
       </div>
 
-      <p className="text-neutral-600 dark:text-neutral-400 text-sm mb-4">
+      <p className="text-on-surface-variant font-body-sm text-body-sm mb-md">
         {insight.description}
       </p>
 
       <button
         onClick={() => setExpanded(!expanded)}
-        className="text-sm font-medium text-blue-600 dark:text-blue-400 hover:underline focus:outline-none"
+        className="font-label-md text-label-md text-primary hover:underline focus:outline-none"
       >
         {expanded ? "Hide Evidence" : "View Evidence & Quotes"}
       </button>
 
       {expanded && (
-        <div className="mt-4 pt-4 border-t border-neutral-100 dark:border-neutral-800 space-y-4">
+        <div className="mt-md pt-md border-t border-surface-container-high space-y-md">
           <div>
-            <h4 className="text-xs font-bold text-neutral-500 uppercase tracking-wider mb-2">
+            <h4 className="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider mb-2">
               Verbatim Quotes ({insight.quotes.length})
             </h4>
             <div className="space-y-2">
               {insight.quotes.map((q, i) => (
                 <blockquote
                   key={i}
-                  className="pl-3 border-l-2 border-blue-500 text-sm text-neutral-700 dark:text-neutral-300 italic"
+                  className="pl-3 border-l-2 border-primary font-body-sm text-body-sm text-on-surface-variant italic"
                 >
                   &quot;{q}&quot;
                 </blockquote>
@@ -78,23 +78,23 @@ export default function InsightCard({ insight }: { insight: InsightData }) {
           </div>
           
           <div>
-            <h4 className="text-xs font-bold text-neutral-500 uppercase tracking-wider mb-1">
+            <h4 className="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider mb-1">
               Falsifier
             </h4>
-            <p className="text-sm text-neutral-700 dark:text-neutral-300">
+            <p className="font-body-sm text-body-sm text-on-surface">
               {insight.falsifier}
             </p>
           </div>
 
           <div>
-            <h4 className="text-xs font-bold text-neutral-500 uppercase tracking-wider mb-1">
+            <h4 className="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider mb-1">
               Cited Documents
             </h4>
             <div className="flex flex-wrap gap-1">
               {insight.document_ids.map((id) => (
                 <span
                   key={id}
-                  className="px-1.5 py-0.5 bg-neutral-100 dark:bg-neutral-800 text-neutral-500 dark:text-neutral-400 text-[10px] rounded font-mono"
+                  className="px-1.5 py-0.5 bg-surface-container text-on-surface-variant text-[10px] rounded font-mono"
                   title={id}
                 >
                   {id.substring(0, 8)}...
