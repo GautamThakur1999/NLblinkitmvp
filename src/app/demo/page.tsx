@@ -604,6 +604,7 @@ export default function DemoPage() {
           </section>
 
           {/* Removed original Cart summary to move it to the right rail */}
+        </main>
 
         {/* Right rail wrapper (Customer-facing Cart & Suggestions) */}
         <div className="w-80 lg:w-[400px] flex-shrink-0 h-full flex flex-col bg-surface-container-lowest border-l border-surface-container-high overflow-y-auto">
