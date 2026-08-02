@@ -11,7 +11,7 @@ export async function getLiveOccasion(cart: Sku[], personaL1s: string[]): Promis
 
   const cartStr = cart.map(item => `${item.name} (${item.l1_category})`).join(", ");
   const factsStr = Object.entries(factsData.facts)
-    .map(([id, fact]: [string, any]) => `Fact ID: ${id} | Fact: ${fact.text} | Target L1: ${fact.target_l1}`)
+    .map(([id, fact]: [string, { text: string; target_l1: string }]) => `Fact ID: ${id} | Fact: ${fact.text} | Target L1: ${fact.target_l1}`)
     .join("\n");
 
   const prompt = `You are the Blinkit Occasion Engine. 

@@ -2,8 +2,8 @@ import validationData from "@data/processed/validation.json";
 import failuresData from "@data/qa/failures.json";
 
 export default function ValidationScorecardPage() {
-  const report = validationData as any;
-  const failures = failuresData as any[];
+  const report = validationData as Record<string, unknown>;
+  const failures = failuresData as Record<string, unknown>[];
 
   if (!report) {
     return (
@@ -91,7 +91,7 @@ export default function ValidationScorecardPage() {
           <p className="text-neutral-600 dark:text-neutral-400 italic">No insights were quarantined.</p>
         ) : (
           <div className="space-y-4">
-            {failures.map((f: any, idx: number) => (
+            {failures.map((f: Record<string, unknown>, idx: number) => (
               <div key={idx} className="bg-red-50 dark:bg-red-900/10 border border-red-200 dark:border-red-900/30 rounded-lg p-4">
                 <div className="flex items-center gap-2 mb-2">
                   <span className="px-2 py-1 text-xs font-bold bg-red-200 text-red-800 dark:bg-red-800 dark:text-red-100 rounded">

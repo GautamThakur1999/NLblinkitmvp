@@ -71,7 +71,7 @@ export default function InsightCard({ insight }: { insight: InsightData }) {
                   key={i}
                   className="pl-3 border-l-2 border-blue-500 text-sm text-neutral-700 dark:text-neutral-300 italic"
                 >
-                  "{q}"
+                  &quot;{q}&quot;
                 </blockquote>
               ))}
             </div>

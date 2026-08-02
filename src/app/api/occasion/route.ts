@@ -58,7 +58,7 @@ export async function POST(request: Request) {
       // Attach SKU metadata and Reason text for the frontend
       const enrichedSuggestions = rawOccasion.suggestions.map(sug => {
         const sku = catalogue.find(s => s.sku_id === sug.sku_id)!;
-        const factText = (factsData.facts as Record<string, any>)[sug.fact_id]?.text || "";
+        const factText = (factsData.facts as Record<string, { text: string }>)[sug.fact_id]?.text || "";
         return {
           ...sug,
           sku_name: sku.name,
@@ -79,8 +79,8 @@ export async function POST(request: Request) {
     const result = await Promise.race([inferencePromise(), budgetPromise]);
     return NextResponse.json(result);
 
-  } catch (err: any) {
-    if (err.message === "R8_LATENCY_ABANDON") {
+  } catch (err) {
+    if (err instanceof Error && err.message === "R8_LATENCY_ABANDON") {
       console.warn("[GUARD] R8 300ms budget blown. Abandoning.");
       return NextResponse.json(null);
     }
