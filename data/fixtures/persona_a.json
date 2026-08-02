@@ -1,0 +1,7 @@
+{
+  "user_id": "USER_PERSONA_A",
+  "description": "High-frequency, low-breadth user. Segment A from docs/07-demo-journey.md",
+  "order_count": 23,
+  "purchased_l1s": ["Staples", "Dairy", "Snacks"],
+  "never_purchased_l1s": ["Home & Office", "Cleaning", "Baby", "Pet", "Pharma", "Personal Care"]
+}

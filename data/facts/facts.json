@@ -1,0 +1,44 @@
+{
+  "facts": {
+    "fact_monsoon_atta": {
+      "text": "Damp monsoon air gets into open atta",
+      "target_l1": "Home & Office"
+    },
+    "fact_weevils": {
+      "text": "Weevils breed in stored flour",
+      "target_l1": "Cleaning"
+    },
+    "fact_masala_dabba": {
+      "text": "For the masala dabba too",
+      "target_l1": "Home & Office"
+    },
+    "fact_degreaser": {
+      "text": "Cream and ghee leave residue regular dish soap misses",
+      "target_l1": "Cleaning"
+    },
+    "fact_phenyl_dogs": {
+      "text": "Regular phenyl is toxic to dogs",
+      "target_l1": "Cleaning"
+    },
+    "fact_holi_oil": {
+      "text": "Apply before — colour washes off easier",
+      "target_l1": "Personal Care"
+    },
+    "fact_paracetamol_fluids": {
+      "text": "Fever needs fluids more than food",
+      "target_l1": "Beverages"
+    },
+    "fact_party_glasses": {
+      "text": "Fewer dishes after",
+      "target_l1": "Home & Office"
+    },
+    "fact_lint_roller": {
+      "text": "For the sofa",
+      "target_l1": "Home & Office"
+    },
+    "fact_baby_solids": {
+      "text": "First-solids month is messy",
+      "target_l1": "Cleaning"
+    }
+  }
+}

@@ -1,0 +1,222 @@
+[
+  {
+    "insight_id": "INS-254671A3",
+    "theme_id": "CLUSTER_3",
+    "title": "Users are Frustrated with High Prices",
+    "description": "Users are expressing dissatisfaction with the prices on Blinkit, expecting discounts or lower prices compared to market rates. This frustration may lead to users exploring alternative options.",
+    "confidence_score": 0.8,
+    "document_ids": [
+      "7151d080e6e02126b58eb3cffec20cdc8e94183abee35f9875b4a7cbf1d11efc",
+      "d8aac3aa89f3a0dd1dbd8089ca6ec20c240176af05e1316d98ae79204890c9b0",
+      "156cb61f7b3beec9ccc8147f498771d9a4e236fa2ab70f22d126b92e85f37099"
+    ],
+    "quotes": [
+      "Minimum Order too Hight \u20b9149/-",
+      "same market price, expecting some discount from market price",
+      "Charges are high as compared to zepto"
+    ],
+    "falsifier": "Evidence of users being satisfied with prices or expecting higher prices.",
+    "answers_brief_question": 5,
+    "is_competitor_only": false,
+    "source_entropy": 0.0,
+    "rank_score": 82.7
+  },
+  {
+    "insight_id": "INS-487D5F5C",
+    "theme_id": "CLUSTER_3",
+    "title": "Users Experience Poor Customer Service",
+    "description": "Users are expressing frustration with the customer service experience on Blinkit, citing issues with refunds, support team availability, and unhelpful representatives.",
+    "confidence_score": 0.9,
+    "document_ids": [
+      "d6481511ef607e46cce584075138b11be4f824f975d20b2972a7a4c1be8ca9b3",
+      "446dad8c2ecdf635f640d8de58d570628eb22c0fcc71ef4fd907b0bfb31a4e5a",
+      "8601e33aa0938cd72108c3dd0ef3b2196db6ca510d41f47e160c2ec58dab6ca2"
+    ],
+    "quotes": [
+      "Missing order but support team is too busy even to have a conversation.",
+      "blinkit application are totally froud and fake kuch ordar kro assistant bhi batmeez hai miss prachi do not buy any product blinkit price kuch dikhate hai milta kuch or hai support se contact kro to koi help nhi policy bhi hai 7 day's Replacement but do not follow the policy",
+      "I didn't thought that this popular app would turn out to be a total disappointment I had ordered few items one of them was this cake ice cream , I opened it and saw it was half eaten and when I called to ask for a refund they refused saying it wasn't their fault and blah blah blah....really blinkit!? I had no issues with it what so ever until this happened sorry (not sorry) but I am uninstalling this app"
+    ],
+    "falsifier": "Evidence of users being satisfied with customer service or experiencing no issues.",
+    "answers_brief_question": 8,
+    "is_competitor_only": false,
+    "source_entropy": 0.0,
+    "rank_score": 82.7
+  },
+  {
+    "insight_id": "INS-6468B59D",
+    "theme_id": "CLUSTER_3",
+    "title": "Users Expect Better Packing and Quality",
+    "description": "Users are expressing dissatisfaction with the packing and quality of products received on Blinkit, citing issues with dirty items, missing orders, and poor packaging.",
+    "confidence_score": 0.7,
+    "document_ids": [
+      "42bf7a684f2530174a84a9d8173c9e59e5ad678686a6845276c5d7f5bbb50335",
+      "88f6168688e0c00502641c9fbba584a13e3ba2e734b10128fa0cc04f074b2159",
+      "d8542bedc9be4c486e81eb6eb62444b97bdd5dde73e906c7ac65002b3430863a"
+    ],
+    "quotes": [
+      "very very poor packing items was dirty In three items also they don't gave hand bag.",
+      "very poor. we can not cancel the order after placing once.",
+      "1st delivery \ud83d\udc4d"
+    ],
+    "falsifier": "Evidence of users being satisfied with packing and quality or experiencing no issues.",
+    "answers_brief_question": 8,
+    "is_competitor_only": false,
+    "source_entropy": 0.0,
+    "rank_score": 82.7
+  },
+  {
+    "insight_id": "INS-F03BAB2B",
+    "theme_id": "CLUSTER_1",
+    "title": "Users highly value convenience and speed in their shopping experience",
+    "description": "Users consistently mention that Blinkit is a 'savior' when they need to order things quickly, and that the app is 'good' for 'lazy' people. This suggests that users prioritize convenience and speed in their shopping experience.",
+    "confidence_score": 0.9,
+    "document_ids": [
+      "8de66caecec646e5cbfbc0e9dded68c45566d5ca558f28b395c23153e7c2669e",
+      "e5460ec4f94dee123d5e2aecb4625ef7267d9089493b1f073461d403153b01e4",
+      "e8de0d27824bcb72a1f911ee628ab6a9bc74b6e192a2a35d6980756830564da3"
+    ],
+    "quotes": [
+      "A very good alternative when you are unable to reach local marketplace or you have to purchase something urgently and you have less time.",
+      "good and fastest delivery",
+      "this app is sooo good"
+    ],
+    "falsifier": "Evidence that users consistently mention that they prioritize price or product quality over convenience and speed.",
+    "answers_brief_question": 3,
+    "is_competitor_only": false,
+    "source_entropy": 0.0,
+    "rank_score": 7.800000000000001
+  },
+  {
+    "insight_id": "INS-D6EDB3B3",
+    "theme_id": "CLUSTER_1",
+    "title": "Users are generally satisfied with the quality of products on Blinkit",
+    "description": "Users consistently mention that products are 'good' or 'very good', with some exceptions in the electronics category. This suggests that users are generally satisfied with the quality of products on Blinkit.",
+    "confidence_score": 0.8,
+    "document_ids": [
+      "4209a9e5a6a19a9c958406b1d531b2cddff15f343a218636d8ba4faa01e73cbb",
+      "8298c2bfdb21592d10eb40cf035ffe900df43566dd6df6ee75e507961ce0e823",
+      "b431a55be5cd55a0db91a1c02ba0ac8ab3c9f1a6a103adcb9ab057759c81488e"
+    ],
+    "quotes": [
+      "v good",
+      "very good \ud83d\udc4d refund",
+      "very good Blinkit"
+    ],
+    "falsifier": "Evidence that users consistently mention that they are dissatisfied with the quality of products on Blinkit.",
+    "answers_brief_question": 1,
+    "is_competitor_only": false,
+    "source_entropy": 0.0,
+    "rank_score": 7.800000000000001
+  },
+  {
+    "insight_id": "INS-4A4D6CD4",
+    "theme_id": "CLUSTER_1",
+    "title": "Users appreciate the packaging and customer service on Blinkit",
+    "description": "Users consistently mention that packaging is 'satisfactory' and that customer service is 'good'. This suggests that users appreciate the packaging and customer service on Blinkit.",
+    "confidence_score": 0.7,
+    "document_ids": [
+      "e8de0d27824bcb72a1f911ee628ab6a9bc74b6e192a2a35d6980756830564da3",
+      "91b4b6f85db615078623740f19e5f5a332e5c9d33054fd366f0e7e1ff4e0eef8",
+      "8e44e463e1e8c052be31b683e4e33800611f4ef64bf41326a496a857ddcb2084"
+    ],
+    "quotes": [
+      "Packaging is satisfactory.",
+      "good experience",
+      "very good \ud83d\udc4f"
+    ],
+    "falsifier": "Evidence that users consistently mention that they are dissatisfied with the packaging and customer service on Blinkit.",
+    "answers_brief_question": 4,
+    "is_competitor_only": false,
+    "source_entropy": 0.0,
+    "rank_score": 7.800000000000001
+  },
+  {
+    "insight_id": "INS-A87AEF8F",
+    "theme_id": "CLUSTER_0",
+    "title": "Users highly value user-friendly experience",
+    "description": "Users consistently praise the app's user-friendliness, indicating that a seamless and intuitive experience is crucial for their satisfaction.",
+    "confidence_score": 0.9,
+    "document_ids": [
+      "67c49932bf4df3d04228c32f9dcb6587540f732a36b3eabac1f46b70ba869ecf",
+      "e9349beeddd62926ca62734eafab32dc5f369342829e837f9b15911cdb1cee64",
+      "a19e9712282d2e43f97308a4a41eed5c655fc6bbd3f8f6988c3adbac69b9dde6"
+    ],
+    "quotes": [
+      "\ud83d\udc9d",
+      "\ud83d\udc4d\ud83d\udc4d",
+      "\ud83d\udc4d"
+    ],
+    "falsifier": "Evidence of users complaining about the app's complexity or difficulty to use.",
+    "answers_brief_question": 1,
+    "is_competitor_only": false,
+    "source_entropy": 0.0,
+    "rank_score": 4.3
+  },
+  {
+    "insight_id": "INS-823AFCFE",
+    "theme_id": "CLUSTER_0",
+    "title": "Users appreciate positive reinforcement",
+    "description": "Users respond positively to expressions of appreciation and gratitude, indicating that they value being acknowledged and valued.",
+    "confidence_score": 0.8,
+    "document_ids": [
+      "b28d83184d4add467ebc00bf5a8f04a9a659041a1fa0df6f0bf6c2349de870d3",
+      "ed89a8b4252bb5a5b1095e0e34893f78e731bc220218c21905a248997c081c09",
+      "cda39852c1df26d7dc1c7e67c15bd360f0132a5c1e11d696c76e2aa8b8edebfd"
+    ],
+    "quotes": [
+      "\u092c\u094d\u0932\u093f\u0902\u0915\u093f\u091f \u0939\u0948 \u0924\u094b \u092e\u0941\u092e\u0915\u093f\u0928 \u0939\u0948\u2764\ufe0f",
+      "\ud83d\udc4d\ud83d\udc4d\ud83d\udc4d",
+      "valo"
+    ],
+    "falsifier": "Evidence of users ignoring or being unaffected by expressions of appreciation.",
+    "answers_brief_question": 4,
+    "is_competitor_only": false,
+    "source_entropy": 0.0,
+    "rank_score": 4.3
+  },
+  {
+    "insight_id": "INS-B91009BA",
+    "theme_id": "CLUSTER_0",
+    "title": "Users are frustrated by excessive promotions",
+    "description": "Users express frustration with too many promotions, indicating that they value a balanced and respectful shopping experience.",
+    "confidence_score": 0.7,
+    "document_ids": [
+      "5f729b4e9d1c9af819b0bf35e1ea5f01bc7678bccb37bb00c653e985e628a1c3",
+      "c25e61dfd2475efee4265a07711ad4100c0fc162c6c8d19c1ce1fc4b92a35422",
+      "bcdbab1383b7e0e9cf0ce3310a9d179a16dbacf832cc6d1387689ae860257f2b"
+    ],
+    "quotes": [
+      "too many promotions",
+      "too much rates",
+      "\ud83d\udcaf"
+    ],
+    "falsifier": "Evidence of users enjoying or being unaffected by excessive promotions.",
+    "answers_brief_question": 6,
+    "is_competitor_only": true,
+    "source_entropy": 0.0,
+    "rank_score": 4.3
+  },
+  {
+    "insight_id": "INS-9B760723",
+    "theme_id": "CLUSTER_2",
+    "title": "Users consistently express satisfaction with the app's service",
+    "description": "Users frequently mention that the app's service is 'nice', 'very nice', and 'so nice', indicating a high level of satisfaction with the overall experience.",
+    "confidence_score": 0.9,
+    "document_ids": [
+      "e066990a908ba6ab8b66f877e519548effc4762c1fcc8024983ea350ffcc0a3c",
+      "45895e21a1bce44a4bcbcbc4462712499164e6e24669b02c2ad7ae178fceb4d0",
+      "b9b226d0fee96c1832e1ff950417ceb1910241b52b8b555ac3d38dbd05eee525"
+    ],
+    "quotes": [
+      "nice \ud83d\udc4d",
+      "very nice",
+      "very nice service"
+    ],
+    "falsifier": "If users consistently express dissatisfaction with the app's service, this insight would be incorrect.",
+    "answers_brief_question": 4,
+    "is_competitor_only": false,
+    "source_entropy": 0.0,
+    "rank_score": 2.4000000000000004
+  }
+]

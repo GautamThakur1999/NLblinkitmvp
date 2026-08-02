@@ -1,0 +1,23 @@
+[project]
+name = "blinkit-occasion-engine"
+version = "0.1.0"
+description = "Backend discovery engine for Nextleap Grad Project"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "groq>=0.9.0",
+    "google-generativeai>=0.7.2",
+    "pydantic>=2.8.2",
+    "python-dotenv>=1.0.1",
+    "hdbscan>=0.8.38",
+    "scikit-learn>=1.5.1",
+    "pandas>=2.2.2",
+    "numpy>=2.0.1"
+]
+
+[tool.pytest.ini_options]
+minversion = "6.0"
+addopts = "-ra -q"
+testpaths = [
+    "tests",
+]

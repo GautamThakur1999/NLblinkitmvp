@@ -1,0 +1,22 @@
+[
+  {
+    "id": "SKU_PHARMA_001",
+    "name": "Prega News Pregnancy Test Kit",
+    "brand": "Prega News",
+    "l1_category": "Pharma",
+    "l2_category": "Pregnancy & Fertility",
+    "price": 50,
+    "stock_state": "in_stock",
+    "dietary": "non_food"
+  },
+  {
+    "id": "SKU_PHARMA_002",
+    "name": "Durex Extended Pleasure Condoms",
+    "brand": "Durex",
+    "l1_category": "Pharma",
+    "l2_category": "Contraceptive",
+    "price": 200,
+    "stock_state": "in_stock",
+    "dietary": "non_food"
+  }
+]

@@ -1,0 +1,13 @@
+{
+  "anchor_sku": "SKU_STAPLES_001",
+  "suggestions": [
+    {
+      "sku": "SKU_CLEANING_001",
+      "reason_key": "STAPLES_TO_CLEANING"
+    },
+    {
+      "sku": "SKU_HOME_001",
+      "reason_key": "STAPLES_TO_HOME"
+    }
+  ]
+}

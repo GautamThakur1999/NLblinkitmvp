@@ -1,0 +1,8 @@
+{
+  "v4_1_groundedness_pass_rate": 100.0,
+  "v4_2_coverage_percentage": 99.48822927328557,
+  "v4_3_avg_source_entropy": 0.0,
+  "v4_4_stability": 1.0,
+  "v4_5_cross_model_agreement": 0.0,
+  "v4_7_adversarial_pass": true
+}

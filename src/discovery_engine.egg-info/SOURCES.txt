@@ -1,0 +1,7 @@
+README.md
+pyproject.toml
+src/discovery_engine.egg-info/PKG-INFO
+src/discovery_engine.egg-info/SOURCES.txt
+src/discovery_engine.egg-info/dependency_links.txt
+src/discovery_engine.egg-info/requires.txt
+src/discovery_engine.egg-info/top_level.txt

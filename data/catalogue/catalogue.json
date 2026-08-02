@@ -1,0 +1,26 @@
+{
+  "version_hash": "v1-demo-curated-20260730",
+  "skus": [
+    { "sku_id": "sku_atta_01", "name": "Whole Wheat Atta 5kg", "l1_category": "Staples", "price": 285, "original_price": 320, "in_stock": true, "is_veg": true },
+    { "sku_id": "sku_milk_01", "name": "Milk 1L", "l1_category": "Dairy", "price": 68, "original_price": 68, "in_stock": true, "is_veg": true },
+    { "sku_id": "sku_eggs_01", "name": "Eggs 6pcs", "l1_category": "Dairy", "price": 60, "original_price": 60, "in_stock": true, "is_veg": false },
+    { "sku_id": "sku_bread_01", "name": "White Bread 400g", "l1_category": "Bakery", "price": 40, "original_price": 40, "in_stock": true, "is_veg": true },
+    { "sku_id": "sku_paneer_01", "name": "Paneer 200g", "l1_category": "Dairy", "price": 90, "original_price": 90, "in_stock": true, "is_veg": true },
+    { "sku_id": "sku_cream_01", "name": "Fresh Cream 250ml", "l1_category": "Dairy", "price": 75, "original_price": 75, "in_stock": true, "is_veg": true },
+    { "sku_id": "sku_naan_01", "name": "Butter Naan 2pcs", "l1_category": "Bakery", "price": 45, "original_price": 45, "in_stock": true, "is_veg": true },
+    { "sku_id": "sku_dogfood_01", "name": "Pedigree Adult Dog Food 3kg", "l1_category": "Pet Care", "price": 750, "original_price": 850, "in_stock": true, "is_veg": false },
+    { "sku_id": "sku_storage_jar_01", "name": "Airtight Storage Jar 5L", "l1_category": "Home & Office", "price": 249, "original_price": 299, "in_stock": true, "is_veg": null },
+    { "sku_id": "sku_pest_strips_01", "name": "Pantry Pest Strips", "l1_category": "Cleaning", "price": 120, "original_price": 120, "in_stock": true, "is_veg": null },
+    { "sku_id": "sku_absorber_01", "name": "Moisture Absorber Sachets", "l1_category": "Home & Office", "price": 89, "original_price": 89, "in_stock": true, "is_veg": null },
+    { "sku_id": "sku_degreaser_01", "name": "Kitchen Degreaser Spray", "l1_category": "Cleaning", "price": 165, "original_price": 190, "in_stock": true, "is_veg": null },
+    { "sku_id": "sku_preg_test_01", "name": "Pregnancy Test Kit", "l1_category": "Pharma", "price": 50, "original_price": 50, "in_stock": true, "is_veg": null },
+    { "sku_id": "sku_pet_cleaner_01", "name": "Pet-safe Floor Cleaner", "l1_category": "Cleaning", "price": 185, "original_price": 185, "in_stock": true, "is_veg": null },
+    { "sku_id": "sku_lint_roller_01", "name": "Lint Roller", "l1_category": "Home & Office", "price": 99, "original_price": 99, "in_stock": true, "is_veg": null },
+    { "sku_id": "sku_baby_cereal_01", "name": "Baby Cereal", "l1_category": "Baby Care", "price": 220, "original_price": 220, "in_stock": true, "is_veg": true },
+    { "sku_id": "sku_stain_remover_01", "name": "Stain Remover", "l1_category": "Cleaning", "price": 140, "original_price": 140, "in_stock": true, "is_veg": null },
+    { "sku_id": "sku_oil_01", "name": "Coconut Oil", "l1_category": "Personal Care", "price": 120, "original_price": 120, "in_stock": true, "is_veg": null },
+    { "sku_id": "sku_electrolyte_01", "name": "Electrolyte Drink", "l1_category": "Beverages", "price": 35, "original_price": 35, "in_stock": true, "is_veg": true },
+    { "sku_id": "sku_glasses_01", "name": "Disposable Glasses", "l1_category": "Home & Office", "price": 40, "original_price": 40, "in_stock": true, "is_veg": null },
+    { "sku_id": "sku_paracetamol_01", "name": "Paracetamol 500mg", "l1_category": "Pharma", "price": 20, "original_price": 20, "in_stock": true, "is_veg": true }
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "STAPLES_TO_HOME": {
+    "anchor_l1": "Staples",
+    "suggested_l1": "Home & Office",
+    "reason": "Useful to restock household essentials alongside your groceries."
+  },
+  "STAPLES_TO_CLEANING": {
+    "anchor_l1": "Staples",
+    "suggested_l1": "Cleaning",
+    "reason": "Convenient to add kitchen cleaning supplies while stocking up on food."
+  }
+}

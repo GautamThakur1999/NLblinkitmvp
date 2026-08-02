@@ -1,0 +1,74 @@
+[
+  {
+    "cluster_id": "CLUSTER_3",
+    "size": 827,
+    "is_competitor_only": false,
+    "source_entropy": 1.931739703570299,
+    "agreement_score": 0.0,
+    "needs_manual_review": true,
+    "labeller_a": {
+      "theme_name": "Poor Customer Service Experience",
+      "tag": "frustration"
+    },
+    "labeller_b": {
+      "theme_name": "Prices are too high",
+      "tag": "barrier"
+    },
+    "primary_tag": "escalated",
+    "primary_theme": "Pending Manual Review"
+  },
+  {
+    "cluster_id": "CLUSTER_2",
+    "size": 24,
+    "is_competitor_only": false,
+    "source_entropy": 1.6125474873813834,
+    "agreement_score": 0.0,
+    "needs_manual_review": true,
+    "labeller_a": {
+      "theme_name": "Users find the app nice",
+      "tag": "discovery-channel"
+    },
+    "labeller_b": {
+      "theme_name": "Prices are too high",
+      "tag": "barrier"
+    },
+    "primary_tag": "escalated",
+    "primary_theme": "Pending Manual Review"
+  },
+  {
+    "cluster_id": "CLUSTER_1",
+    "size": 78,
+    "is_competitor_only": false,
+    "source_entropy": 1.6656086485868327,
+    "agreement_score": 0.0,
+    "needs_manual_review": true,
+    "labeller_a": {
+      "theme_name": "Very Satisfied with Overall Experience",
+      "tag": "discovery-channel"
+    },
+    "labeller_b": {
+      "theme_name": "Prices are too high",
+      "tag": "barrier"
+    },
+    "primary_tag": "escalated",
+    "primary_theme": "Pending Manual Review"
+  },
+  {
+    "cluster_id": "CLUSTER_0",
+    "size": 43,
+    "is_competitor_only": false,
+    "source_entropy": 1.7420795542183471,
+    "agreement_score": 0.0,
+    "needs_manual_review": true,
+    "labeller_a": {
+      "theme_name": "App is very user-friendly",
+      "tag": "discovery-channel"
+    },
+    "labeller_b": {
+      "theme_name": "Prices are too high",
+      "tag": "barrier"
+    },
+    "primary_tag": "escalated",
+    "primary_theme": "Pending Manual Review"
+  }
+]

@@ -1,0 +1,22 @@
+{
+  "personas": {
+    "user_segment_a_hero": {
+      "orders_90_days": 23,
+      "purchased_l1s": [
+        "Staples",
+        "Dairy",
+        "Munchies"
+      ]
+    },
+    "user_segment_b_suppression": {
+      "orders_90_days": 25,
+      "purchased_l1s": [
+        "Staples",
+        "Dairy",
+        "Bakery",
+        "Munchies",
+        "Home & Office"
+      ]
+    }
+  }
+}

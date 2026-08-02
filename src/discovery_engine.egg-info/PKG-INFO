@@ -1,0 +1,16 @@
+Metadata-Version: 2.4
+Name: discovery-engine
+Version: 0.1.0
+Summary: Blinkit Category Expansion Discovery Engine
+Requires-Python: >=3.12
+Requires-Dist: google-play-scraper>=1.2.4
+Requires-Dist: praw>=7.7.1
+Requires-Dist: sentence-transformers>=3.0.1
+Requires-Dist: umap-learn>=0.5.6
+Requires-Dist: hdbscan>=0.8.38
+Requires-Dist: groq>=0.9.0
+Requires-Dist: google-genai>=0.1.2
+Requires-Dist: pandas>=2.2.2
+Requires-Dist: numpy>=1.26.4
+Requires-Dist: pytest>=8.2.2
+Requires-Dist: python-dotenv>=1.0.1

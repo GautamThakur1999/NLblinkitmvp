@@ -1,0 +1,7 @@
+{
+  "user_id": "USER_PERSONA_B",
+  "description": "User who already buys Home & Office to demonstrate R3 suppression",
+  "order_count": 15,
+  "purchased_l1s": ["Staples", "Dairy", "Home & Office"],
+  "never_purchased_l1s": ["Cleaning", "Baby", "Pet", "Pharma", "Personal Care"]
+}

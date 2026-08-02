@@ -1,0 +1,38 @@
+[
+  {
+    "raw": {
+      "title": "Users appreciate the convenience and speed of the app",
+      "description": "Users mention 'nice timing' and 'kupit up in 5minet delivery', indicating that they value the convenience and speed of the app.",
+      "confidence_score": 0.8,
+      "document_ids": [
+        "e97b0f235d747601c464664e344f94dc8961e986926672c353f710374bf8f953",
+        "1add2c6f4c1a910a38abc9a8b8ecf42202976e134f17f3fd7c2c929253da1cae"
+      ],
+      "quotes": [
+        "nice timing",
+        "nice kupit up in 5minet delivery"
+      ],
+      "falsifier": "If users consistently express frustration with the app's speed and convenience, this insight would be incorrect.",
+      "answers_brief_question": 3
+    },
+    "reason": "<3 document_ids"
+  },
+  {
+    "raw": {
+      "title": "Users appreciate the app's design and user experience",
+      "description": "Users mention 'so beautiful so nice' and 'very nice \ud83d\udc4d\ud83c\udffc\ud83d\ude42', indicating that they value the app's design and user experience.",
+      "confidence_score": 0.7,
+      "document_ids": [
+        "7dee830e317d4e09e99a050d2bb0a56262136c0a51c9d61f9f740c755bb0c59c",
+        "2b09ff2aef7121481d4c1fd4087d09b8d8f540a2b61f7ab2aa6d1891643b4312"
+      ],
+      "quotes": [
+        "so beautiful so nice",
+        "very nice \ud83d\udc4d\ud83c\udffc\ud83d\ude42"
+      ],
+      "falsifier": "If users consistently express frustration with the app's design and user experience, this insight would be incorrect.",
+      "answers_brief_question": 3
+    },
+    "reason": "<3 document_ids"
+  }
+]

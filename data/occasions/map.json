@@ -1,0 +1,64 @@
+{
+  "version_hash": "v1-demo-curated-20260730",
+  "map": {
+    "sku_atta_01": {
+      "occasion_id": "occ_monsoon_staples",
+      "headline": "Goes with a monsoon staples run",
+      "seasonal": true,
+      "season_tag": "monsoon",
+      "suggestions": [
+        {
+          "sku_id": "sku_storage_jar_01",
+          "l1": "Home & Office",
+          "fact_id": "fact_monsoon_atta"
+        },
+        {
+          "sku_id": "sku_pest_strips_01",
+          "l1": "Cleaning",
+          "fact_id": "fact_weevils"
+        }
+      ]
+    },
+    "sku_dogfood_01": {
+      "occasion_id": "occ_dog_restock",
+      "headline": "Restocking for the dog?",
+      "seasonal": false,
+      "suggestions": [
+        {
+          "sku_id": "sku_pet_cleaner_01",
+          "l1": "Cleaning",
+          "fact_id": "fact_phenyl_dogs"
+        },
+        {
+          "sku_id": "sku_lint_roller_01",
+          "l1": "Home & Office",
+          "fact_id": "fact_lint_roller"
+        }
+      ]
+    },
+    "sku_paracetamol_01": {
+      "occasion_id": "occ_unwell",
+      "headline": "Someone unwell?",
+      "seasonal": false,
+      "suggestions": [
+        {
+          "sku_id": "sku_electrolyte_01",
+          "l1": "Beverages",
+          "fact_id": "fact_paracetamol_fluids"
+        }
+      ]
+    },
+    "sku_baby_cereal_01": {
+      "occasion_id": "occ_baby_solids",
+      "headline": "Starting solids?",
+      "seasonal": false,
+      "suggestions": [
+        {
+          "sku_id": "sku_stain_remover_01",
+          "l1": "Cleaning",
+          "fact_id": "fact_baby_solids"
+        }
+      ]
+    }
+  }
+}
