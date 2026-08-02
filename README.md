@@ -1,36 +1,92 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Blinkit Category Expansion: The Occasion Engine
 
-## Getting Started
+![Blinkit](https://upload.wikimedia.org/wikipedia/commons/2/25/Blinkit_logo.png)
 
-First, run the development server:
+> **Nextleap Graduation Project Submission**  
+> **Role:** Product Manager, Growth Team, Blinkit
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## 1. Project Overview
+Blinkit has won the quick-commerce behavioural battle, becoming a weekly habit for millions. However, this habit has hardened into a ceiling: high-frequency users transact repeatedly but within a narrow band of 2-3 familiar categories.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+**The Goal:** Increase the **Category Expansion Rate (CER)** — the percentage of Monthly Active Customers who purchase products from at least one new category every month.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+**The Insight:** Users don't explore new categories because of **evaluation cost**. In a 10-minute delivery paradigm, taking the time to deliberate on a new product feels out of place. 
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+**The Solution:** The **Occasion Engine**. An AI-native feature that triggers when a user adds an item to their cart, infers the underlying "occasion," and surfaces 1-2 curated, cross-category items with a compelling reason to buy — all purchasable in one tap without blocking the cart flow.
 
-## Learn More
+---
 
-To learn more about Next.js, take a look at the following resources:
+## 2. Live Production Deployments
+This MVP is fully functional and deployed live.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- 🌐 **Frontend (Next.js / Vercel):** [https://n-lblinkitmvp-at6x.vercel.app](https://n-lblinkitmvp-at6x.vercel.app)
+- ⚙️ **Backend (Python / Railway):** [https://nlblinkitmvp-production.up.railway.app](https://nlblinkitmvp-production.up.railway.app)
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+*(Note: The backend `/config` endpoint is protected, but the frontend seamlessly communicates with the `/api/occasion` routes).*
 
-## Deploy on Vercel
+---
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## 3. The 4-Part Submission Structure
+The complete project documentation is located in the [`docs/`](docs/) folder. I recommend reading them in this sequence:
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+1. **Part 1: Discovery & Validation:** [02-discovery-engine-report.md](docs/02-discovery-engine-report.md)
+   - *How we analysed 977 reviews to uncover the evaluation cost barrier.*
+2. **Part 2: Qualitative Research:** [03-research-kit.md](docs/03-research-kit.md) & [04-research-synthesis.md](docs/04-research-synthesis.md)
+   - *How we tested the hypothesis against actual high-frequency, low-breadth Blinkit users.*
+3. **Part 3: Problem Definition:** [05-problem-definition.md](docs/05-problem-definition.md)
+   - *The final lock on the problem statement, root cause, and business value.*
+4. **Part 4: MVP Architecture & Concept:** [06-mvp-concept.md](docs/06-mvp-concept.md) & [07-demo-journey.md](docs/07-demo-journey.md)
+   - *The design of the Occasion Engine, its strict safety invariants, and the demo test flows.*
+
+*For a deep dive into the initial problem space and metric definitions, see [01-problem-statement.md](docs/01-problem-statement.md).*
+
+---
+
+## 4. Demo Walkthrough
+You can experience the Occasion Engine directly on the [live Vercel deployment](https://n-lblinkitmvp-at6x.vercel.app/demo). There are four specific test flows designed to validate our core invariants:
+
+- **DF-A (The Core Moment):** Add **"Whole Wheat Atta 5kg"** to the cart. You will see cross-category suggestions (e.g., Home & Office, Cleaning) rather than more grocery items.
+- **DF-B (Live AI Inference):** Add a combination of items (e.g., **Paneer + Cream + Naan**). The system will dynamically generate an occasion ("North Indian dinner party") using live Groq inference.
+- **DF-C (The Safety Guard):** Add **"Pregnancy Test Kit"**. You will observe *nothing happens*. The system silently suppresses suggestions for sensitive categories to protect user privacy (Invariant 7).
+- **DF-D (The Persona Filter):** The system knows the active persona already buys "Home & Office" products. Therefore, it will *never* suggest Home & Office items to them, forcing true category expansion (Invariant 3).
+
+**Check the [Scorecard](https://n-lblinkitmvp-at6x.vercel.app/insights/scorecard)** to see real-time performance metrics and AI validation passes.
+
+---
+
+## 5. Honest Limitations (P15-5)
+To evaluate this project accurately, please note the following constraints:
+1. **Synthetic Catalogue:** We do not have access to Blinkit's actual product or inventory database. The demo uses a synthetic, 200+ SKU catalogue created specifically to test the engine.
+2. **Curated, Not Generated, Reasons:** The LLM *selects* reasons from a human-reviewed fact set, but it never *authors* them. This is a deliberate design choice to mathematically eliminate hallucination risk on safety-critical copy.
+3. **Lack of Internal Data:** Assumptions about basket co-occurrence and margin were extrapolated from public quick-commerce trends, not internal Blinkit data warehouses.
+
+---
+
+## 6. Local Development
+To run this project locally:
+
+### Prerequisites
+- Node.js 18+
+- Python 3.12+
+
+### Setup
+1. Clone the repository.
+2. **Frontend:**
+   ```bash
+   npm install
+   npm run dev
+   ```
+   *Runs on localhost:3000*
+3. **Backend Engine:**
+   ```bash
+   cd engine
+   python -m venv .venv
+   source .venv/Scripts/activate  # Or .venv/bin/activate on Mac/Linux
+   pip install -e .
+   python -m uvicorn engine.api.main:app --reload --port 8000
+   ```
+   *Requires a valid `.env` with Groq API keys.*
+
+---
+
+*This project was submitted anonymously to preserve grading integrity.*
