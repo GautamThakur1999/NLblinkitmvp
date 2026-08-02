@@ -224,6 +224,7 @@ Regardless of option: repo-local `git config user.name` / `user.email` are set t
 | `docs/08-design-integration.md` | Stitch → Occasion Engine. What's adopted, what's rejected and why, desktop rail layout, component mapping. |
 | `edge.md` | 97 edge cases across 11 domains, severity-rated, with required behaviour for each. |
 | `implementation-plan.md` | Every build task across all 4 parts, with full edge-case and brief-requirement traceability, test plan, and go/no-go gates. |
+| `deployment-plan.md` | Railway (Python engine) + Vercel (Next.js) deployment: topology decision, env vars, smoke tests, anonymity sweep, cost control, troubleshooting. |
 | `.gitignore` | Blocks identity/secret leakage into the submission repo. |
 
 > **Maintenance note.** `context.md` holds the brief, constraints and current status. `docs/01-problem-statement.md` holds the deep analysis. When the analysis changes, update the detailed doc and revise only §4's summary here — so the two never drift into contradicting each other.
