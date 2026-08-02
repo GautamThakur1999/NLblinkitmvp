@@ -44,3 +44,4 @@ venv/
 
 # --- Data ---
 data/raw/
+lint_results.txt
