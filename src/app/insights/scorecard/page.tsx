@@ -1,9 +1,21 @@
 import validationData from "@data/processed/validation.json";
 import failuresData from "@data/qa/failures.json";
 
+interface ValidationReport {
+  v4_1_groundedness_pass_rate: number;
+  v4_7_adversarial_pass: boolean;
+  v4_2_coverage_percentage: number;
+  v4_3_avg_source_entropy: number;
+}
+
+interface FailureEntry {
+  reason: string;
+  raw: { title: string; description: string };
+}
+
 export default function ValidationScorecardPage() {
-  const report = validationData as Record<string, unknown>;
-  const failures = failuresData as Record<string, unknown>[];
+  const report = validationData as unknown as ValidationReport;
+  const failures = failuresData as unknown as FailureEntry[];
 
   if (!report) {
     return (
@@ -91,7 +103,7 @@ export default function ValidationScorecardPage() {
           <p className="text-neutral-600 dark:text-neutral-400 italic">No insights were quarantined.</p>
         ) : (
           <div className="space-y-4">
-            {failures.map((f: Record<string, unknown>, idx: number) => (
+            {failures.map((f: FailureEntry, idx: number) => (
               <div key={idx} className="bg-red-50 dark:bg-red-900/10 border border-red-200 dark:border-red-900/30 rounded-lg p-4">
                 <div className="flex items-center gap-2 mb-2">
                   <span className="px-2 py-1 text-xs font-bold bg-red-200 text-red-800 dark:bg-red-800 dark:text-red-100 rounded">

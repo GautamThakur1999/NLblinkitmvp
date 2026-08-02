@@ -1,8 +1,8 @@
 import { NextResponse } from "next/server";
-import { Sku, Persona, OccasionResult, CartItem } from "../../../lib/engine/types";
-import { containsSensitiveAnchor, runHardFilters } from "../../../lib/engine/guards";
-import { getPrecomputedOccasion } from "../../../lib/engine/retrieval";
-import { getLiveOccasion } from "../../../lib/engine/inference";
+import { Sku, Persona, OccasionResult, CartItem } from "@/lib/engine/types";
+import { containsSensitiveAnchor, runHardFilters } from "@/lib/engine/guards";
+import { getPrecomputedOccasion } from "@/lib/engine/retrieval";
+import { getLiveOccasion } from "@/lib/engine/inference";
 import catalogueData from "@data/catalogue/catalogue.json";
 import factsData from "@data/facts/facts.json";
 

@@ -1,5 +1,5 @@
 import { Sku, Suggestion, Persona } from "./types";
-import { isSensitiveCategory } from "../../../lib/denylist";
+import { isSensitiveCategory } from "../denylist";
 
 /**
  * P11-1: Denylist Guard (EC-S1, S2, S3, S7)
