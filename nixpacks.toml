@@ -1,0 +1,8 @@
+[providers]
+python = "3.12"
+
+[build]
+cmd = "pip install -e ./engine"
+
+[start]
+cmd = "uvicorn engine.service.main:app --host 0.0.0.0 --port $PORT"
