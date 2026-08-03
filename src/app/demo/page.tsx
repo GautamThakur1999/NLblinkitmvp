@@ -297,7 +297,7 @@ export default function DemoPage() {
       {/* Top Bar (PantryUtility) */}
       <header className="h-[72px] w-full sticky top-0 z-40 bg-surface border-b border-surface-variant flex items-center justify-between px-gutter max-w-full mx-auto">
         <div className="flex items-center gap-stack_loose">
-          <h1 className="font-h2 text-h2 text-primary tracking-tighter">PantryUtility</h1>
+          <h1 className="font-h2 text-h2 text-primary tracking-tighter">Blinkit</h1>
           <div className="hidden lg:flex flex-col ml-4">
             <span className="font-label-semibold text-label-semibold text-on-surface">Deliver to Home</span>
             <div className="flex items-center gap-1">
@@ -588,7 +588,7 @@ export default function DemoPage() {
         <div className="fixed inset-0 z-50 bg-background flex flex-col">
           <header className="h-[72px] w-full bg-surface border-b border-surface-variant flex items-center justify-between px-gutter">
             <div className="flex items-center gap-stack_loose">
-              <h1 className="font-h2 text-h2 text-primary tracking-tighter">PantryUtility</h1>
+              <h1 className="font-h2 text-h2 text-primary tracking-tighter">Blinkit</h1>
               <nav className="flex gap-4">
                 <span className="text-small font-bold text-on-surface border-b-2 border-primary py-1">Shop</span>
                 <span className="text-small text-on-surface-variant py-1">Search</span>
