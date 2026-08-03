@@ -35,6 +35,10 @@ export async function POST(request: Request) {
       if (cart.length === 1) {
         // P11-30: Precomputed Path
         rawOccasion = getPrecomputedOccasion(cart);
+        if (!rawOccasion) {
+          // Fallback to Live Inference if single item is not in map
+          rawOccasion = await getLiveOccasion(cart, persona.purchased_l1s);
+        }
       } else {
         // P11-25: Live Inference Path
         rawOccasion = await getLiveOccasion(cart, persona.purchased_l1s);
