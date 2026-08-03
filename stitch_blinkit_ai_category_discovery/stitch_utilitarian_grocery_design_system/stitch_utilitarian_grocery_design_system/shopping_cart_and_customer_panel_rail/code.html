@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>PantryUtility - Desktop Side Navigation</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "surface-tint": "#755b00",
+                    "on-primary-fixed": "#241a00",
+                    "secondary-fixed-dim": "#7ddc76",
+                    "on-surface-variant": "#4e4634",
+                    "tertiary-fixed": "#e5e2e3",
+                    "surface-dim": "#dcd9d8",
+                    "surface-container-low": "#f6f3f2",
+                    "on-tertiary-fixed": "#1b1b1c",
+                    "on-surface": "#1b1c1b",
+                    "on-error-container": "#93000a",
+                    "surface-bright": "#fcf9f8",
+                    "primary-container": "#f8cb46",
+                    "on-primary-fixed-variant": "#584400",
+                    "outline-variant": "#d1c5ae",
+                    "on-secondary-container": "#0e751c",
+                    "on-secondary": "#ffffff",
+                    "on-error": "#ffffff",
+                    "surface-container-lowest": "#ffffff",
+                    "inverse-surface": "#303030",
+                    "primary-fixed-dim": "#edc13d",
+                    "on-secondary-fixed-variant": "#00530e",
+                    "surface-container-high": "#eae7e7",
+                    "on-primary-container": "#6e5600",
+                    "inverse-on-surface": "#f3f0ef",
+                    "inverse-primary": "#edc13d",
+                    "secondary": "#006e16",
+                    "on-tertiary-fixed-variant": "#474647",
+                    "on-background": "#1b1c1b",
+                    "secondary-container": "#99f98f",
+                    "outline": "#7f7662",
+                    "surface-container": "#f0edec",
+                    "on-primary": "#ffffff",
+                    "surface-variant": "#e4e2e1",
+                    "primary": "#755b00",
+                    "tertiary-container": "#d2cfd0",
+                    "on-secondary-fixed": "#002203",
+                    "tertiary-fixed-dim": "#c8c6c7",
+                    "tertiary": "#5f5e5f",
+                    "surface-container-highest": "#e4e2e1",
+                    "on-tertiary": "#ffffff",
+                    "secondary-fixed": "#99f98f",
+                    "on-tertiary-container": "#595859",
+                    "error": "#ba1a1a",
+                    "surface": "#fcf9f8",
+                    "error-container": "#ffdad6",
+                    "primary-fixed": "#ffe08f",
+                    "background": "#fcf9f8"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "columns": "12",
+                    "stack_tight": "4px",
+                    "stack_loose": "16px",
+                    "margin_mobile": "16px",
+                    "desktop_max_width": "1280px",
+                    "base_unit": "4px",
+                    "stack_base": "8px",
+                    "gutter": "20px"
+            },
+            "fontFamily": {
+                    "small": ["Inter"],
+                    "h1-mobile": ["Inter"],
+                    "h2": ["Inter"],
+                    "body": ["Inter"],
+                    "label-semibold": ["Inter"],
+                    "h1": ["Inter"]
+            },
+            "fontSize": {
+                    "small": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "h1-mobile": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                    "h2": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                    "body": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "label-semibold": ["12px", {"lineHeight": "16px", "letterSpacing": "0.01em", "fontWeight": "600"}],
+                    "h1": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #fcf9f8;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            display: inline-block;
+            line-height: 1;
+            text-transform: none;
+            letter-spacing: normal;
+            word-wrap: normal;
+            white-space: nowrap;
+            direction: ltr;
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #e5e2e1;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-surface">
+<!-- Shell Container -->
+<div class="flex min-h-screen">
+<!-- Main Content Area (Placeholder) -->
+<main class="flex-grow p-gutter hidden md:block">
+<!-- Content would live here -->
+</main>
+<!-- Right Rail Component (SideNavBar Semantic Anchor) -->
+<aside class="w-[320px] h-screen sticky right-0 top-0 bg-surface-container-lowest flex flex-col border-l border-surface-variant z-50">
+<!-- Top Section: Cart -->
+<section class="flex flex-col h-1/2 min-h-0 border-b border-surface-variant overflow-hidden">
+<div class="p-stack_loose flex items-center justify-between">
+<h2 class="font-h2 text-h2 text-on-surface">My Cart</h2>
+<span class="font-label-semibold text-label-semibold text-on-surface-variant bg-surface-container px-2 py-0.5 rounded-full">0 Items</span>
+</div>
+<!-- Empty State Container -->
+<!-- Note: This is toggled via logic in real apps; showing empty per prompt -->
+<div class="flex-grow flex items-center justify-center px-stack_loose" id="cart-content">
+<p class="font-body text-body text-on-surface-variant text-center opacity-80">
+                        Your cart is empty.
+                    </p>
+</div>
+<!-- Footer: Checkout Button -->
+<div class="p-stack_loose mt-auto">
+<button class="w-full bg-secondary hover:bg-opacity-90 transition-all text-on-secondary rounded-[8px] h-12 px-4 flex items-center justify-between group cursor-pointer">
+<span class="font-label-semibold text-label-semibold text-lg">₹0</span>
+<div class="flex items-center gap-1">
+<span class="font-label-semibold text-label-semibold">Proceed to Checkout</span>
+<span class="material-symbols-outlined text-[18px]">chevron_right</span>
+</div>
+</button>
+</div>
+</section>
+<!-- Bottom Section: Customer Panel -->
+<section class="flex flex-col h-1/2 min-h-0 p-stack_loose overflow-y-auto custom-scrollbar">
+<!-- Profile Header -->
+<header class="flex items-center gap-3 mb-6">
+<div class="w-10 h-10 rounded-full overflow-hidden border border-surface-variant">
+<img class="w-full h-full object-cover" data-alt="A clean, professional headshot of a person with a neutral background, styled in a minimalist and modern aesthetic to match a high-end utilitarian grocery application. The lighting is soft and even, highlighting a approachable and helpful persona. The image uses a palette of soft whites and subtle greys to maintain visual cohesion with the light-mode UI." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDx_sD9pe24UMkSDYqoFod6wX_f6GCsZzFM6GD_gKIYFjXKeeaiLVzEMwqQU07dqiRG6ehqtpTmy5r2Btvdg7fc5VoLgoIq0pRadQqtnJK5iiN8KTgokhTG5SVlmGx79nn-oRaflrPiYesTK7QB76CdrjkkQ9BH9NB6zetcY2QbDARgjEOnRFqirEKKyYEYz8XTLZDOa-RB0By8Cwu6USb5h2JHic0TxEJcCmFpXABGQ2l5C-oI3ufI"/>
+</div>
+<span class="font-label-semibold text-label-semibold text-on-surface uppercase tracking-wider">Your shopping</span>
+</header>
+<!-- Stat Tiles -->
+<div class="grid grid-cols-2 gap-stack_base mb-8">
+<div class="bg-surface-container-low border border-surface-variant p-stack_base rounded-xl">
+<div class="font-h1 text-h1 text-on-surface leading-none mb-1">23</div>
+<div class="font-label-semibold text-label-semibold text-on-surface-variant leading-tight">orders (90 days)</div>
+</div>
+<div class="bg-surface-container-low border border-surface-variant p-stack_base rounded-xl">
+<div class="font-h1 text-h1 text-on-surface leading-none mb-1">3</div>
+<div class="font-label-semibold text-label-semibold text-on-surface-variant leading-tight">categories</div>
+</div>
+</div>
+<!-- Section 1: You Buy From -->
+<div class="mb-8">
+<label class="font-label-semibold text-label-semibold text-on-surface-variant uppercase tracking-widest block mb-3">You buy from</label>
+<div class="flex flex-wrap gap-2">
+<span class="bg-[#e6f1e8] text-secondary font-label-semibold text-label-semibold px-3 py-1.5 rounded-full border border-[#006e16]/10">Staples</span>
+<span class="bg-[#e6f1e8] text-secondary font-label-semibold text-label-semibold px-3 py-1.5 rounded-full border border-[#006e16]/10">Dairy</span>
+<span class="bg-[#e6f1e8] text-secondary font-label-semibold text-label-semibold px-3 py-1.5 rounded-full border border-[#006e16]/10">Munchies</span>
+</div>
+</div>
+<!-- Section 2: Not Tried Yet -->
+<div class="mb-4">
+<label class="font-label-semibold text-label-semibold text-on-surface-variant uppercase tracking-widest block mb-3">Not tried yet</label>
+<div class="flex flex-wrap gap-2">
+<span class="bg-[#f1f1f1] text-on-surface-variant font-label-semibold text-label-semibold px-3 py-1.5 rounded-full border border-surface-variant">Home &amp; Office</span>
+<span class="bg-[#f1f1f1] text-on-surface-variant font-label-semibold text-label-semibold px-3 py-1.5 rounded-full border border-surface-variant">Cleaning</span>
+<span class="bg-[#f1f1f1] text-on-surface-variant font-label-semibold text-label-semibold px-3 py-1.5 rounded-full border border-surface-variant">Personal Care</span>
+<span class="bg-[#f1f1f1] text-on-surface-variant font-label-semibold text-label-semibold px-3 py-1.5 rounded-full border border-surface-variant">Baby Care</span>
+<span class="bg-[#f1f1f1] text-on-surface-variant font-label-semibold text-label-semibold px-3 py-1.5 rounded-full border border-surface-variant">Pet Care</span>
+<span class="bg-[#f1f1f1] text-on-surface-variant font-label-semibold text-label-semibold px-3 py-1.5 rounded-full border border-surface-variant">Pharma</span>
+<span class="bg-[#f1f1f1] text-on-surface-variant font-label-semibold text-label-semibold px-3 py-1.5 rounded-full border border-surface-variant">Beverages</span>
+<span class="bg-[#f1f1f1] text-on-surface-variant font-label-semibold text-label-semibold px-3 py-1.5 rounded-full border border-surface-variant">Bakery</span>
+</div>
+</div>
+</section>
+</aside>
+</div>
+<!-- Micro-interaction script for visual feedback -->
+<script>
+        document.querySelectorAll('.rounded-full').forEach(chip => {
+            chip.addEventListener('click', function() {
+                this.classList.add('scale-95');
+                setTimeout(() => this.classList.remove('scale-95'), 100);
+            });
+        });
+    </script>
+</body></html>

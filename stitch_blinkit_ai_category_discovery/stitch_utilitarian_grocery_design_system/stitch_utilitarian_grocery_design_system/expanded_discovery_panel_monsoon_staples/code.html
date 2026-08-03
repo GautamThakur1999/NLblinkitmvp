@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>PantryUtility - Monsoon Staples Run</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-secondary-container": "#0e751c",
+                        "on-tertiary-container": "#595859",
+                        "on-surface-variant": "#4e4634",
+                        "on-secondary": "#ffffff",
+                        "error": "#ba1a1a",
+                        "outline-variant": "#d1c5ae",
+                        "surface-container-high": "#eae7e7",
+                        "on-tertiary-fixed": "#1b1b1c",
+                        "surface-tint": "#755b00",
+                        "secondary-container": "#99f98f",
+                        "surface-dim": "#dcd9d8",
+                        "surface-container-lowest": "#ffffff",
+                        "tertiary-container": "#d2cfd0",
+                        "inverse-surface": "#303030",
+                        "tertiary-fixed": "#e5e2e3",
+                        "surface-container-low": "#f6f3f2",
+                        "primary-container": "#f8cb46",
+                        "secondary-fixed": "#99f98f",
+                        "on-tertiary": "#ffffff",
+                        "tertiary": "#5f5e5f",
+                        "on-background": "#1b1c1b",
+                        "secondary": "#006e16",
+                        "inverse-primary": "#edc13d",
+                        "on-surface": "#1b1c1b",
+                        "on-primary-container": "#6e5600",
+                        "primary-fixed-dim": "#edc13d",
+                        "background": "#fcf9f8",
+                        "surface": "#fcf9f8",
+                        "inverse-on-surface": "#f3f0ef",
+                        "on-error": "#ffffff",
+                        "on-error-container": "#93000a",
+                        "on-tertiary-fixed-variant": "#474647",
+                        "on-primary-fixed-variant": "#584400",
+                        "surface-variant": "#e4e2e1",
+                        "on-primary-fixed": "#241a00",
+                        "error-container": "#ffdad6",
+                        "tertiary-fixed-dim": "#c8c6c7",
+                        "on-secondary-fixed": "#002203",
+                        "surface-bright": "#fcf9f8",
+                        "on-secondary-fixed-variant": "#00530e",
+                        "surface-container": "#f0edec",
+                        "primary": "#755b00",
+                        "outline": "#7f7662",
+                        "surface-container-highest": "#e4e2e1",
+                        "secondary-fixed-dim": "#7ddc76",
+                        "primary-fixed": "#ffe08f",
+                        "on-primary": "#ffffff"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "columns": "12",
+                        "margin_mobile": "16px",
+                        "desktop_max_width": "1280px",
+                        "base_unit": "4px",
+                        "stack_tight": "4px",
+                        "stack_loose": "16px",
+                        "stack_base": "8px",
+                        "gutter": "20px"
+                    },
+                    "fontFamily": {
+                        "h2": ["Inter"],
+                        "h1-mobile": ["Inter"],
+                        "h1": ["Inter"],
+                        "body": ["Inter"],
+                        "label-semibold": ["Inter"],
+                        "small": ["Inter"]
+                    },
+                    "fontSize": {
+                        "h2": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                        "h1-mobile": ["24px", {"lineHeight": "32px", "letterSpacing": "-01em", "fontWeight": "700"}],
+                        "h1": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "body": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "label-semibold": ["12px", {"lineHeight": "16px", "letterSpacing": "0.01em", "fontWeight": "600"}],
+                        "small": ["14px", {"lineHeight": "20px", "fontWeight": "400"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        body { background-color: #fcf9f8; font-family: 'Inter', sans-serif; }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        .active-stepper { display: none; }
+        .add-btn.added + .active-stepper { display: flex; }
+        .add-btn.added { display: none; }
+    </style>
+</head>
+<body class="text-on-surface">
+<!-- TopNavBar (Shared Component) -->
+<header class="bg-surface dark:bg-surface h-[72px] w-full sticky top-0 z-50 border-b border-surface-variant dark:border-outline-variant flat no shadows">
+<div class="flex items-center justify-between px-gutter max-w-desktop_max_width mx-auto h-full">
+<div class="flex items-center gap-8">
+<span class="font-h2 text-h2 text-primary dark:text-primary-fixed-dim">PantryUtility</span>
+<div class="hidden md:flex items-center gap-6">
+<span class="text-primary font-label-semibold text-label-semibold border-b-2 border-primary py-6 cursor-pointer">Shop</span>
+<span class="text-on-surface-variant font-label-semibold text-label-semibold hover:bg-surface-container-low transition-colors px-2 py-1 rounded cursor-pointer">Search</span>
+<span class="text-on-surface-variant font-label-semibold text-label-semibold hover:bg-surface-container-low transition-colors px-2 py-1 rounded cursor-pointer">Orders</span>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<div class="cursor-pointer active:opacity-80 transition-opacity p-2">
+<span class="material-symbols-outlined text-primary">shopping_cart</span>
+</div>
+</div>
+</div>
+</header>
+<main class="max-w-desktop_max_width mx-auto flex min-h-[calc(100vh-72px)]">
+<!-- Expanded Discovery Panel (The Left Content) -->
+<section class="flex-1 bg-white p-8">
+<div class="flex justify-between items-center mb-8">
+<h1 class="font-h1 text-h1 text-on-surface">Monsoon staples run</h1>
+<button class="p-2 hover:bg-surface-container rounded-full transition-colors">
+<span class="material-symbols-outlined text-on-surface-variant">close</span>
+</button>
+</div>
+<!-- AI Suggestion Indicator (Subtle UI pattern) -->
+<div class="mb-6 flex items-center gap-2 px-4 py-3 bg-primary-container/10 border border-primary-container rounded-lg">
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">auto_awesome</span>
+<span class="text-small font-label-semibold text-on-primary-fixed-variant">AI-Assisted Monsoon Prevention Checklist</span>
+</div>
+<!-- Product Grid: 3 columns x 2 rows -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+<!-- Card 1 -->
+<div class="bg-white border border-outline-variant rounded-xl p-4 hover:shadow-lg transition-shadow">
+<div class="aspect-square bg-surface-container-low rounded-lg mb-4 overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="A clean, minimalist product photograph of a high-quality 5-liter airtight glass storage jar with a bamboo lid, placed on a light marble kitchen counter. The lighting is bright and airy, typical of a modern utility-focused pantry app. Soft shadows and a neutral color palette of whites and warm wood tones dominate the scene." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDjpXPI7xV-sSuw7bJ9QMIuOeU3fhbtgvrAdKFUgZ2uqSFbZjT7lzcLJSnfJ7pwbg-jDFhJ24Gcw3deyjTVkR2mvUEtDr3CY-fj6CXkWpnCK7D3d05Bn0tWBhxl8YRpOPVzKyqB3yK-U53a6GfdcimDzxjjPSqLCEAeL_Esi7cR8zqZn93gdwQ9bP-xlXLYPjL-QchDV7Uovz7TeeG3Z6c0bcjFT6paGQRyR8wiF76S6S0snJuRuHZ5"/>
+</div>
+<div class="flex flex-col gap-1 mb-4">
+<span class="font-bold text-body text-on-surface">Airtight Storage Jar 5L</span>
+<span class="font-bold text-small text-on-surface leading-tight">Damp monsoon air gets into open atta</span>
+</div>
+<div class="flex justify-between items-center mt-auto pt-2 border-t border-surface-variant">
+<span class="font-label-semibold text-body text-on-surface">₹499</span>
+<button class="add-btn bg-secondary text-on-secondary px-6 py-2 rounded-full font-label-semibold hover:opacity-90 transition-opacity" onclick="toggleAdd(this)">ADD</button>
+<div class="active-stepper flex items-center bg-secondary-container rounded-full px-2 py-1 gap-4">
+<span class="material-symbols-outlined text-on-secondary-container cursor-pointer" onclick="toggleAdd(this.parentElement.previousElementSibling)">remove</span>
+<span class="font-label-semibold text-on-secondary-container">1</span>
+<span class="material-symbols-outlined text-on-secondary-container cursor-pointer">add</span>
+</div>
+</div>
+</div>
+<!-- Card 2 -->
+<div class="bg-white border border-outline-variant rounded-xl p-4 hover:shadow-lg transition-shadow">
+<div class="aspect-square bg-surface-container-low rounded-lg mb-4 overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="A macro photograph of professional pantry pest control strips, neatly packaged with a clean, medical-grade aesthetic. The lighting is crisp and informative, emphasizing the product's functional design. Set against a sterile, light-washed background to convey cleanliness and effectiveness in a modern household setting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBWHZSzftNPIcFaKjhhT8hJAMhFVNnQmyhNTFDwKrQaZSU5_elYuST1efLSj07lHqpzJI7_3TSrMb6_SALDJlGnI8VVHJErrubHZaeuNdbDJYAym2h-w9oPyi4gOZp5rcX-e4n6VSb7mMTUGMRrBWDG9TeAbGyRJwsYxu7QXFHjJkzFsQLDuMnxZjeqCaXfg2aeZrf6DiKmowfaIehHJT4P6PaxkuzJLIWfqo8mbXn-oxK2CUWpN03i"/>
+</div>
+<div class="flex flex-col gap-1 mb-4">
+<span class="font-bold text-body text-on-surface">Pantry Pest Strips</span>
+<span class="font-bold text-small text-on-surface leading-tight">Weevils breed in stored flour</span>
+</div>
+<div class="flex justify-between items-center mt-auto pt-2 border-t border-surface-variant">
+<span class="font-label-semibold text-body text-on-surface">₹180</span>
+<button class="add-btn bg-secondary text-on-secondary px-6 py-2 rounded-full font-label-semibold hover:opacity-90 transition-opacity" onclick="toggleAdd(this)">ADD</button>
+<div class="active-stepper flex items-center bg-secondary-container rounded-full px-2 py-1 gap-4">
+<span class="material-symbols-outlined text-on-secondary-container cursor-pointer" onclick="toggleAdd(this.parentElement.previousElementSibling)">remove</span>
+<span class="font-label-semibold text-on-secondary-container">1</span>
+<span class="material-symbols-outlined text-on-secondary-container cursor-pointer">add</span>
+</div>
+</div>
+</div>
+<!-- Card 3 -->
+<div class="bg-white border border-outline-variant rounded-xl p-4 hover:shadow-lg transition-shadow">
+<div class="aspect-square bg-surface-container-low rounded-lg mb-4 overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="A professional product shot of several white silica gel packs arranged neatly on a light grey surface. The image is bright and focused, highlighting the moisture-absorbing purpose of the packs. The overall aesthetic is utilitarian and orderly, fitting a systematic grocery procurement interface." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDoAKQtufWc-31BSh1rUrU1lzvT1YtX-s55Hl2wjMNWwDE9Wa7I25l0uWOzmO_QKIXGLChEWq58bLUJa5Zl6mY-VWEtjwYsEvxcfNM7SkJGVwpIfnHNppwBSgd2xQ3ydYMxN2jDx1kHX5OnwXPyycl6z0f2X4wvlj0UiHigBv7JCLkYiTqkTwc3WHb-w3gAlVEZAqDlCrZsLfWgj2sZxIS_SeDvHWjuUlhhQsCWtq8yobYvqvML_J-R"/>
+</div>
+<div class="flex flex-col gap-1 mb-4">
+<span class="font-bold text-body text-on-surface">Absorbent Silica Gel Packs</span>
+<span class="font-bold text-small text-on-surface leading-tight">Prevents moisture buildup in spice cabinets</span>
+</div>
+<div class="flex justify-between items-center mt-auto pt-2 border-t border-surface-variant">
+<span class="font-label-semibold text-body text-on-surface">₹120</span>
+<button class="add-btn bg-secondary text-on-secondary px-6 py-2 rounded-full font-label-semibold hover:opacity-90 transition-opacity" onclick="toggleAdd(this)">ADD</button>
+<div class="active-stepper flex items-center bg-secondary-container rounded-full px-2 py-1 gap-4">
+<span class="material-symbols-outlined text-on-secondary-container cursor-pointer" onclick="toggleAdd(this.parentElement.previousElementSibling)">remove</span>
+<span class="font-label-semibold text-on-secondary-container">1</span>
+<span class="material-symbols-outlined text-on-secondary-container cursor-pointer">add</span>
+</div>
+</div>
+</div>
+<!-- Card 4 -->
+<div class="bg-white border border-outline-variant rounded-xl p-4 hover:shadow-lg transition-shadow">
+<div class="aspect-square bg-surface-container-low rounded-lg mb-4 overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="A high-quality photo of a circular stainless steel spice box (masala dabba) with individual compartments containing colorful spices. The box has a transparent lid showing an airtight seal. The lighting is soft but highlights the metallic luster of the steel, set against a pristine, neutral kitchen background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBzg8z9Tw_XavnmZkLsnca1lEzzrjdHldD3vy4zUideni9OkzYExuln58Wvop4hITpoQg1OjIY6K7-Pay08hiuE6_Tqol7lYVRCyyq8Fj7jsdKxv6DXn81AVjowQaorAi93yj7_xJhvMokNW-BdXkbAbXJrmnwHqK2zyvLYgWc0GJFPuh6wPLl42o_3y_BE1W5W7KsqvhwIBkjaE1up0LxfEMTEdUQmUq0QaBgIkjDU-Wv-7RPRXWAP"/>
+</div>
+<div class="flex flex-col gap-1 mb-4">
+<span class="font-bold text-body text-on-surface">Stainless Steel Spice Box</span>
+<span class="font-bold text-small text-on-surface leading-tight">Air-tight seal keeps masalas dry and aromatic</span>
+</div>
+<div class="flex justify-between items-center mt-auto pt-2 border-t border-surface-variant">
+<span class="font-label-semibold text-body text-on-surface">₹850</span>
+<button class="add-btn bg-secondary text-on-secondary px-6 py-2 rounded-full font-label-semibold hover:opacity-90 transition-opacity" onclick="toggleAdd(this)">ADD</button>
+<div class="active-stepper flex items-center bg-secondary-container rounded-full px-2 py-1 gap-4">
+<span class="material-symbols-outlined text-on-secondary-container cursor-pointer" onclick="toggleAdd(this.parentElement.previousElementSibling)">remove</span>
+<span class="font-label-semibold text-on-secondary-container">1</span>
+<span class="material-symbols-outlined text-on-secondary-container cursor-pointer">add</span>
+</div>
+</div>
+</div>
+<!-- Card 5 -->
+<div class="bg-white border border-outline-variant rounded-xl p-4 hover:shadow-lg transition-shadow">
+<div class="aspect-square bg-surface-container-low rounded-lg mb-4 overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="A stack of neatly folded, textured microfiber kitchen towels in muted earth tones like sage green and warm beige. The image is shot in a bright, modern kitchen with high-key lighting that emphasizes the soft, absorbent texture of the fabric. The composition is clean and organized, suggesting high utility." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCMoC-YYTlhbXRi9pxyoFYx9K_UR2N7yZpeFoOV2cwtGfm7Pj9xIeK316bg1yCpLdL4dGsj8q3jYwzzKjhTPgdPikHhQEJkmg6Ql5nKZIJi3jHSYbqmQ9Y4WhTOQjQRfUooqJDqml5CBRR5oGbX_zi54aLgMyMzOnM2fXzWevFC2o_nrozjReBJUPTe15iWzpOp-tHSe_5U-j8CZPWW2m3F0Q3qGEKH8e2B2FiGShvr4qsAWYsKB0Id"/>
+</div>
+<div class="flex flex-col gap-1 mb-4">
+<span class="font-bold text-body text-on-surface">Microfiber Kitchen Towels</span>
+<span class="font-bold text-small text-on-surface leading-tight">Dries surfaces 3x faster in humid weather</span>
+</div>
+<div class="flex justify-between items-center mt-auto pt-2 border-t border-surface-variant">
+<span class="font-label-semibold text-body text-on-surface">₹240</span>
+<button class="add-btn bg-secondary text-on-secondary px-6 py-2 rounded-full font-label-semibold hover:opacity-90 transition-opacity" onclick="toggleAdd(this)">ADD</button>
+<div class="active-stepper flex items-center bg-secondary-container rounded-full px-2 py-1 gap-4">
+<span class="material-symbols-outlined text-on-secondary-container cursor-pointer" onclick="toggleAdd(this.parentElement.previousElementSibling)">remove</span>
+<span class="font-label-semibold text-on-secondary-container">1</span>
+<span class="material-symbols-outlined text-on-secondary-container cursor-pointer">add</span>
+</div>
+</div>
+</div>
+<!-- Card 6 -->
+<div class="bg-white border border-outline-variant rounded-xl p-4 hover:shadow-lg transition-shadow">
+<div class="aspect-square bg-surface-container-low rounded-lg mb-4 overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="An amber glass spray bottle with a minimalist label for Neem Oil Spray, positioned on a light wooden shelf. The aesthetic is organic yet professional, with soft natural light creating a calm, trustworthy mood. The background is slightly blurred, focusing on the quality and natural origin of the product." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAWIOtBJ3gRJc6EGd8Hh4Pf1Be0NecjXjv4g9rlqNxfT6aG7hrYPgOvS2IrlgbLbKCYM1M67NWCgH-cjhhVU_FMxY1eis7bwWWRbO2vrJaP5r0q9zLXR-LcAqgbJP5oStFMHUioZz_9onysoXj4E-0rFlsxF9ucSJcG7ImbeqsM3fHIgijkKkhV-M9QwFOTetu1LiFZmsBWREiBCVvlz4pUZ8Y6Tsa1IjbyPhZp16Wr0kSSjbP6h7Wr"/>
+</div>
+<div class="flex flex-col gap-1 mb-4">
+<span class="font-bold text-body text-on-surface">Neem Oil Spray</span>
+<span class="font-bold text-small text-on-surface leading-tight">Natural protection against seasonal damp-loving pests</span>
+</div>
+<div class="flex justify-between items-center mt-auto pt-2 border-t border-surface-variant">
+<span class="font-label-semibold text-body text-on-surface">₹310</span>
+<button class="add-btn bg-secondary text-on-secondary px-6 py-2 rounded-full font-label-semibold hover:opacity-90 transition-opacity" onclick="toggleAdd(this)">ADD</button>
+<div class="active-stepper flex items-center bg-secondary-container rounded-full px-2 py-1 gap-4">
+<span class="material-symbols-outlined text-on-secondary-container cursor-pointer" onclick="toggleAdd(this.parentElement.previousElementSibling)">remove</span>
+<span class="font-label-semibold text-on-secondary-container">1</span>
+<span class="material-symbols-outlined text-on-secondary-container cursor-pointer">add</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Trust Strip -->
+<div class="bg-surface-container-low rounded-lg p-6 grid grid-cols-1 md:grid-cols-3 gap-8">
+<div class="flex items-start gap-4">
+<div class="bg-white p-2 rounded-lg border border-outline-variant">
+<span class="material-symbols-outlined text-primary">verified_user</span>
+</div>
+<div>
+<p class="font-label-semibold text-on-surface">Genuine brands</p>
+<p class="text-small text-on-surface-variant">Sourced from authorised distributors</p>
+</div>
+</div>
+<div class="flex items-start gap-4">
+<div class="bg-white p-2 rounded-lg border border-outline-variant">
+<span class="material-symbols-outlined text-primary">fact_check</span>
+</div>
+<div>
+<p class="font-label-semibold text-on-surface">Quality checked</p>
+<p class="text-small text-on-surface-variant">Every item verified before dispatch</p>
+</div>
+</div>
+<div class="flex items-start gap-4">
+<div class="bg-white p-2 rounded-lg border border-outline-variant">
+<span class="material-symbols-outlined text-primary">schedule</span>
+</div>
+<div>
+<p class="font-label-semibold text-on-surface">10-minute delivery</p>
+<p class="text-small text-on-surface-variant">Same speed as the rest of your order</p>
+</div>
+</div>
+</div>
+</section>
+<!-- SideNavBar (The Cart Rail) - Shared Component Implementation -->
+<aside class="w-[320px] h-[calc(100vh-72px)] sticky right-0 top-[72px] hidden lg:flex flex-col p-stack_loose gap-stack_base bg-surface border-l border-surface-variant dark:border-outline-variant flat no shadows">
+<div class="flex flex-col gap-1 mb-4">
+<h2 class="font-h2 text-h2 text-primary">Deliver to Home</h2>
+<p class="text-on-surface-variant font-label-semibold text-label-semibold">15-20 mins</p>
+</div>
+<div class="flex-1 flex flex-col gap-4 overflow-y-auto py-2">
+<div class="text-on-surface-variant text-small italic opacity-60">Your cart is empty. Add monsoon staples to secure your pantry.</div>
+<!-- Mock active navigation items as per JSON -->
+<div class="flex flex-col gap-1">
+<div class="flex items-center gap-3 p-3 text-on-surface-variant hover:bg-surface-container transition-colors rounded-lg cursor-pointer">
+<span class="material-symbols-outlined">home</span>
+<span class="font-label-semibold">Home</span>
+</div>
+<div class="flex items-center gap-3 p-3 bg-primary-container text-on-primary-container rounded-lg font-bold cursor-pointer">
+<span class="material-symbols-outlined">inventory_2</span>
+<span class="font-label-semibold">Pantry</span>
+</div>
+<div class="flex items-center gap-3 p-3 text-on-surface-variant hover:bg-surface-container transition-colors rounded-lg cursor-pointer">
+<span class="material-symbols-outlined">history</span>
+<span class="font-label-semibold">Reorder</span>
+</div>
+<div class="flex items-center gap-3 p-3 text-on-surface-variant hover:bg-surface-container transition-colors rounded-lg cursor-pointer">
+<span class="material-symbols-outlined">local_offer</span>
+<span class="font-label-semibold">Deals</span>
+</div>
+<div class="flex items-center gap-3 p-3 text-on-surface-variant hover:bg-surface-container transition-colors rounded-lg cursor-pointer">
+<span class="material-symbols-outlined">settings</span>
+<span class="font-label-semibold">Settings</span>
+</div>
+</div>
+</div>
+<button class="bg-primary-container text-on-primary-container py-4 rounded-xl font-h2 text-center hover:opacity-90 transition-opacity active:scale-95">
+                View Cart
+            </button>
+</aside>
+</main>
+<!-- BottomNavBar (Shared Component for Mobile) -->
+<nav class="fixed bottom-0 w-full z-50 lg:hidden bg-surface dark:bg-surface-container border-t border-surface-variant dark:border-outline-variant shadow-sm h-16 flex justify-around items-center px-4">
+<div class="flex flex-col items-center justify-center bg-primary-container text-on-primary-container rounded-full px-4 py-1 transition-transform scale-95 active:scale-90 cursor-pointer">
+<span class="material-symbols-outlined">storefront</span>
+<span class="font-label-semibold text-label-semibold">Shop</span>
+</div>
+<div class="flex flex-col items-center justify-center text-on-surface-variant transition-transform scale-95 active:scale-90 cursor-pointer">
+<span class="material-symbols-outlined">search</span>
+<span class="font-label-semibold text-label-semibold">Search</span>
+</div>
+<div class="flex flex-col items-center justify-center text-on-surface-variant transition-transform scale-95 active:scale-90 cursor-pointer">
+<span class="material-symbols-outlined">receipt_long</span>
+<span class="font-label-semibold text-label-semibold">Orders</span>
+</div>
+<div class="flex flex-col items-center justify-center text-on-surface-variant transition-transform scale-95 active:scale-90 cursor-pointer">
+<span class="material-symbols-outlined">shopping_cart</span>
+<span class="font-label-semibold text-label-semibold">Cart</span>
+</div>
+</nav>
+<script>
+        function toggleAdd(btn) {
+            btn.classList.toggle('added');
+        }
+    </script>
+</body></html>

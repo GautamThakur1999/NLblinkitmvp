@@ -72,15 +72,26 @@
   --radius-full: 9999px;
 }
 
-@utility text-display-lg { font-size: 48px; line-height: 56px; font-weight: 800; letter-spacing: -0.02em; font-family: var(--font-inter); }
-@utility text-headline-lg { font-size: 32px; line-height: 40px; font-weight: 700; letter-spacing: -0.01em; font-family: var(--font-inter); }
-@utility text-headline-md { font-size: 24px; line-height: 32px; font-weight: 700; font-family: var(--font-inter); }
-@utility text-headline-sm { font-size: 20px; line-height: 28px; font-weight: 600; font-family: var(--font-inter); }
-@utility text-body-lg { font-size: 18px; line-height: 26px; font-weight: 400; font-family: var(--font-inter); }
-@utility text-body-md { font-size: 16px; line-height: 24px; font-weight: 400; font-family: var(--font-inter); }
-@utility text-body-sm { font-size: 14px; line-height: 20px; font-weight: 400; font-family: var(--font-inter); }
-@utility text-label-lg { font-size: 14px; line-height: 20px; font-weight: 600; letter-spacing: 0.01em; font-family: var(--font-inter); }
-@utility text-label-md { font-size: 12px; line-height: 16px; font-weight: 600; letter-spacing: 0.02em; font-family: var(--font-inter); }
+@utility font-h1 { font-size: 32px; line-height: 40px; font-weight: 700; letter-spacing: -0.02em; font-family: var(--font-inter); }
+@utility font-h1-mobile { font-size: 24px; line-height: 32px; font-weight: 700; letter-spacing: -0.01em; font-family: var(--font-inter); }
+@utility font-h2 { font-size: 20px; line-height: 28px; font-weight: 600; font-family: var(--font-inter); }
+@utility font-body { font-size: 16px; line-height: 24px; font-weight: 400; font-family: var(--font-inter); }
+@utility font-small { font-size: 14px; line-height: 20px; font-weight: 400; font-family: var(--font-inter); }
+@utility font-label-semibold { font-size: 12px; line-height: 16px; font-weight: 600; letter-spacing: 0.01em; font-family: var(--font-inter); }
+
+@utility text-h1 { font-size: 32px; line-height: 40px; font-weight: 700; letter-spacing: -0.02em; font-family: var(--font-inter); }
+@utility text-h1-mobile { font-size: 24px; line-height: 32px; font-weight: 700; letter-spacing: -0.01em; font-family: var(--font-inter); }
+@utility text-h2 { font-size: 20px; line-height: 28px; font-weight: 600; font-family: var(--font-inter); }
+@utility text-body { font-size: 16px; line-height: 24px; font-weight: 400; font-family: var(--font-inter); }
+@utility text-small { font-size: 14px; line-height: 20px; font-weight: 400; font-family: var(--font-inter); }
+@utility text-label-semibold { font-size: 12px; line-height: 16px; font-weight: 600; letter-spacing: 0.01em; font-family: var(--font-inter); }
+
+@utility hide-scrollbar {
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
 
 @utility ai-glow {
   background-color: rgba(248, 203, 70, 0.05);

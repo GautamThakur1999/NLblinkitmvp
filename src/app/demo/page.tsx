@@ -41,12 +41,11 @@ type TriggerLogEntry = {
   debug?: string;
 };
 
-// P13-9: Per-occasion precision record
 type OccasionStats = {
   occasion_id: string;
   headline: string;
   impressions: number;
-  adds: number;   // suggestions added from this occasion
+  adds: number;
 };
 
 type PersonaKey = "user_segment_a_hero" | "user_segment_b_suppression";
@@ -56,9 +55,26 @@ const ALL_SKUS = catalogueData.skus as Sku[];
 const PERSONAS = personasData.personas as Personas;
 const L1_CATEGORIES = [...new Set(ALL_SKUS.map(s => s.l1_category))].sort();
 
-// ── P13-8: C60 tracking scaffold (sessionStorage) ─────────────────────────────
-// C60 = repurchase of a new category within 60 days
-// In this demo we scope it to session; in production it would be persistent.
+// Image mapping from the Stitch HTML
+const SKU_IMAGES: Record<string, string> = {
+  "sku_milk_01": "https://lh3.googleusercontent.com/aida-public/AB6AXuDKijgkh7dhMTV2PZq85N8I0lOWbMAg8Td9_xq8Elhqn4R9s0EvAmHOjtKo2nW0cDP75aNdVmllx1wOZ1HwK_lokucxrXUpsVybkhXPy2SfoRIH4f6ViO-HHbdq0L_l8N4vtE4RA1B_e6xqFK48z6ebwffCAgJi__X6-krIi1oq2jtNU0ltJMzYVPf5AcUfpT1rDpQ4k98aHOwnTqhUC-qBto1MKGtZqzxzbH7nlamz9nupaDfFWRgK",
+  "sku_eggs_01": "https://lh3.googleusercontent.com/aida-public/AB6AXuC7YJawveG9eYf5j0x0oUFJ3NeE15gYibfJKaXcxqdusuo75ngTUI-emmf1IbFo3GEkDwG4ZHv4LfGXwX3Z6jeE1QLgqftsFnhHL3pcJ0zhLrg2kc_L10JYeo665Zf6AHuf3_gd61qZf5qeA6CJWDXGce3z6a5OdKsgSihtM4d_TLVbNcBL6oEgIoKq-G0cmyA9OSa7dglaTHM2mkDAH89Rt3fscVKU7NSoyQYIL2yGrgf3fGH9XRhf",
+  "sku_paneer_01": "https://lh3.googleusercontent.com/aida-public/AB6AXuApWl5xKU_ThsFG0zHGBiL3Azxdpi4T2NthQaVoOeJ74oXeHTP7jb2pmdAuhjM4e1bYuMJqAK91lPTN5Wf-GzA3H8x-SCDqQRIEazjpSgBMtdwunBD_G-WT8ZJTYQZyMIqO-WsopxfP-deppcMyd89jDB-8WgQdwo53ni2IesD__Xf-PdHaJXpIwj6oNGnKbqpBZ_KRMBqnRDbtxDEyt5Exj5G9SuNqElA_bOdvY2KDSzkShaOEQpHH",
+  "sku_bread_01": "https://lh3.googleusercontent.com/aida-public/AB6AXuCfph-ZBXsD8Vq8hv8wMR-QxTK5aODjWhJz357o5KJC9VA2NE8z1s7ofjejrqaZbv2WRnJI6M16Jn3SBD831Drbb0zREKNFcmsEh6E6ROiAcKJcYhd3FwG4m-ltk4eaVklFhCSaTUVOxl9vMjYdjwdpTaQz8abyrzo9YJvK--ShzRKGXWLfGWip-m2JASfHMgTwtdhNtgwcexoWvF9SBlmY7YSb_CWXk3GSG0dHHsBC607RgClnGZPE",
+  "sku_cream_01": "https://lh3.googleusercontent.com/aida-public/AB6AXuBu5QgsXRFrVpnB-PsjHN376yxE4cacPkb2m-Mkllix0MyDem8QQTHIRy5Y48OwIcCuqXHQqy-eQOxoFXLxlIpeWuwxeGxbpRpIThg4e6cDdRLJ8tnV6bpvfkdY5suXVz37RA9UmvcHTmHKQjiIxOMxExo6nx20qiXeoaGYT5iG3-N9s9KLthXJU8XgNsQnlCh__g2lrpL-F3ZZp1MXgGMS3sRDy0EoziNvI2Gb3srE8dDRqn0spxYx",
+  "sku_atta_01": "https://lh3.googleusercontent.com/aida-public/AB6AXuAiJFu5LODcxADiP256o-As4kcvC9unK8uk3R-ggywkRG2vd_Cf_F47r7wXnkqQYsvtozabmFSHHnjCKt13SGGAqhWWah7W64gl0ATyeuXvj_xvOW6Pk-ooHr6qrdOmg0si6jEZkxQz9XIt43Qk_yrAcn-TuvKRWnGrjSTtb1TWsDQ7fyFkr431JabvUVJfXpFEZ9gFaWizDF3k3TeTTp-32vz6LJxu7c2L0xYwNJBbh7NdEwPQ18mY",
+  "sku_storage_jar_01": "https://lh3.googleusercontent.com/aida-public/AB6AXuAZ6HmOjJ8yNUceoHKE1WMd1L6h9g_ll6Hl_DbDDq7WXae1e_aSDFXFYsT6_3nTsL_lbrgwPb9W3FZguenI2PSDUS9y3Zb67Ll8wK-d0B7Tq9ekV2SITdmZdlT08XNGm-2INiEuIne0nR4efJyrmhZwuqbNyovcm9jytcWBKrmhtqsAeP9IwIErNaQBDB-CFRfIQuynAktY31VpeWv2Duxj5Drg4UpuRMIUUlBKKgCOX52ggFcLSf_o",
+  "sku_pest_strips_01": "https://lh3.googleusercontent.com/aida-public/AB6AXuApQajYklMDnRyWlvw63F6SCDbv_VYHnHmHujoXx8wRiqbUv7CwTv6uAkvUFNy4N87_xMikk5zmekDrcxH5Ga2F-QWeanLsBMPV-2GnUoOEDAtqPU0-nwbkjHdFWk2U99jgAk17hgW7b7N2RZBXBpPJuyqZz9ygUHDmVph_pdl8GZBktePXavJuUdq6w1vw_FP2gM3LREk2RUL8bv86EGKog63bxTIRUUDa2jKgpuGRMDGI7_Qe6l_M"
+};
+
+// Fallback logic if image is missing
+const getSkuImage = (sku_id: string, l1_category: string) => {
+  if (SKU_IMAGES[sku_id]) return `url('${SKU_IMAGES[sku_id]}')`;
+  const colors = ["#f8cb46", "#8ffb87", "#e2e2e2", "#d2cfd0", "#ffe08f", "#99f98f"];
+  const color = colors[l1_category.length % colors.length];
+  return `linear-gradient(135deg, ${color}33, ${color}88)`;
+};
+
 function recordC60(l1_category: string) {
   if (typeof window === "undefined") return;
   const existing = JSON.parse(sessionStorage.getItem("c60_events") || "[]") as { l1: string; ts: number }[];
@@ -71,477 +87,189 @@ function getC60Events(): { l1: string; ts: number }[] {
   return JSON.parse(sessionStorage.getItem("c60_events") || "[]");
 }
 
-// ── Demo Banner ───────────────────────────────────────────────────────────────
-function DemoBanner() {
-  return (
-    <div className="bg-primary-container border-b border-outline-variant px-gutter py-2 flex items-center gap-2 text-xs text-on-primary-container font-medium">
-      <span className="material-symbols-outlined text-[16px]">warning</span>
-      DEMO DATA — synthetic catalogue · not real Blinkit data
-    </div>
-  );
-}
-
-// ── Product Card ──────────────────────────────────────────────────────────────
-const SKU_EMOJI: Record<string, string> = {
-  "Staples": "🌾", "Dairy": "🥛", "Bakery": "🍞", "Pet Care": "🐾",
-  "Home & Office": "🏠", "Cleaning": "🧹", "Personal Care": "🧴",
-  "Baby Care": "👶", "Pharma": "💊", "Beverages": "🥤", "Munchies": "🍿",
-};
-
-function ProductCard({ sku, onAdd, inCart }: { sku: Sku; onAdd: (sku: Sku) => void; inCart: boolean }) {
-  return (
-    <div className="bg-surface-container-lowest rounded-2xl border border-surface-container-high p-sm flex flex-col gap-xs shadow-[0px_4px_12px_rgba(0,0,0,0.05)] hover:shadow-[0px_8px_24px_rgba(0,0,0,0.08)] transition-shadow w-36 flex-shrink-0">
-      <div className="w-full aspect-square bg-surface rounded-xl flex items-center justify-center text-3xl">
-        {SKU_EMOJI[sku.l1_category] ?? "📦"}
-      </div>
-      <div>
-        <p className="font-label-md text-label-md text-on-surface line-clamp-2">{sku.name}</p>
-        <div className="flex items-center gap-1 mt-1">
-          <span className="font-body-md text-body-md font-bold text-on-surface">₹{sku.price}</span>
-          {sku.price < sku.original_price && (
-            <span className="text-xs text-on-surface-variant line-through">₹{sku.original_price}</span>
-          )}
-        </div>
-      </div>
-      <button
-        onClick={() => onAdd(sku)}
-        disabled={!sku.in_stock}
-        className={`w-full py-1.5 rounded-lg font-label-md text-label-md transition-all ${
-          inCart
-            ? "bg-secondary-container text-on-secondary-container border border-secondary-container"
-            : sku.in_stock
-            ? "bg-secondary hover:bg-[#005a12] text-on-secondary active:scale-95 shadow-sm"
-            : "bg-surface-container text-on-surface-variant cursor-not-allowed"
-        }`}
-      >
-        {inCart ? "✓ Added" : sku.in_stock ? "ADD" : "Out of Stock"}
-      </button>
-    </div>
-  );
-}
-
-// ── Suggestion Card ───────────────────────────────────────────────────────────
-function SuggestionCard({ sug, onAdd, inCart, showReason }: {
-  sug: EnrichedSuggestion; onAdd: (skuId: string) => void; inCart: boolean; showReason: boolean;
-}) {
-  return (
-    <div className="bg-surface-container-lowest rounded-xl border border-surface-container-high p-sm shadow-[0px_4px_12px_rgba(0,0,0,0.05)] relative overflow-hidden">
-      <div className="absolute inset-0 bg-primary-container opacity-5 pointer-events-none"></div>
-      <div className="flex items-start gap-2 relative z-10">
-        <span className="text-xl mt-0.5">{SKU_EMOJI[sug.l1] ?? "📦"}</span>
-        <div className="flex-1 min-w-0">
-          <p className="font-label-md text-label-md text-on-surface line-clamp-2">{sug.sku_name}</p>
-          {/* EC-A9: Reason at full contrast, never de-emphasised */}
-          {showReason && sug.fact_text && (
-            <p className="font-body-sm text-body-sm text-on-surface-variant mt-0.5 leading-snug">{sug.fact_text}</p>
-          )}
-          <div className="flex items-center justify-between mt-2">
-            <span className="font-body-md text-body-md font-bold text-on-surface">₹{sug.price}</span>
-            <button
-              onClick={() => onAdd(sug.sku_id)}
-              className={`px-3 py-1 rounded-lg font-label-md text-label-md transition-all ${
-                inCart
-                  ? "bg-secondary-container text-on-secondary-container"
-                  : "bg-secondary hover:bg-[#005a12] text-on-secondary active:scale-95 shadow-sm"
-              }`}
-            >
-              {inCart ? "✓" : "ADD"}
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-// ── Persona Panel ─────────────────────────────────────────────────────────────
-function PersonaPanel({ personaKey, persona }: {
-  personaKey: PersonaKey;
-  persona: { orders_90_days: number; purchased_l1s: string[] };
-}) {
-  const neverPurchased = L1_CATEGORIES.filter(l1 => !persona.purchased_l1s.includes(l1));
-  return (
-    <div className="p-4 space-y-4">
-      <div className="flex items-center gap-2">
-        <div className="w-8 h-8 rounded-full bg-primary-container flex items-center justify-center text-sm text-on-primary-container"><span className="material-symbols-outlined text-[18px]">person</span></div>
-        <div>
-          <p className="font-label-md text-label-md text-on-surface">Demo Persona</p>
-          <p className="font-body-sm text-body-sm text-on-surface-variant">
-            {personaKey === "user_segment_a_hero" ? "Segment A — Hero" : "Segment B — Suppression"}
-          </p>
-        </div>
-      </div>
-      <div className="grid grid-cols-2 gap-2">
-        <div className="bg-surface-container rounded-lg p-2 text-center">
-          <p className="font-headline-sm text-headline-sm text-on-surface">{persona.orders_90_days}</p>
-          <p className="font-label-md text-label-md text-on-surface-variant">orders (90d)</p>
-        </div>
-        <div className="bg-surface-container rounded-lg p-2 text-center">
-          <p className="font-headline-sm text-headline-sm text-on-surface">{persona.purchased_l1s.length}</p>
-          <p className="font-label-md text-label-md text-on-surface-variant">categories</p>
-        </div>
-      </div>
-      <div>
-        <p className="font-label-md text-label-md text-on-surface-variant uppercase mb-1.5">Buys from</p>
-        <div className="flex flex-wrap gap-1">
-          {persona.purchased_l1s.map(l1 => (
-            <span key={l1} className="px-2 py-0.5 bg-secondary-container text-on-secondary-container text-xs rounded-full border border-secondary-fixed">{l1}</span>
-          ))}
-        </div>
-      </div>
-      <div>
-        <p className="font-label-md text-label-md text-on-surface-variant uppercase mb-1.5">Never purchased</p>
-        <div className="flex flex-wrap gap-1">
-          {neverPurchased.map(l1 => (
-            <span key={l1} className="px-2 py-0.5 bg-surface-container-high text-on-surface-variant text-xs rounded-full">{l1}</span>
-          ))}
-        </div>
-      </div>
-      <p className="font-body-sm text-body-sm text-on-surface-variant italic">Add a product to see the Occasion Engine fire.</p>
-    </div>
-  );
-}
-
-// ── Discovery Rail ────────────────────────────────────────────────────────────
-function DiscoveryRail({
-  occasion, lastAnchor, cartSkuIds, onAddSuggestion, onDismiss,
-  personaKey, persona, renderTimeMs, isLoading, showReason,
-}: {
-  occasion: OccasionResult | null;
-  lastAnchor: Sku | null;
-  cartSkuIds: Set<string>;
-  onAddSuggestion: (skuId: string) => void;
-  onDismiss: () => void;
-  personaKey: PersonaKey;
-  persona: { orders_90_days: number; purchased_l1s: string[] };
-  renderTimeMs: number | null;
-  isLoading: boolean;
-  showReason: boolean;
-}) {
-  return (
-    <aside className="flex flex-col flex-1 overflow-y-auto" aria-live="polite">
-      {/* Header */}
-      <div className="px-gutter py-sm border-b border-surface-container-highest flex items-center justify-between flex-shrink-0">
-        <div className="flex items-center gap-1.5">
-          <span className="material-symbols-outlined text-primary text-[18px]">auto_awesome</span>
-          <span className="font-label-md text-label-md text-on-surface-variant uppercase">Occasion Engine</span>
-        </div>
-        {renderTimeMs !== null && (
-          <span className={`font-label-md text-label-md px-1.5 py-0.5 rounded ${renderTimeMs < 300 ? "bg-secondary-container text-on-secondary-container" : "bg-error-container text-on-error-container"}`}>
-            {renderTimeMs}ms {renderTimeMs < 300 ? "✓" : "✗ R8"}
-          </span>
-        )}
-      </div>
-
-      {isLoading ? (
-        <div className="flex-1 flex items-center justify-center py-2xl">
-          <div className="animate-spin w-5 h-5 border-2 border-primary border-t-transparent rounded-full" />
-        </div>
-      ) : occasion ? (
-        <div className="p-gutter space-y-sm ai-glow h-full">
-          {lastAnchor && (
-            <div className="flex items-center gap-2 font-label-md text-label-md text-secondary">
-              <span className="material-symbols-outlined text-[16px]">check_circle</span><span className="truncate">{lastAnchor.name} added</span>
-            </div>
-          )}
-          <div className="h-px bg-outline-variant/30" />
-          <p className="font-headline-sm text-headline-sm text-on-surface">{occasion.headline}</p>
-          <div className="space-y-sm">
-            {occasion.suggestions.map(sug => (
-              <SuggestionCard key={sug.sku_id} sug={sug} onAdd={onAddSuggestion}
-                inCart={cartSkuIds.has(sug.sku_id)} showReason={showReason} />
-            ))}
-          </div>
-          {/* P13-11: Dismiss tracking */}
-          <button
-            onClick={onDismiss}
-            className="w-full py-sm rounded-lg font-label-md text-label-md text-on-surface-variant hover:bg-surface-container-highest transition-colors mt-sm border border-surface-container-high"
-          >
-            Dismiss suggestions
-          </button>
-        </div>
-      ) : (
-        <div className="flex-1">
-          <PersonaPanel personaKey={personaKey} persona={persona} />
-        </div>
-      )}
-    </aside>
-  );
-}
-
-// ── P13-12: Full Metrics Panel ────────────────────────────────────────────────
-function MetricsPanel({
-  impressions, newL1Adds, dismissals, baseL1Count, currentL1Count,
-  lastRenderMs, networkCalls, checkoutStarted, occasionStats,
-}: {
-  impressions: number;
-  newL1Adds: number;
-  dismissals: number;
-  baseL1Count: number;
-  currentL1Count: number;
-  lastRenderMs: number | null;
-  networkCalls: number;
-  checkoutStarted: boolean;
-  occasionStats: OccasionStats[];
-}) {
-  // P13-4 / P13-6: Unique new L1 count (deduplicated)
-  const dismissalRate = impressions > 0 ? Math.round((dismissals / impressions) * 100) : 0;
-  const addRate = impressions > 0 ? Math.round((newL1Adds / impressions) * 100) : 0;
-
-  return (
-    <div className="border-t border-neutral-100 flex-shrink-0">
-      <div className="px-4 pt-3 pb-1">
-        <p className="text-xs font-bold text-neutral-400 uppercase tracking-wider">Session Metrics</p>
-      </div>
-
-      {/* P13-13: Categories N→N+1 — the most legible CER expression */}
-      <div className="mx-4 mb-2 bg-yellow-50 border border-yellow-200 rounded-xl p-2.5 text-center">
-        <p className="text-base font-extrabold text-yellow-800">
-          Categories: {baseL1Count} → {currentL1Count}
-        </p>
-        <p className="text-xs text-yellow-600">CER contribution this session</p>
-      </div>
-
-      {/* Core metrics grid */}
-      <div className="px-4 pb-2 grid grid-cols-2 gap-2">
-        <div className="text-center bg-neutral-50 rounded-lg p-2">
-          <p className="text-lg font-bold text-neutral-800">{impressions}</p>
-          <p className="text-xs text-neutral-500">Impressions</p>
-          <p className="text-xs text-neutral-400">on render · EC-X7</p>
-        </div>
-        <div className="text-center bg-neutral-50 rounded-lg p-2">
-          <p className="text-lg font-bold text-green-600">{newL1Adds}</p>
-          <p className="text-xs text-neutral-500">New-L1 adds</p>
-          <p className="text-xs text-neutral-400">unique per session</p>
-        </div>
-        <div className="text-center bg-neutral-50 rounded-lg p-2">
-          <p className="text-lg font-bold text-neutral-700">{addRate}%</p>
-          <p className="text-xs text-neutral-500">Add rate</p>
-        </div>
-        <div className="text-center bg-neutral-50 rounded-lg p-2">
-          <p className="text-lg font-bold text-red-500">{dismissalRate}%</p>
-          <p className="text-xs text-neutral-500">Dismissal rate</p>
-        </div>
-      </div>
-
-      {/* P13-15/16: Render time + network calls */}
-      <div className="px-4 pb-2 grid grid-cols-2 gap-2 text-xs">
-        <div className="bg-neutral-50 rounded-lg p-2">
-          <p className={`font-bold font-mono ${lastRenderMs !== null && lastRenderMs < 300 ? "text-green-600" : lastRenderMs !== null ? "text-red-600" : "text-neutral-400"}`}>
-            {lastRenderMs !== null ? `${lastRenderMs}ms` : "—"}
-          </p>
-          <p className="text-neutral-500">Sheet render</p>
-          <p className="text-neutral-400">budget: 300ms R8</p>
-        </div>
-        <div className="bg-neutral-50 rounded-lg p-2">
-          <p className="font-bold font-mono text-neutral-700">{networkCalls}</p>
-          <p className="text-neutral-500">API calls</p>
-          <p className="text-neutral-400">0=precomputed · DF-B</p>
-        </div>
-      </div>
-
-      {/* P13-8: C60 scaffold */}
-      <div className="px-4 pb-2">
-        <div className="bg-blue-50 border border-blue-100 rounded-lg p-2 text-xs">
-          <p className="font-semibold text-blue-700">C60 Scaffold</p>
-          <p className="text-blue-600 mt-0.5">
-            {newL1Adds > 0
-              ? `${newL1Adds} new L1(s) added this session — C60 window starts on first real purchase.`
-              : "No new categories yet. C60 window starts on first cross-L1 purchase."}
-          </p>
-        </div>
-      </div>
-
-      {/* P13-9: Per-occasion precision */}
-      {occasionStats.length > 0 && (
-        <div className="px-4 pb-3">
-          <p className="text-xs font-bold text-neutral-400 uppercase tracking-wider mb-1.5">Occasion Precision</p>
-          <div className="space-y-1">
-            {occasionStats.map(stat => (
-              <div key={stat.occasion_id} className="flex items-center justify-between bg-neutral-50 rounded-lg px-2 py-1.5">
-                <div className="min-w-0">
-                  <p className="text-xs font-medium text-neutral-700 truncate">{stat.headline}</p>
-                  <p className="text-xs text-neutral-400">{stat.impressions} impression{stat.impressions !== 1 ? "s" : ""}</p>
-                </div>
-                <div className="text-right ml-2 flex-shrink-0">
-                  <p className={`text-xs font-bold ${stat.adds > 0 ? "text-green-600" : "text-neutral-400"}`}>
-                    {stat.adds}/{stat.impressions}
-                  </p>
-                  <p className="text-xs text-neutral-400">adds</p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      )}
-    </div>
-  );
-}
-
-// ── P13-14: Trigger Log ───────────────────────────────────────────────────────
-function TriggerLog({ log }: { log: TriggerLogEntry[] }) {
-  if (log.length === 0) return null;
-  const OUTCOME_STYLE: Record<string, string> = {
-    RENDERED: "bg-green-50 text-green-800",
-    BLOCKED_SENSITIVE: "bg-red-50 text-red-800 font-bold",
-    BLOCKED_FILTERED: "bg-orange-50 text-orange-800",
-    BLOCKED_TIMEOUT: "bg-red-50 text-red-700",
-    NO_OCCASION: "bg-neutral-50 text-neutral-500",
-    DISMISSED: "bg-neutral-50 text-neutral-400",
-  };
-  return (
-    <div className="border-t border-neutral-100 px-4 py-3 flex-shrink-0">
-      <p className="text-xs font-bold text-neutral-400 uppercase tracking-wider mb-2">Trigger Log</p>
-      <div className="space-y-1.5 max-h-40 overflow-y-auto">
-        {[...log].reverse().map((entry, i) => (
-          <div key={i} className={`text-xs rounded-lg p-2 font-mono ${OUTCOME_STYLE[entry.outcome] ?? "bg-neutral-50 text-neutral-500"}`}>
-            <div className="flex items-center gap-1 flex-wrap">
-              <span className="font-bold">{entry.outcome}</span>
-              {entry.rule && <span className="opacity-70">· {entry.rule}</span>}
-              <span className="opacity-50">· {entry.anchor_l1}</span>
-            </div>
-            {entry.debug && <div className="mt-0.5 opacity-70 text-xs">{entry.debug}</div>}
-          </div>
-        ))}
-      </div>
-    </div>
-  );
-}
-
-// ── Main Demo Page ────────────────────────────────────────────────────────────
 export default function DemoPage() {
   const [personaKey, setPersonaKey] = useState<PersonaKey>("user_segment_a_hero");
+  const persona = PERSONAS[personaKey];
+
+  const switchPersona = (key: PersonaKey) => {
+    setPersonaKey(key);
+  };
+
+  const [activeL1, setActiveL1] = useState<string>("Dairy & Breakfast");
+  const filteredSkus = ALL_SKUS.filter(s => 
+    activeL1 === "Dairy & Breakfast" ? (s.l1_category === "Dairy" || s.l1_category === "Bakery") : s.l1_category === activeL1
+  );
+
   const [cart, setCart] = useState<Sku[]>([]);
-  const [activeL1, setActiveL1] = useState<string>("Staples");
+  const cartSkuIds = new Set(cart.map(s => s.sku_id));
+
+  // Occasion Engine State
   const [occasion, setOccasion] = useState<OccasionResult | null>(null);
   const [lastAnchor, setLastAnchor] = useState<Sku | null>(null);
-  const [triggerLog, setTriggerLog] = useState<TriggerLogEntry[]>([]);
   const [isLoading, setIsLoading] = useState(false);
-  const [reasonVisible, setReasonVisible] = useState(true);
-  // P13 metrics
+  const debounceRef = useRef<NodeJS.Timeout | null>(null);
+
+  // Metrics State
   const [impressions, setImpressions] = useState(0);
   const [newL1Adds, setNewL1Adds] = useState(0);
-  const [dismissals, setDismissals] = useState(0);  // P13-11
-  const [networkCalls, setNetworkCalls] = useState(0);
+  const [dismissals, setDismissals] = useState(0);
+  const [triggerLog, setTriggerLog] = useState<TriggerLogEntry[]>([]);
   const [lastRenderMs, setLastRenderMs] = useState<number | null>(null);
-  const [checkoutStarted, setCheckoutStarted] = useState(false);
-  const [occasionStats, setOccasionStats] = useState<OccasionStats[]>([]); // P13-9
+  const [networkCalls, setNetworkCalls] = useState(0);
+  
+  const [occasionStats, setOccasionStats] = useState<OccasionStats[]>([]);
   const [currentOccasionId, setCurrentOccasionId] = useState<string | null>(null);
 
-  const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  // Evaluator controls
+  const [developerDrawerOpen, setDeveloperDrawerOpen] = useState(false);
+  const [showReason, setShowReason] = useState(true);
+  const [expandedDiscovery, setExpandedDiscovery] = useState(false);
 
-  const persona = PERSONAS[personaKey];
+  // Derived metrics
   const baseL1Count = persona.purchased_l1s.length;
-  const cartSkuIds = new Set(cart.map(s => s.sku_id));
-  const earnedL1s = new Set([...persona.purchased_l1s, ...cart.map(s => s.l1_category)]);
-  const uniqueNewL1sInCart = [...new Set(cart.map(s => s.l1_category).filter(l1 => !persona.purchased_l1s.includes(l1)))];
-  const currentL1Count = baseL1Count + uniqueNewL1sInCart.length;
-  const filteredSkus = ALL_SKUS.filter(s => s.l1_category === activeL1);
+  const earnedL1s = new Set(cart.filter(s => !persona.purchased_l1s.includes(s.l1_category)).map(s => s.l1_category));
+  const currentL1Count = baseL1Count + earnedL1s.size;
 
-  const fireEngine = useCallback(async (newCart: Sku[]) => {
-    if (newCart.length === 0) return;
+  const fireEngine = useCallback((newCart: Sku[]) => {
+    if (newCart.length === 0) {
+      setOccasion(null);
+      setCurrentOccasionId(null);
+      return;
+    }
     const anchor = newCart[newCart.length - 1];
     setLastAnchor(anchor);
+    setIsLoading(true);
 
     if (debounceRef.current) clearTimeout(debounceRef.current);
-    debounceRef.current = setTimeout(async () => {
-      setIsLoading(true);
-      setOccasion(null);
-      const t0 = performance.now();
 
+    debounceRef.current = setTimeout(async () => {
       try {
-        const isMulti = newCart.length > 1;
-        if (isMulti) setNetworkCalls(c => c + 1);
+        const start = performance.now();
+        
+        // P13-16: Track API calls specifically
+        setNetworkCalls(c => c + 1);
 
         const res = await fetch("/api/occasion", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ cart: newCart, persona }),
+          body: JSON.stringify({
+            cart_skus: newCart.map(s => s.sku_id),
+            persona_key: personaKey
+          })
         });
 
-        const data: OccasionResult | null = await res.json();
-        const elapsed = Math.round(performance.now() - t0);
-        setLastRenderMs(elapsed);
+        const data = await res.json();
+        const ms = Math.round(performance.now() - start);
+        setLastRenderMs(ms);
 
-        if (data && data.suggestions?.length > 0) {
-          setOccasion(data);
-          setCurrentOccasionId(data.occasion_id);
-          // P13-1: Log impression ON RENDER, not on request (EC-X7)
-          setImpressions(c => c + 1);
-          // P13-9: Update per-occasion stats
-          setOccasionStats(prev => {
-            const existing = prev.find(s => s.occasion_id === data.occasion_id);
-            if (existing) {
-              return prev.map(s => s.occasion_id === data.occasion_id
-                ? { ...s, impressions: s.impressions + 1 }
-                : s);
-            }
-            return [...prev, { occasion_id: data.occasion_id, headline: data.headline, impressions: 1, adds: 0 }];
-          });
+        if (ms > 300) {
           setTriggerLog(prev => [...prev, {
             ts: Date.now(), anchor_sku: anchor.sku_id, anchor_l1: anchor.l1_category,
-            outcome: "RENDERED",
-            rule: isMulti ? "live-inference" : "precomputed",
-            debug: `${elapsed}ms · ${data.suggestions.length} suggestions · ${data.occasion_id}`,
+            outcome: "BLOCKED_TIMEOUT", rule: "R8 — 300ms budget blown", debug: `${ms}ms`
           }]);
-        } else {
-          const isSensitive = anchor.l1_category.toLowerCase().includes("pharma") ||
-            anchor.l1_category.toLowerCase().includes("baby");
+          setOccasion(null);
           setCurrentOccasionId(null);
+          return;
+        }
+
+        if (data.status === "blocked") {
           setTriggerLog(prev => [...prev, {
             ts: Date.now(), anchor_sku: anchor.sku_id, anchor_l1: anchor.l1_category,
-            outcome: isSensitive ? "BLOCKED_SENSITIVE" : "NO_OCCASION",
-            rule: isSensitive ? "EC-S1 denylist — 0 inference requests made" : "no entry / all filtered (R1–R4)",
-            debug: isSensitive ? "anchor: " + anchor.sku_id + " · denylist: SENSITIVE · → blocked before any model call" : `${elapsed}ms`,
+            outcome: "BLOCKED_SENSITIVE", rule: data.reason
           }]);
+          setOccasion(null);
+          setCurrentOccasionId(null);
+          return;
         }
-      } catch {
-        setCurrentOccasionId(null);
+
+        if (data.status === "no_occasion") {
+          setTriggerLog(prev => [...prev, {
+            ts: Date.now(), anchor_sku: anchor.sku_id, anchor_l1: anchor.l1_category,
+            outcome: "NO_OCCASION", rule: data.reason
+          }]);
+          setOccasion(null);
+          setCurrentOccasionId(null);
+          return;
+        }
+
+        const occ = data.data as OccasionResult;
+        
+        // Filter out same-L1 and already purchased (INV-2, INV-3) client side safety check
+        occ.suggestions = occ.suggestions.filter(s => 
+          s.l1 !== anchor.l1_category && !persona.purchased_l1s.includes(s.l1)
+        );
+
+        if (occ.suggestions.length === 0) {
+          setTriggerLog(prev => [...prev, {
+            ts: Date.now(), anchor_sku: anchor.sku_id, anchor_l1: anchor.l1_category,
+            outcome: "BLOCKED_FILTERED", rule: "All suggestions were same-L1 or already purchased"
+          }]);
+          setOccasion(null);
+          setCurrentOccasionId(null);
+          return;
+        }
+
+        setOccasion(occ);
+        setCurrentOccasionId(occ.occasion_id);
+        setImpressions(c => c + 1);
         setTriggerLog(prev => [...prev, {
           ts: Date.now(), anchor_sku: anchor.sku_id, anchor_l1: anchor.l1_category,
-          outcome: "BLOCKED_TIMEOUT", rule: "R8 — 300ms budget blown",
+          outcome: "RENDERED", debug: `${ms}ms`
+        }]);
+
+        setOccasionStats(prev => {
+          const existing = prev.find(s => s.occasion_id === occ.occasion_id);
+          if (existing) {
+            return prev.map(s => s.occasion_id === occ.occasion_id ? { ...s, impressions: s.impressions + 1 } : s);
+          } else {
+            return [...prev, { occasion_id: occ.occasion_id, headline: occ.headline, impressions: 1, adds: 0 }];
+          }
+        });
+
+      } catch (err) {
+        setTriggerLog(prev => [...prev, {
+          ts: Date.now(), anchor_sku: anchor.sku_id, anchor_l1: anchor.l1_category,
+          outcome: "BLOCKED_TIMEOUT", rule: "Network error",
         }]);
       } finally {
         setIsLoading(false);
       }
-    }, 800); // EC-T3: 800ms debounce
-  }, [persona]);
+    }, 800);
+  }, [persona, personaKey]);
 
-  // P13-3: Add to cart (with reversal support via remove)
   const handleAddToCart = useCallback((sku: Sku) => {
     if (cartSkuIds.has(sku.sku_id)) return;
-    const isNewL1 = !earnedL1s.has(sku.l1_category);
+    const isNewL1 = !earnedL1s.has(sku.l1_category) && !persona.purchased_l1s.includes(sku.l1_category);
     const newCart = [...cart, sku];
     setCart(newCart);
-    // P13-2: new-L1 add rate; P13-6: count L1 once per order (unique)
+
     if (isNewL1) {
       setNewL1Adds(c => c + 1);
-      // P13-9: Credit this add to the current occasion
       if (currentOccasionId) {
         setOccasionStats(prev => prev.map(s =>
           s.occasion_id === currentOccasionId ? { ...s, adds: s.adds + 1 } : s
         ));
       }
-      // P13-8: C60 event scaffold
       recordC60(sku.l1_category);
     }
     fireEngine(newCart);
-  }, [cart, cartSkuIds, earnedL1s, fireEngine, currentOccasionId]);
+  }, [cart, cartSkuIds, earnedL1s, fireEngine, currentOccasionId, persona.purchased_l1s]);
 
-  // P13-3: Remove from cart (reverses CER metrics)
   const handleRemoveFromCart = useCallback((skuId: string) => {
     const sku = cart.find(s => s.sku_id === skuId);
     if (!sku) return;
     const newCart = cart.filter(s => s.sku_id !== skuId);
     setCart(newCart);
-    // Reverse the new-L1 add if that L1 is now gone from cart
+
     const l1StillInCart = newCart.some(s => s.l1_category === sku.l1_category);
     const wasNewL1 = !persona.purchased_l1s.includes(sku.l1_category);
     if (wasNewL1 && !l1StillInCart) {
-      // P13-3: EC-X1 reversal
       setNewL1Adds(c => Math.max(0, c - 1));
     }
-    if (newCart.length === 0) setOccasion(null);
+    if (newCart.length === 0) {
+      setOccasion(null);
+      setCurrentOccasionId(null);
+    }
   }, [cart, persona.purchased_l1s]);
 
   const handleAddSuggestion = useCallback((skuId: string) => {
@@ -550,176 +278,521 @@ export default function DemoPage() {
     handleAddToCart(sku);
   }, [cartSkuIds, handleAddToCart]);
 
-  // P13-11: Dismissal tracking
-  const handleDismiss = useCallback(() => {
-    setOccasion(null);
-    setCurrentOccasionId(null);
-    setDismissals(c => c + 1);
-    setTriggerLog(prev => [...prev, {
-      ts: Date.now(),
-      anchor_sku: lastAnchor?.sku_id ?? "—",
-      anchor_l1: lastAnchor?.l1_category ?? "—",
-      outcome: "DISMISSED",
-      rule: "user dismissed",
-    }]);
-  }, [lastAnchor]);
-
   const resetDemo = () => {
     if (debounceRef.current) clearTimeout(debounceRef.current);
     setCart([]); setOccasion(null); setLastAnchor(null); setTriggerLog([]);
     setImpressions(0); setNewL1Adds(0); setDismissals(0); setNetworkCalls(0);
-    setLastRenderMs(null); setCheckoutStarted(false); setOccasionStats([]);
+    setLastRenderMs(null); setOccasionStats([]);
     setCurrentOccasionId(null);
     sessionStorage.removeItem("c60_events");
   };
 
-  const switchPersona = (key: PersonaKey) => { setPersonaKey(key); resetDemo(); };
-
   const totalCartValue = cart.reduce((sum, s) => sum + s.price, 0);
 
-  return (
-    <div className="min-h-screen bg-surface flex flex-col font-inter">
-      <DemoBanner />
+  const DISPLAY_CATEGORIES = ["Staples", "Dairy & Breakfast", "Bakery", "Munchies", "Home & Office", "Cleaning", "Personal Care", "Baby Care", "Pet Care"];
 
-      {/* Nav */}
-      <header className="bg-surface-container-lowest border-b border-surface-container-high px-gutter py-sm flex items-center gap-md flex-shrink-0 z-10 h-[88px]">
-        <div className="flex items-center gap-2 font-headline-md text-headline-md font-black text-primary">
-          <span className="material-symbols-outlined fill">auto_awesome</span>
-          <span>Blinkit</span>
-          <span className="font-label-md text-label-md bg-surface-container text-on-surface-variant px-2 py-0.5 rounded-full font-normal">Occasion Engine Demo</span>
+  return (
+    <div className="bg-background text-on-surface font-body selection:bg-primary-container min-h-screen flex flex-col relative overflow-hidden">
+      
+      {/* Top Bar (PantryUtility) */}
+      <header className="h-[72px] w-full sticky top-0 z-40 bg-surface border-b border-surface-variant flex items-center justify-between px-gutter max-w-full mx-auto">
+        <div className="flex items-center gap-stack_loose">
+          <h1 className="font-h2 text-h2 text-primary tracking-tighter">PantryUtility</h1>
+          <div className="hidden lg:flex flex-col ml-4">
+            <span className="font-label-semibold text-label-semibold text-on-surface">Deliver to Home</span>
+            <div className="flex items-center gap-1">
+              <span className="text-small font-small text-on-surface-variant truncate max-w-[140px]">Sector 52, Gurugram</span>
+              <span className="material-symbols-outlined text-[16px]">expand_more</span>
+            </div>
+          </div>
         </div>
-        <div className="flex-1" />
-        {/* P12-19: Persona switcher */}
-        <div className="flex items-center gap-sm">
-          <span className="font-label-md text-label-md text-on-surface-variant hidden lg:block">Persona:</span>
-          <select
-            value={personaKey}
-            onChange={e => switchPersona(e.target.value as PersonaKey)}
-            className="font-label-md text-label-md border border-surface-container-high rounded-lg px-2 py-1.5 bg-surface-container-lowest text-on-surface outline-none"
-          >
-            <option value="user_segment_a_hero">A — Hero (3 categories)</option>
-            <option value="user_segment_b_suppression">B — Suppression (Home & Office)</option>
-          </select>
+        
+        <div className="flex-1 max-w-2xl px-stack_loose">
+          <div className="relative w-full">
+            <span className="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant">search</span>
+            <input className="w-full h-10 pl-10 pr-4 bg-surface-container-low border border-outline-variant rounded-lg focus:outline-none focus:ring-1 focus:ring-primary-container text-body font-body" placeholder="Search for atta, milk, eggs..." type="text" />
+          </div>
         </div>
-        {/* P13-10: Reason A/B toggle */}
-        <div className="flex items-center gap-sm font-label-md text-label-md">
-          <span className="text-on-surface-variant hidden lg:block">Reasons</span>
-          <button
-            onClick={() => setReasonVisible(v => !v)}
-            className={`w-10 h-5 rounded-full transition-colors relative ${reasonVisible ? "bg-secondary" : "bg-surface-container-highest"}`}
-          >
-            <span className={`absolute top-0.5 w-4 h-4 rounded-full bg-surface-container-lowest shadow-sm transition-transform ${reasonVisible ? "translate-x-5" : "translate-x-0.5"}`} />
+        
+        <div className="flex items-center gap-stack_loose">
+          <div className="hidden md:flex flex-col items-end">
+            <span className="font-label-semibold text-label-semibold text-secondary">8 minutes</span>
+            <span className="text-[10px] text-on-surface-variant uppercase tracking-wider">Fast Delivery</span>
+          </div>
+          <button className="bg-primary-container text-on-primary-container px-4 py-2.5 rounded-lg flex items-center gap-3 hover:bg-opacity-90 transition-all active:scale-95">
+            <span className="material-symbols-outlined" data-icon="shopping_cart">shopping_cart</span>
+            <div className="flex flex-col items-start leading-tight">
+              <span className="font-label-semibold text-label-semibold">{cart.length} items</span>
+              <span className="text-[10px] font-bold">₹{totalCartValue}</span>
+            </div>
           </button>
-          <span className={`hidden lg:block ${reasonVisible ? "text-secondary font-medium" : "text-on-surface-variant"}`}>
-            {reasonVisible ? "ON" : "off"}
-          </span>
         </div>
-        {/* Cart */}
-        <div className="flex items-center gap-1.5 font-label-lg text-label-lg font-bold text-on-surface">
-          <span className="material-symbols-outlined">shopping_cart</span> <span>{cart.length}</span>
-        </div>
-        <button onClick={resetDemo} className="font-label-md text-label-md text-on-surface-variant hover:text-on-surface transition-colors">
-          ↺ Reset
-        </button>
       </header>
 
-      {/* Body: main + rail */}
-      <div className="flex flex-1 overflow-hidden h-[calc(100vh-88px)]">
-        {/* Main */}
-        <main className="flex-1 overflow-y-auto bg-surface-container-lowest">
-          {/* Order Again */}
-          <section className="border-b border-surface-container-highest px-gutter py-md">
-            <h2 className="font-label-md text-label-md text-on-surface-variant uppercase mb-sm">Order Again</h2>
-            <div className="flex gap-sm overflow-x-auto pb-1 scroll-hidden">
-              {ALL_SKUS.filter(s => persona.purchased_l1s.includes(s.l1_category)).slice(0, 6).map(sku => (
-                <ProductCard key={sku.sku_id} sku={sku} onAdd={handleAddToCart} inCart={cartSkuIds.has(sku.sku_id)} />
-              ))}
-            </div>
-          </section>
+      {/* Demo Banner */}
+      <div className="w-full bg-primary-fixed/30 py-1.5 border-b border-outline-variant/30 text-center flex items-center justify-center gap-2">
+        <span className="material-symbols-outlined text-[16px] text-on-primary-fixed-variant">warning</span>
+        <span className="text-[11px] font-label-semibold text-on-primary-fixed-variant tracking-wide">DEMO DATA — synthetic catalogue · not real Blinkit data</span>
+      </div>
 
-          {/* Category tabs */}
-          <div className="border-b border-surface-container-highest px-gutter py-2 flex gap-2 overflow-x-auto scroll-hidden">
-            {L1_CATEGORIES.map(l1 => (
-              <button key={l1} onClick={() => setActiveL1(l1)}
-                className={`flex-shrink-0 px-3 py-1.5 rounded-full font-label-md text-label-md transition-colors ${
-                  activeL1 === l1 ? "bg-inverse-surface text-inverse-on-surface" : "bg-surface-container-low text-on-surface hover:bg-surface-container"
-                }`}>
+      {/* Main Content */}
+      <main className="max-w-[1280px] mx-auto flex gap-0 min-h-[calc(100vh-100px)] w-full">
+        
+        {/* Left Column (Main Shopping) */}
+        <section className="flex-1 p-gutter border-r border-surface-variant overflow-y-auto pb-24 hide-scrollbar">
+          
+          {/* Order Again */}
+          <div className="mb-stack_loose">
+            <div className="flex justify-between items-center mb-stack_base">
+              <h2 className="font-h2 text-h2">ORDER AGAIN</h2>
+              <button className="text-primary font-label-semibold text-label-semibold flex items-center hover:underline">
+                View All <span className="material-symbols-outlined text-[18px]">chevron_right</span>
+              </button>
+            </div>
+            
+            <div className="flex gap-stack_base overflow-x-auto hide-scrollbar pb-2">
+              {ALL_SKUS.filter(s => persona.purchased_l1s.includes(s.l1_category)).slice(0, 6).map(sku => {
+                const img = getSkuImage(sku.sku_id, sku.l1_category);
+                const inCart = cartSkuIds.has(sku.sku_id);
+                return (
+                  <div key={sku.sku_id} className="min-w-[140px] flex-shrink-0 bg-surface-container-lowest border border-outline-variant rounded-lg p-2 hover:shadow-sm transition-shadow">
+                    <div className="w-full aspect-square bg-surface-container-low rounded-md mb-2 bg-cover bg-center" style={{ backgroundImage: img }}></div>
+                    <span className="text-[12px] font-semibold block leading-tight truncate">{sku.name.replace(/ \d+(kg|L|g|ml|pcs)$/, '')}</span>
+                    <span className="text-[10px] text-on-surface-variant block mb-2">{sku.name.match(/\d+(kg|L|g|ml|pcs)$/)?.[0] || '1 pc'}</span>
+                    <div className="flex justify-between items-center">
+                      <span className="text-label-semibold font-label-semibold">₹{sku.price}</span>
+                      {inCart ? (
+                        <div className="flex items-center gap-1 border border-secondary rounded overflow-hidden">
+                          <button onClick={() => handleRemoveFromCart(sku.sku_id)} className="px-1 text-secondary hover:bg-secondary-container">-</button>
+                          <span className="text-[10px] font-bold text-on-surface">1</span>
+                          <button className="px-1 text-secondary hover:bg-secondary-container">+</button>
+                        </div>
+                      ) : (
+                        <button onClick={() => handleAddToCart(sku)} className="w-7 h-7 bg-white border border-secondary text-secondary rounded-md flex items-center justify-center hover:bg-secondary-container transition-colors">
+                          <span className="material-symbols-outlined text-[18px]">add</span>
+                        </button>
+                      )}
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+
+          {/* Category Tabs */}
+          <nav className="flex gap-2 overflow-x-auto hide-scrollbar mb-stack_loose sticky top-[0px] bg-background py-2 z-30 border-b border-surface-variant">
+            {DISPLAY_CATEGORIES.map(l1 => (
+              <button 
+                key={l1}
+                onClick={() => setActiveL1(l1)}
+                className={`px-4 py-1.5 rounded-full font-label-semibold text-label-semibold whitespace-nowrap transition-colors ${
+                  activeL1 === l1 ? "bg-on-surface text-surface" : "bg-surface-container-high text-on-surface-variant hover:bg-outline-variant"
+                }`}
+              >
                 {l1}
               </button>
             ))}
-          </div>
+          </nav>
 
-          {/* Product grid */}
-          <section className="px-gutter py-lg">
-            <h2 className="font-headline-sm text-headline-sm text-on-surface mb-1">{activeL1}</h2>
-            {/* P12-17: Sparse PDP note — no ratings visible */}
-            <p className="font-body-sm text-body-sm text-on-surface-variant mb-md italic">No ratings or reviews available.</p>
-            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-sm">
-              {filteredSkus.map(sku => (
-                <ProductCard key={sku.sku_id} sku={sku} onAdd={handleAddToCart} inCart={cartSkuIds.has(sku.sku_id)} />
-              ))}
+          {/* Product Grid */}
+          <div className="mb-stack_loose">
+            <div className="mb-stack_base flex flex-col">
+              <h2 className="font-h2 text-h2">{activeL1}</h2>
+              <span className="text-small font-small italic text-on-surface-variant">No ratings or reviews available.</span>
             </div>
-          </section>
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-stack_base">
+              {filteredSkus.map(sku => {
+                const img = getSkuImage(sku.sku_id, sku.l1_category);
+                const inCart = cartSkuIds.has(sku.sku_id);
+                return (
+                  <div key={sku.sku_id} className="group bg-surface-container-lowest border border-outline-variant rounded-xl p-3 flex flex-col h-full hover:shadow-lg transition-all duration-300">
+                    <div className="w-full aspect-square bg-surface-container-low rounded-lg mb-3 overflow-hidden">
+                      <div className="w-full h-full bg-cover bg-center transition-transform group-hover:scale-105" style={{ backgroundImage: img }}></div>
+                    </div>
+                    <div className="flex-1 flex flex-col">
+                      <span className="font-body text-body text-on-surface line-clamp-2 leading-tight mb-1">{sku.name.replace(/ \d+(kg|L|g|ml|pcs)$/, '')}</span>
+                      <span className="text-small font-small text-on-surface-variant mb-3">{sku.name.match(/\d+(kg|L|g|ml|pcs)$/)?.[0] || '1 pc'}</span>
+                      <div className="mt-auto flex items-end justify-between">
+                        <div className="flex flex-col">
+                          {sku.original_price > sku.price && <span className="text-on-surface-variant line-through text-[11px]">₹{sku.original_price}</span>}
+                          <span className="text-body font-label-semibold">₹{sku.price}</span>
+                        </div>
+                        {inCart ? (
+                           <div className="flex items-center gap-1 border border-secondary rounded overflow-hidden">
+                             <button onClick={() => handleRemoveFromCart(sku.sku_id)} className="px-2 py-0.5 text-secondary hover:bg-secondary-container">-</button>
+                             <span className="px-1 text-[12px] font-bold text-on-surface">1</span>
+                             <button className="px-2 py-0.5 text-secondary hover:bg-secondary-container">+</button>
+                           </div>
+                        ) : (
+                          <button onClick={() => handleAddToCart(sku)} className="bg-secondary text-on-secondary px-3 py-1 rounded-lg text-label-semibold hover:brightness-110 active:scale-95 transition-all">ADD</button>
+                        )}
+                      </div>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+          
+        </section>
 
-          {/* Cart summary with remove (P13-3) */}
-          {cart.length > 0 && (
-            <section className="px-gutter py-md border-t border-surface-container-highest bg-surface-container-lowest">
-              <h2 className="font-label-md text-label-md text-on-surface-variant uppercase mb-sm">
-                Cart ({cart.length} items)
-              </h2>
-              <div className="space-y-sm mb-sm">
+        {/* Right Rail (Cart + Occasion) */}
+        <aside className="w-[320px] h-[calc(100vh-100px)] sticky right-0 top-[100px] bg-surface-container-lowest flex flex-col border-l border-surface-variant z-40 pb-10">
+          
+          {/* Top Half: My Basket */}
+          <section className="flex flex-col flex-shrink-0 max-h-[50%] min-h-[30%] border-b border-surface-variant overflow-hidden">
+            <div className="p-stack_loose pb-2 border-b border-surface-variant flex-shrink-0">
+              <div className="flex justify-between items-center mb-2">
+                <h2 className="font-h2 text-h2">My Basket</h2>
+                <span className="font-label-semibold text-label-semibold bg-surface-container text-on-surface-variant px-2 py-0.5 rounded-full">{cart.length} items</span>
+              </div>
+              {cart.length > 0 && (
+                <div className="flex items-center gap-2 bg-secondary-container/30 px-3 py-2 rounded-lg mb-2">
+                  <span className="material-symbols-outlined text-secondary text-[20px]">timer</span>
+                  <span className="text-label-semibold font-label-semibold text-on-secondary-fixed-variant">Delivery in 8 mins</span>
+                </div>
+              )}
+            </div>
+            
+            {cart.length === 0 ? (
+              <div className="flex-grow flex items-center justify-center px-stack_loose">
+                <p className="font-body text-body text-on-surface-variant text-center opacity-80">Your cart is empty.</p>
+              </div>
+            ) : (
+              <div className="flex-1 overflow-y-auto hide-scrollbar p-stack_loose flex flex-col gap-4">
                 {cart.map(sku => (
-                  <div key={sku.sku_id} className="flex items-center justify-between font-label-md text-label-md bg-surface-container rounded-lg px-3 py-2">
-                    <span className="text-on-surface">{sku.name} · ₹{sku.price}</span>
-                    <div className="flex items-center gap-2">
-                      {!persona.purchased_l1s.includes(sku.l1_category) && (
-                        <span className="text-secondary font-bold px-1.5 py-0.5 bg-secondary-container rounded text-xs">New L1</span>
-                      )}
-                      {/* P13-3: Remove button — reverses CER count */}
-                      <button onClick={() => handleRemoveFromCart(sku.sku_id)}
-                        className="text-on-surface-variant hover:text-error transition-colors font-bold"><span className="material-symbols-outlined text-[16px]">close</span></button>
+                  <div key={sku.sku_id} className="flex gap-3">
+                    <div className="w-12 h-12 bg-surface-container-low rounded border border-outline-variant bg-cover bg-center" style={{ backgroundImage: getSkuImage(sku.sku_id, sku.l1_category) }}></div>
+                    <div className="flex-1">
+                      <div className="flex justify-between">
+                        <span className="text-[13px] font-semibold leading-tight">{sku.name.replace(/ \d+(kg|L|g|ml|pcs)$/, '')}</span>
+                        <span className="text-[13px] font-semibold">₹{sku.price}</span>
+                      </div>
+                      <span className="text-[11px] text-on-surface-variant">{sku.name.match(/\d+(kg|L|g|ml|pcs)$/)?.[0] || '1 pc'}</span>
+                      <div className="mt-2 flex items-center gap-3">
+                        <div className="flex items-center border border-secondary rounded overflow-hidden">
+                          <button onClick={() => handleRemoveFromCart(sku.sku_id)} className="px-2 py-0.5 text-secondary hover:bg-secondary-container">-</button>
+                          <span className="px-2 py-0.5 text-[12px] font-bold text-on-surface">1</span>
+                          <button className="px-2 py-0.5 text-secondary hover:bg-secondary-container">+</button>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 ))}
               </div>
-              <button
-                onClick={() => setCheckoutStarted(true)}
-                className="w-full py-md bg-secondary text-on-secondary font-label-lg text-label-lg font-bold rounded-xl hover:bg-[#005a12] transition-colors active:scale-95 shadow-sm"
-              >
-                {checkoutStarted ? "✓ Checkout started" : `Checkout · ₹${totalCartValue}`}
+            )}
+            
+            <div className="p-stack_loose bg-surface-container-low border-t border-surface-variant flex-shrink-0">
+              <button className="w-full bg-secondary text-on-secondary py-3 rounded-xl font-label-semibold text-body flex items-center justify-between px-4 hover:brightness-110 transition-all active:scale-95 shadow-lg shadow-secondary/20">
+                <span>₹{totalCartValue} · Proceed to Checkout</span>
+                <span className="material-symbols-outlined text-[18px]">chevron_right</span>
               </button>
-            </section>
-          )}
-        </main>
+            </div>
+          </section>
 
-        {/* Right rail wrapper */}
-        <div className="w-80 lg:w-[360px] flex-shrink-0 h-full flex flex-col bg-surface-container-lowest border-l border-surface-container-high overflow-y-auto">
-          <DiscoveryRail
-            occasion={occasion}
-            lastAnchor={lastAnchor}
-            cartSkuIds={cartSkuIds}
-            onAddSuggestion={handleAddSuggestion}
-            onDismiss={handleDismiss}
-            personaKey={personaKey}
-            persona={persona}
-            renderTimeMs={lastRenderMs}
-            isLoading={isLoading}
-            showReason={reasonVisible}
-          />
-          <MetricsPanel
-            impressions={impressions}
-            newL1Adds={newL1Adds}
-            dismissals={dismissals}
-            baseL1Count={baseL1Count}
-            currentL1Count={currentL1Count}
-            lastRenderMs={lastRenderMs}
-            networkCalls={networkCalls}
-            checkoutStarted={checkoutStarted}
-            occasionStats={occasionStats}
-          />
-          <TriggerLog log={triggerLog} />
+          {/* Bottom Half: Persona OR Occasion */}
+          <section className={`flex flex-col flex-1 min-h-0 overflow-y-auto hide-scrollbar ${occasion ? "bg-[#fffdf5] p-stack_loose" : "bg-surface-container-lowest p-stack_loose"}`}>
+            
+            {isLoading ? (
+              <div className="flex items-center justify-center h-full">
+                <div className="animate-spin w-6 h-6 border-2 border-primary border-t-transparent rounded-full" />
+              </div>
+            ) : occasion ? (
+              <div className="border-2 border-[#f8cb46]/30 rounded-xl p-4 bg-white shadow-sm relative">
+                <div className="flex items-center gap-2 mb-4">
+                  <span className="material-symbols-outlined text-[#755b00] text-[20px]">auto_awesome</span>
+                  <h3 className="font-h2 text-[20px] font-semibold text-on-surface leading-tight">{occasion.headline}</h3>
+                </div>
+                <div className="flex flex-col gap-4">
+                  {occasion.suggestions.slice(0,2).map(sug => {
+                    const img = getSkuImage(sug.sku_id, sug.l1);
+                    const isAdded = cartSkuIds.has(sug.sku_id);
+                    return (
+                      <div key={sug.sku_id} className="flex gap-3 border-b border-surface-variant pb-4 last:border-0 last:pb-0">
+                        <div className="w-20 h-20 flex-shrink-0 rounded-lg overflow-hidden border border-surface-variant bg-cover bg-center" style={{ backgroundImage: img }}></div>
+                        <div className="flex flex-col flex-grow">
+                          <div className="font-bold text-small text-on-surface mb-1">{sug.sku_name}</div>
+                          {showReason && <div className="text-small text-on-surface font-normal mb-2">{sug.fact_text}</div>}
+                          <div className="mt-auto flex items-center justify-between">
+                            <span className="font-bold text-on-surface">₹{sug.price}</span>
+                            {isAdded ? (
+                               <div className="flex items-center gap-1 border border-secondary rounded overflow-hidden">
+                                 <button onClick={() => handleRemoveFromCart(sug.sku_id)} className="px-2 py-0.5 text-secondary hover:bg-secondary-container">-</button>
+                                 <span className="px-1 text-[12px] font-bold text-on-surface">1</span>
+                                 <button className="px-2 py-0.5 text-secondary hover:bg-secondary-container">+</button>
+                               </div>
+                            ) : (
+                              <button onClick={() => handleAddSuggestion(sug.sku_id)} className="bg-secondary text-on-secondary px-3 py-1 rounded-full text-label-semibold uppercase tracking-wider">Add</button>
+                            )}
+                          </div>
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+                {occasion.suggestions.length > 2 && (
+                  <div className="mt-6 text-center">
+                    <button onClick={() => setExpandedDiscovery(true)} className="text-on-surface-variant text-small flex items-center justify-center gap-1 w-full hover:text-on-surface">
+                      More for this <span className="material-symbols-outlined text-[16px]">expand_more</span>
+                    </button>
+                  </div>
+                )}
+              </div>
+            ) : (
+              // Default Persona Panel matching Stitch Shopping Panel
+              <div className="flex flex-col h-full">
+                <div className="flex items-center gap-3 mb-6">
+                  <div className="w-10 h-10 rounded-full bg-surface-container-high flex items-center justify-center text-on-surface-variant">
+                    <span className="material-symbols-outlined">person</span>
+                  </div>
+                  <div className="font-label-semibold text-[13px] tracking-wider uppercase text-on-surface">Your Shopping</div>
+                </div>
+                
+                <div className="grid grid-cols-2 gap-3 mb-6">
+                  <div className="bg-surface-container rounded-xl p-3">
+                    <div className="font-h1 text-h1 text-on-surface">{persona.orders_90_days}</div>
+                    <div className="text-label-semibold text-on-surface-variant mt-1">orders (90 days)</div>
+                  </div>
+                  <div className="bg-surface-container rounded-xl p-3">
+                    <div className="font-h1 text-h1 text-on-surface">{persona.purchased_l1s.length}</div>
+                    <div className="text-label-semibold text-on-surface-variant mt-1">categories</div>
+                  </div>
+                </div>
+                
+                <div className="mb-6">
+                  <div className="text-label-semibold tracking-wider uppercase text-on-surface-variant mb-3">You Buy From</div>
+                  <div className="flex flex-wrap gap-2">
+                    {persona.purchased_l1s.map(l1 => (
+                      <span key={l1} className="px-3 py-1 bg-secondary-container/20 text-on-secondary-container text-label-semibold rounded-full border border-secondary-fixed-dim/50">{l1}</span>
+                    ))}
+                  </div>
+                </div>
+                
+                <div>
+                  <div className="text-label-semibold tracking-wider uppercase text-on-surface-variant mb-3">Not Tried Yet</div>
+                  <div className="flex flex-wrap gap-2">
+                    {L1_CATEGORIES.filter(l1 => !persona.purchased_l1s.includes(l1)).map(l1 => (
+                      <span key={l1} className="px-3 py-1 bg-surface-container text-on-surface-variant text-label-semibold rounded-full border border-surface-variant">{l1}</span>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            )}
+          </section>
+        </aside>
+
+      </main>
+
+      {/* Expanded Discovery Panel Overlay */}
+      {expandedDiscovery && occasion && (
+        <div className="fixed inset-0 z-50 bg-background flex flex-col">
+          <header className="h-[72px] w-full bg-surface border-b border-surface-variant flex items-center justify-between px-gutter">
+            <div className="flex items-center gap-stack_loose">
+              <h1 className="font-h2 text-h2 text-primary tracking-tighter">PantryUtility</h1>
+              <nav className="flex gap-4">
+                <span className="text-small font-bold text-on-surface border-b-2 border-primary py-1">Shop</span>
+                <span className="text-small text-on-surface-variant py-1">Search</span>
+                <span className="text-small text-on-surface-variant py-1">Orders</span>
+              </nav>
+            </div>
+            <button className="p-2"><span className="material-symbols-outlined text-primary">shopping_cart</span></button>
+          </header>
+          
+          <div className="flex flex-1 max-w-[1280px] w-full mx-auto">
+            <main className="flex-1 p-gutter overflow-y-auto pr-8">
+              <div className="flex items-center justify-between mb-6">
+                <h1 className="font-h1 text-[40px] font-bold text-on-surface leading-tight">{occasion.headline}</h1>
+                <button onClick={() => setExpandedDiscovery(false)} className="p-2 hover:bg-surface-container rounded-full"><span className="material-symbols-outlined">close</span></button>
+              </div>
+              
+              <div className="bg-primary-fixed/10 border border-primary-container rounded-lg p-4 mb-8 text-primary font-body">
+                AI-Assisted {occasion.headline} Checklist
+              </div>
+              
+              <div className="grid grid-cols-3 gap-6">
+                {occasion.suggestions.map(sug => {
+                  const img = getSkuImage(sug.sku_id, sug.l1);
+                  const isAdded = cartSkuIds.has(sug.sku_id);
+                  return (
+                    <div key={sug.sku_id} className="bg-surface-container-lowest border border-outline-variant rounded-xl p-4 flex flex-col h-full shadow-sm">
+                      <div className="w-full aspect-square rounded-lg mb-4 bg-cover bg-center bg-surface-container-low" style={{ backgroundImage: img }}></div>
+                      <h3 className="font-bold text-body text-on-surface mb-1">{sug.sku_name}</h3>
+                      {showReason && <p className="text-small text-on-surface-variant mb-4 flex-grow">{sug.fact_text}</p>}
+                      <div className="flex items-center justify-between mt-auto">
+                        <span className="font-body text-body text-on-surface">₹{sug.price}</span>
+                        {isAdded ? (
+                            <div className="flex items-center gap-2 border border-secondary rounded overflow-hidden">
+                              <button onClick={() => handleRemoveFromCart(sug.sku_id)} className="px-3 py-1 text-secondary hover:bg-secondary-container">-</button>
+                              <span className="px-2 font-bold text-on-surface">1</span>
+                              <button className="px-3 py-1 text-secondary hover:bg-secondary-container">+</button>
+                            </div>
+                        ) : (
+                          <button onClick={() => handleAddSuggestion(sug.sku_id)} className="bg-secondary text-on-secondary px-6 py-2 rounded-full font-label-semibold tracking-wider">ADD</button>
+                        )}
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+              
+              <div className="mt-12 bg-surface-container-low rounded-xl p-6 flex justify-between items-center">
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 rounded-lg bg-surface flex items-center justify-center border border-outline-variant"><span className="material-symbols-outlined text-primary">verified</span></div>
+                  <div>
+                    <div className="text-body font-semibold">Genuine brands</div>
+                    <div className="text-small text-on-surface-variant">Sourced from authorised distributors</div>
+                  </div>
+                </div>
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 rounded-lg bg-surface flex items-center justify-center border border-outline-variant"><span className="material-symbols-outlined text-primary">fact_check</span></div>
+                  <div>
+                    <div className="text-body font-semibold">Quality checked</div>
+                    <div className="text-small text-on-surface-variant">Every item verified before dispatch</div>
+                  </div>
+                </div>
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 rounded-lg bg-surface flex items-center justify-center border border-outline-variant"><span className="material-symbols-outlined text-primary">schedule</span></div>
+                  <div>
+                    <div className="text-body font-semibold">10-minute delivery</div>
+                    <div className="text-small text-on-surface-variant">Same speed as the rest of your order</div>
+                  </div>
+                </div>
+              </div>
+            </main>
+            
+            <aside className="w-[320px] pt-8 pl-8 border-l border-surface-variant flex flex-col">
+              <div className="mb-8">
+                <h2 className="font-h2 text-h2 text-primary mb-1">Deliver to Home</h2>
+                <div className="text-small text-on-surface-variant">15-20 mins</div>
+              </div>
+              <div className="text-small text-on-surface-variant italic mb-8">
+                {cart.length === 0 ? "Your cart is empty. Add items to secure your pantry." : `${cart.length} items ready for delivery.`}
+              </div>
+              
+              <nav className="flex flex-col gap-2 mb-12">
+                <button className="flex items-center gap-4 py-3 px-4 rounded-lg hover:bg-surface-container-low text-on-surface-variant"><span className="material-symbols-outlined">home</span> <span className="font-body">Home</span></button>
+                <button className="flex items-center gap-4 py-3 px-4 rounded-lg bg-primary-container text-on-primary-container font-bold"><span className="material-symbols-outlined">kitchen</span> <span className="font-body">Pantry</span></button>
+                <button className="flex items-center gap-4 py-3 px-4 rounded-lg hover:bg-surface-container-low text-on-surface-variant"><span className="material-symbols-outlined">history</span> <span className="font-body">Reorder</span></button>
+                <button className="flex items-center gap-4 py-3 px-4 rounded-lg hover:bg-surface-container-low text-on-surface-variant"><span className="material-symbols-outlined">sell</span> <span className="font-body">Deals</span></button>
+                <button className="flex items-center gap-4 py-3 px-4 rounded-lg hover:bg-surface-container-low text-on-surface-variant"><span className="material-symbols-outlined">settings</span> <span className="font-body">Settings</span></button>
+              </nav>
+              
+              <button onClick={() => setExpandedDiscovery(false)} className="w-full bg-primary-container text-on-primary-container py-3 rounded-lg font-label-semibold">View Cart</button>
+            </aside>
+          </div>
         </div>
+      )}
+
+      {/* Developer Drawer (Bottom overlay replacing left rail metrics) */}
+      <div className={`fixed bottom-0 left-0 w-full bg-[#1b1c1b] text-white transition-all duration-300 z-50 flex flex-col border-t border-surface-variant/30 ${developerDrawerOpen ? "h-64" : "h-12"}`}>
+        {/* Drawer Header / Bar */}
+        <div className="h-12 flex items-center justify-between px-gutter cursor-pointer" onClick={() => setDeveloperDrawerOpen(!developerDrawerOpen)}>
+          <div className="flex items-center gap-3">
+            <span className="material-symbols-outlined text-[#f8cb46]">terminal</span>
+            <span className="font-label-semibold tracking-wider text-white">ENGINE</span>
+          </div>
+          
+          {/* Quick Stats on collapsed bar */}
+          {!developerDrawerOpen && (
+            <div className="flex items-center gap-6 text-small text-gray-400">
+              {lastRenderMs !== null && <span>{lastRenderMs}ms</span>}
+              <span>Categories: {baseL1Count} → {currentL1Count}</span>
+              <span className="material-symbols-outlined text-[18px]">expand_less</span>
+            </div>
+          )}
+          
+          {/* Controls visible when open */}
+          {developerDrawerOpen && (
+            <div className="flex items-center gap-6" onClick={e => e.stopPropagation()}>
+              <div className="flex items-center gap-2 bg-white/10 rounded-lg p-1">
+                <button onClick={() => switchPersona("user_segment_a_hero")} className={`px-3 py-1 rounded text-small ${personaKey === "user_segment_a_hero" ? "bg-white text-black" : "text-gray-400"}`}>Default</button>
+                <button onClick={() => switchPersona("user_segment_b_suppression")} className={`px-3 py-1 rounded text-small ${personaKey === "user_segment_b_suppression" ? "bg-white text-black" : "text-gray-400"}`}>New User</button>
+              </div>
+              <label className="flex items-center gap-2 text-small text-gray-400 cursor-pointer">
+                Show reasons
+                <div className={`w-8 h-4 rounded-full relative transition-colors ${showReason ? "bg-secondary" : "bg-gray-600"}`}>
+                  <div className="absolute top-0.5 right-0.5"><input type="checkbox" className="sr-only" checked={showReason} onChange={() => setShowReason(!showReason)} /></div>
+                  <div className={`w-3 h-3 bg-white rounded-full absolute top-0.5 transition-all ${showReason ? "left-4.5" : "left-0.5"}`}></div>
+                </div>
+              </label>
+              <button onClick={resetDemo} className="text-gray-400 hover:text-white transition-colors"><span className="material-symbols-outlined">refresh</span></button>
+              <span className="material-symbols-outlined text-[18px] text-gray-400 cursor-pointer" onClick={() => setDeveloperDrawerOpen(false)}>expand_more</span>
+            </div>
+          )}
+        </div>
+        
+        {/* Drawer Content */}
+        {developerDrawerOpen && (
+          <div className="flex-1 flex p-gutter gap-12 overflow-y-auto hide-scrollbar">
+            {/* Column 1: C60 & Conversions */}
+            <div className="flex flex-col gap-6 w-[280px] flex-shrink-0">
+              <div>
+                <div className="font-h2 text-[24px] font-bold text-white mb-1 flex items-baseline gap-2">
+                  Categories {baseL1Count} <span className="material-symbols-outlined text-[20px] text-gray-400">arrow_forward</span> {currentL1Count}
+                </div>
+                <div className="text-[10px] text-[#f8cb46] tracking-wider uppercase font-semibold">New Category Adoption this Session</div>
+              </div>
+              
+              <div className="grid grid-cols-2 gap-4">
+                <div>
+                  <div className="font-bold text-[18px] text-white">{impressions}</div>
+                  <div className="text-[10px] text-gray-500">Impressions</div>
+                </div>
+                <div>
+                  <div className="font-bold text-[18px] text-white">{newL1Adds}</div>
+                  <div className="text-[10px] text-gray-500">New-category adds</div>
+                </div>
+                <div>
+                  <div className="font-bold text-[18px] text-white">{impressions > 0 ? Math.round((newL1Adds / impressions) * 100) : 0}%</div>
+                  <div className="text-[10px] text-gray-500">Add rate</div>
+                </div>
+                <div>
+                  <div className="font-bold text-[18px] text-white">{impressions > 0 ? Math.round((dismissals / impressions) * 100) : 0}%</div>
+                  <div className="text-[10px] text-gray-500">Dismissal rate</div>
+                </div>
+              </div>
+            </div>
+            
+            {/* Column 2: Performance */}
+            <div className="flex flex-col gap-6 w-[200px] flex-shrink-0">
+              <div>
+                <div className={`font-h2 text-[24px] font-bold mb-1 ${lastRenderMs && lastRenderMs > 300 ? "text-[#ba1a1a]" : "text-[#8ffb87]"}`}>
+                  {lastRenderMs !== null ? `${lastRenderMs}ms` : "—"}
+                </div>
+                <div className="text-[10px] text-gray-500 uppercase font-semibold">Render · 300ms Budget</div>
+              </div>
+              <div>
+                <div className="font-h2 text-[24px] font-bold text-white mb-1">{networkCalls}</div>
+                <div className="text-[10px] text-gray-500 uppercase font-semibold">API Calls · 0 = Precomputed</div>
+              </div>
+            </div>
+            
+            {/* Column 3: Trigger Log */}
+            <div className="flex-1 min-w-0 border-l border-gray-800 pl-8">
+              <div className="space-y-3">
+                {[...triggerLog].reverse().slice(0, 4).map((entry, i) => {
+                  let badgeColor = "bg-gray-800 text-gray-400";
+                  if (entry.outcome === "RENDERED") badgeColor = "bg-[#006e16]/20 text-[#8ffb87]";
+                  if (entry.outcome === "BLOCKED_SENSITIVE") badgeColor = "bg-[#ba1a1a]/20 text-[#ffdad6]";
+                  if (entry.outcome === "BLOCKED_FILTERED" || entry.outcome === "BLOCKED_TIMEOUT") badgeColor = "bg-[#f8cb46]/20 text-[#ffe08f]";
+                  
+                  return (
+                    <div key={i} className="flex items-center gap-3 font-mono text-[11px]">
+                      <span className={`px-2 py-0.5 rounded ${badgeColor} font-bold`}>{entry.outcome}</span>
+                      <span className="text-white truncate">
+                        {entry.outcome === "RENDERED" ? `${entry.anchor_l1.toLowerCase()} · ${entry.debug} · suggestions generated` :
+                         entry.outcome === "NO_OCCASION" ? `${entry.rule || "no rules matched"}` :
+                         entry.rule}
+                      </span>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          </div>
+        )}
       </div>
+
     </div>
   );
 }
