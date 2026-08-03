@@ -54,15 +54,13 @@
 
   --font-inter: "Inter", sans-serif;
 
-  --spacing-base: 4px;
-  --spacing-xs: 8px;
-  --spacing-sm: 12px;
-  --spacing-md: 16px;
-  --spacing-lg: 24px;
-  --spacing-xl: 32px;
-  --spacing-2xl: 48px;
+  --spacing-base_unit: 4px;
+  --spacing-stack_tight: 4px;
+  --spacing-stack_base: 8px;
+  --spacing-stack_loose: 16px;
+  --spacing-margin_mobile: 16px;
   --spacing-gutter: 20px;
-  --spacing-container-max: 1280px;
+  --spacing-desktop_max_width: 1280px;
 
   --radius-sm: 0.25rem;
   --radius-DEFAULT: 0.5rem;

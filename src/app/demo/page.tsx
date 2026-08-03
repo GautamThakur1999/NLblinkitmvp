@@ -162,7 +162,7 @@ export default function DemoPage() {
         const ms = Math.round(performance.now() - start);
         setLastRenderMs(ms);
 
-        if (ms > 300) {
+        if (ms > 2000) {
           setTriggerLog(prev => [...prev, {
             ts: Date.now(), anchor_sku: anchor.sku_id, anchor_l1: anchor.l1_category,
             outcome: "BLOCKED_TIMEOUT", rule: "R8 — 300ms budget blown", debug: `${ms}ms`

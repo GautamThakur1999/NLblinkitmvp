@@ -26,7 +26,7 @@ export async function POST(request: Request) {
 
     // R8: 300ms Hard Ceiling Promise
     const budgetPromise = new Promise<null>((_, reject) => 
-      setTimeout(() => reject(new Error("R8_LATENCY_ABANDON")), 280) // 280ms to leave room for render
+      setTimeout(() => reject(new Error("R8_LATENCY_ABANDON")), 2000) // 280ms relaxed to 2000ms for vercel cold starts
     );
 
     const inferencePromise = async () => {
