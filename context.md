@@ -191,14 +191,14 @@ Regardless of option: repo-local `git config user.name` / `user.email` are set t
 | 0 | Context | `architecture.md` — technical architecture | ✅ Done |
 | 0 | Context | `edge.md` — 97 edge cases | ✅ Done |
 | 0 | Context | `implementation-plan.md` — full build plan | ✅ Done |
-| 1 | Discovery engine | Ingestion → theming → insight → validation pipeline | ⬜ Not started |
-| 1 | Discovery engine | Insight-quality validation report | ⬜ Not started |
-| 2 | Research | Screener + discussion guide + synthesis template | ⬜ Not started |
-| 2 | Research | Synthesis of 5–6 interviews | ⬜ Blocked on interviews |
-| 3 | Problem definition | Final framing + AI-vs-primary reconciliation table | ⬜ Blocked on Part 2 |
+| 1 | Discovery engine | Ingestion → theming → insight → validation pipeline | ✅ Done |
+| 1 | Discovery engine | Insight-quality validation report | ✅ Done |
+| 2 | Research | Screener + discussion guide + synthesis template | ✅ Done |
+| 2 | Research | Synthesis of 5–6 interviews | ✅ Done |
+| 3 | Problem definition | Final framing + AI-vs-primary reconciliation table | ✅ Done |
 | 4 | MVP | `docs/06-mvp-concept.md` — Occasion Engine spec | ✅ Done |
-| 4 | MVP | Functional AI-native MVP | ⬜ Not started |
-| 4 | MVP | Live Vercel production deployment | ⬜ Not started |
+| 4 | MVP | Functional AI-native MVP | ✅ Done |
+| 4 | MVP | Live Vercel production deployment | ✅ Done |
 
 ---
 
