@@ -284,11 +284,8 @@ export default function DemoPage() {
     if (wasNewL1 && !l1StillInCart) {
       setNewL1Adds(c => Math.max(0, c - 1));
     }
-    if (newCart.length === 0) {
-      setOccasion(null);
-      setCurrentOccasionId(null);
-    }
-  }, [cart, persona.purchased_l1s]);
+    fireEngine(newCart);
+  }, [cart, persona.purchased_l1s, fireEngine]);
 
   const handleAddSuggestion = useCallback((skuId: string) => {
     const sku = ALL_SKUS.find(s => s.sku_id === skuId);
