@@ -87,6 +87,14 @@
     "fact_ghee_naan": {
       "text": "Brush hot naan with pure desi ghee",
       "target_l1": "Dairy"
+    },
+    "fact_butter_dish": {
+      "text": "Keep butter soft and spreadable at room temp",
+      "target_l1": "Home & Office"
+    },
+    "fact_butter_knife": {
+      "text": "Spreads cold butter without tearing bread",
+      "target_l1": "Home & Office"
     }
   }
 }

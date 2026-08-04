@@ -92,6 +92,8 @@ DO NOT output any other text. Only JSON.`;
         fact_naan_marinade: "sku_tandoori_marinade_01",
         fact_mint_chutney: "sku_mint_chutney_01",
         fact_ghee_naan: "sku_ghee_01",
+        fact_butter_dish: "sku_butter_dish_01",
+        fact_butter_knife: "sku_butter_knife_01",
       };
       const resolvedSku = FACT_TO_SKU[sug.fact_id] ?? null;
       if (!resolvedSku) return { ...sug, sku_id: "sku_placeholder" };

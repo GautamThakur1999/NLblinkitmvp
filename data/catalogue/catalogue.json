@@ -33,6 +33,8 @@
     { "sku_id": "sku_jam_01", "name": "Mixed Fruit Jam", "l1_category": "Staples", "price": 110, "original_price": 110, "in_stock": true, "is_veg": true },
     { "sku_id": "sku_tandoori_marinade_01", "name": "Tandoori Marinade Paste", "l1_category": "Staples", "price": 60, "original_price": 60, "in_stock": true, "is_veg": true },
     { "sku_id": "sku_mint_chutney_01", "name": "Pudina Mint Chutney", "l1_category": "Staples", "price": 40, "original_price": 40, "in_stock": true, "is_veg": true },
-    { "sku_id": "sku_ghee_01", "name": "Desi Ghee 500ml", "l1_category": "Dairy", "price": 250, "original_price": 280, "in_stock": true, "is_veg": true }
+    { "sku_id": "sku_ghee_01", "name": "Desi Ghee 500ml", "l1_category": "Dairy", "price": 250, "original_price": 280, "in_stock": true, "is_veg": true },
+    { "sku_id": "sku_butter_dish_01", "name": "Glass Butter Dish with Lid", "l1_category": "Home & Office", "price": 250, "original_price": 299, "in_stock": true, "is_veg": null },
+    { "sku_id": "sku_butter_knife_01", "name": "Stainless Steel Butter Knife", "l1_category": "Home & Office", "price": 99, "original_price": 120, "in_stock": true, "is_veg": null }
   ]
 }
