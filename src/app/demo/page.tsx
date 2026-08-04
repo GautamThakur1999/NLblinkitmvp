@@ -505,12 +505,6 @@ export default function DemoPage() {
               </div>
             )}
             
-            <div className="p-stack_loose bg-surface-container-low border-t border-surface-variant flex-shrink-0">
-              <button className="w-full bg-secondary text-on-secondary py-3 rounded-xl font-label-semibold text-body flex items-center justify-between px-4 hover:brightness-110 transition-all active:scale-95 shadow-lg shadow-secondary/20">
-                <span>₹{totalCartValue} · Proceed to Checkout</span>
-                <span className="material-symbols-outlined text-[18px]">chevron_right</span>
-              </button>
-            </div>
           </section>
 
           {/* Bottom Half: Persona OR Occasion */}
@@ -602,6 +596,14 @@ export default function DemoPage() {
               </div>
             )}
           </section>
+
+          {/* Proceed to Checkout (Fixed at bottom) */}
+          <div className="p-stack_loose bg-surface-container-low border-t border-surface-variant flex-shrink-0 mt-auto">
+            <button className="w-full bg-secondary text-on-secondary py-3 rounded-xl font-label-semibold text-body flex items-center justify-between px-4 hover:brightness-110 transition-all active:scale-95 shadow-lg shadow-secondary/20">
+              <span>₹{totalCartValue} · Proceed to Checkout</span>
+              <span className="material-symbols-outlined text-[18px]">chevron_right</span>
+            </button>
+          </div>
         </aside>
 
       </main>
