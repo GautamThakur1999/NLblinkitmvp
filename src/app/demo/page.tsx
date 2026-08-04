@@ -452,14 +452,14 @@ export default function DemoPage() {
         </section>
 
         {/* Right Rail (Cart + Occasion) - Bottom Sheet on Mobile */}
-        <aside className="fixed bottom-0 left-0 w-full h-[60vh] z-50 flex flex-col bg-surface-container-lowest shadow-[0_-4px_24px_rgba(0,0,0,0.15)] rounded-t-2xl border-t border-surface-variant lg:static lg:sticky lg:right-0 lg:top-[100px] lg:w-[320px] lg:h-[calc(100vh-100px)] lg:border-t-0 lg:border-l lg:rounded-none lg:shadow-none lg:pb-10 transition-transform">
+        <aside className="fixed bottom-0 left-0 w-full h-auto max-h-[70vh] z-50 flex flex-col bg-surface-container-lowest shadow-[0_-4px_24px_rgba(0,0,0,0.15)] rounded-t-2xl border-t border-surface-variant lg:static lg:sticky lg:right-0 lg:top-[100px] lg:w-[320px] lg:h-[calc(100vh-100px)] lg:max-h-none lg:border-t-0 lg:border-l lg:rounded-none lg:shadow-none lg:pb-10 transition-transform">
           {/* Mobile Handle */}
           <div className="w-full flex justify-center py-2 lg:hidden flex-shrink-0">
             <div className="w-12 h-1.5 bg-on-surface-variant/20 rounded-full"></div>
           </div>
           
           {/* Top Half: My Basket */}
-          <section className="flex flex-col flex-shrink-0 max-h-[50%] min-h-[30%] border-b border-surface-variant overflow-hidden">
+          <section className="flex flex-col flex-shrink-0 max-h-[30vh] lg:max-h-[50%] min-h-[30%] border-b border-surface-variant overflow-hidden">
             <div className="p-stack_loose pb-2 border-b border-surface-variant flex-shrink-0">
               <div className="flex justify-between items-center mb-2">
                 <h2 className="font-h2 text-h2">My Basket</h2>
@@ -474,7 +474,7 @@ export default function DemoPage() {
             </div>
             
             {cart.length === 0 ? (
-              <div className="flex-grow flex items-center justify-center px-stack_loose">
+              <div className="flex-grow flex items-center justify-center px-stack_loose py-4">
                 <p className="font-body text-body text-on-surface-variant text-center opacity-80">Your cart is empty.</p>
               </div>
             ) : (
@@ -513,7 +513,7 @@ export default function DemoPage() {
           <section className={`flex flex-col flex-1 min-h-0 overflow-y-auto hide-scrollbar ${occasion ? "bg-[#fffdf5] p-stack_loose" : "bg-surface-container-lowest p-stack_loose"}`}>
             
             {isLoading ? (
-              <div className="flex items-center justify-center h-full">
+              <div className="flex items-center justify-center h-full py-8">
                 <div className="animate-spin w-6 h-6 border-2 border-primary border-t-transparent rounded-full" />
               </div>
             ) : occasion ? (
@@ -559,7 +559,7 @@ export default function DemoPage() {
               </div>
             ) : (
               // Default Persona Panel matching Stitch Shopping Panel
-              <div className="flex flex-col h-full">
+              <div className="hidden lg:flex flex-col h-full">
                 <div className="flex items-center gap-3 mb-6">
                   <div className="w-10 h-10 rounded-full bg-surface-container-high flex items-center justify-center text-on-surface-variant">
                     <span className="material-symbols-outlined">person</span>
