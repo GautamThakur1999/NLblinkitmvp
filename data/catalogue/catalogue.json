@@ -27,6 +27,12 @@
     { "sku_id": "sku_milk_frother_01", "name": "Handheld Milk Frother", "l1_category": "Home & Office", "price": 199, "original_price": 299, "in_stock": true, "is_veg": null },
     { "sku_id": "sku_lactase_01", "name": "Lactase Enzyme Tablets", "l1_category": "Pharma", "price": 250, "original_price": 250, "in_stock": true, "is_veg": true },
     { "sku_id": "sku_digestive_drops_01", "name": "Digestive Enzyme Drops", "l1_category": "Pharma", "price": 120, "original_price": 150, "in_stock": true, "is_veg": true },
-    { "sku_id": "sku_kitchen_towel_01", "name": "Absorbent Kitchen Towels", "l1_category": "Cleaning", "price": 110, "original_price": 110, "in_stock": true, "is_veg": null }
+    { "sku_id": "sku_kitchen_towel_01", "name": "Absorbent Kitchen Towels", "l1_category": "Cleaning", "price": 110, "original_price": 110, "in_stock": true, "is_veg": null },
+    { "sku_id": "sku_sandwich_maker_01", "name": "Electric Sandwich Maker", "l1_category": "Home & Office", "price": 899, "original_price": 999, "in_stock": true, "is_veg": null },
+    { "sku_id": "sku_butter_01", "name": "Amul Butter 100g", "l1_category": "Dairy", "price": 58, "original_price": 58, "in_stock": true, "is_veg": true },
+    { "sku_id": "sku_jam_01", "name": "Mixed Fruit Jam", "l1_category": "Staples", "price": 110, "original_price": 110, "in_stock": true, "is_veg": true },
+    { "sku_id": "sku_tandoori_marinade_01", "name": "Tandoori Marinade Paste", "l1_category": "Staples", "price": 60, "original_price": 60, "in_stock": true, "is_veg": true },
+    { "sku_id": "sku_mint_chutney_01", "name": "Pudina Mint Chutney", "l1_category": "Staples", "price": 40, "original_price": 40, "in_stock": true, "is_veg": true },
+    { "sku_id": "sku_ghee_01", "name": "Desi Ghee 500ml", "l1_category": "Dairy", "price": 250, "original_price": 280, "in_stock": true, "is_veg": true }
   ]
 }

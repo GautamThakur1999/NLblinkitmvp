@@ -63,6 +63,30 @@
     "fact_milk_spills": {
       "text": "Quick cleanup for kitchen spills",
       "target_l1": "Cleaning"
+    },
+    "fact_sandwich_maker": {
+      "text": "Make hot toasted sandwiches in minutes",
+      "target_l1": "Home & Office"
+    },
+    "fact_butter_toast": {
+      "text": "Essential for perfectly browned toast",
+      "target_l1": "Dairy"
+    },
+    "fact_bread_jam": {
+      "text": "Classic quick breakfast pairing",
+      "target_l1": "Staples"
+    },
+    "fact_naan_marinade": {
+      "text": "For restaurant style paneer tikka",
+      "target_l1": "Staples"
+    },
+    "fact_mint_chutney": {
+      "text": "Mint chutney completes the meal",
+      "target_l1": "Staples"
+    },
+    "fact_ghee_naan": {
+      "text": "Brush hot naan with pure desi ghee",
+      "target_l1": "Dairy"
     }
   }
 }
