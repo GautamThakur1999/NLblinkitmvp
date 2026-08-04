@@ -153,12 +153,16 @@ export default function DemoPage() {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
-            cart_skus: newCart.map(s => s.sku_id),
-            persona_key: personaKey
+            cart: newCart,
+            persona: persona
           })
         });
 
-        const data = await res.json();
+        let occ = null;
+        if (res.ok) {
+          occ = await res.json();
+        }
+        
         const ms = Math.round(performance.now() - start);
         setLastRenderMs(ms);
 
@@ -172,30 +176,18 @@ export default function DemoPage() {
           return;
         }
 
-        if (data.status === "blocked") {
+        if (!occ || occ.error) {
           setTriggerLog(prev => [...prev, {
             ts: Date.now(), anchor_sku: anchor.sku_id, anchor_l1: anchor.l1_category,
-            outcome: "BLOCKED_SENSITIVE", rule: data.reason
+            outcome: "BLOCKED_FILTERED", rule: occ?.error || "Backend returned null"
           }]);
           setOccasion(null);
           setCurrentOccasionId(null);
           return;
         }
 
-        if (data.status === "no_occasion") {
-          setTriggerLog(prev => [...prev, {
-            ts: Date.now(), anchor_sku: anchor.sku_id, anchor_l1: anchor.l1_category,
-            outcome: "NO_OCCASION", rule: data.reason
-          }]);
-          setOccasion(null);
-          setCurrentOccasionId(null);
-          return;
-        }
-
-        const occ = data.data as OccasionResult;
-        
         // Filter out same-L1 and already purchased (INV-2, INV-3) client side safety check
-        occ.suggestions = occ.suggestions.filter(s => 
+        occ.suggestions = occ.suggestions.filter((s: EnrichedSuggestion) => 
           s.l1 !== anchor.l1_category && !persona.purchased_l1s.includes(s.l1)
         );
 
