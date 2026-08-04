@@ -42,10 +42,6 @@ export function runHardFilters(
     // P11-4: Suppress already-purchased L1 (R3)
     if (persona.purchased_l1s.includes(skuData.l1_category)) continue;
 
-    // P11-12: Dedup by L1 (we only want 1 suggestion per L1 max to maximize diversity)
-    if (seenL1s.has(skuData.l1_category)) continue;
-
-    seenL1s.add(skuData.l1_category);
     validSuggestions.push(sug);
   }
 
