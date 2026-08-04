@@ -14,11 +14,14 @@ export async function getLiveOccasion(cart: Sku[], personaL1s: string[]): Promis
     .map(([id, fact]: [string, { text: string; target_l1: string }]) => `Fact ID: ${id} | Fact: ${fact.text} | Target L1: ${fact.target_l1}`)
     .join("\n");
 
+  // Dynamic cap: Max 2 for a single item, up to 4 for multi-item carts
+  const maxSuggestions = Math.min(4, Math.max(2, cart.length));
+  
   const prompt = `You are the Blinkit Occasion Engine. 
 The user just added the following items to their cart: ${cartStr}.
 Infer the underlying occasion.
 
-Select up to 2 cross-category suggestions to surface. 
+Select up to ${maxSuggestions} cross-category suggestions to surface. 
 If no facts strongly match the occasion, return an empty array for suggestions [].
 You must ONLY select suggestions using Fact IDs from the following approved fact set:
 ${factsStr}

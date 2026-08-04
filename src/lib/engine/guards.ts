@@ -26,8 +26,8 @@ export function runHardFilters(
   const seenL1s = new Set<string>();
 
   for (const sug of suggestions) {
-    // P11-3: Max 2 suggestions (R2)
-    if (validSuggestions.length >= 2) break;
+    // Relaxed R2: Max 4 suggestions to allow variety on multi-item carts
+    if (validSuggestions.length >= 4) break;
 
     // P11-9: Catalogue Validation
     const skuData = catalogue.find(s => s.sku_id === sug.sku_id);
