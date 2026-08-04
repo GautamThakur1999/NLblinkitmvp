@@ -159,6 +159,13 @@ export default function DemoPage() {
   const earnedL1s = new Set(cart.filter(s => !persona.purchased_l1s.includes(s.l1_category)).map(s => s.l1_category));
   const currentL1Count = baseL1Count + earnedL1s.size;
 
+  const renderedSuggestions = occasion ? occasion.suggestions.slice(0, expandedDiscovery ? occasion.suggestions.length : 2) : [];
+  const suggestedL1s = new Set(renderedSuggestions.map(s => s.l1));
+  const potentialNewL1s = new Set(
+    Array.from(suggestedL1s).filter(l1 => !persona.purchased_l1s.includes(l1) && !earnedL1s.has(l1))
+  );
+  const projectedL1Count = currentL1Count + potentialNewL1s.size;
+
   const fireEngine = useCallback((newCart: Sku[]) => {
     if (newCart.length === 0) {
       setOccasion(null);
@@ -753,7 +760,7 @@ export default function DemoPage() {
             <div className="flex flex-col gap-6 w-[280px] flex-shrink-0">
               <div>
                 <div className="font-h2 text-[24px] font-bold text-white mb-1 flex items-baseline gap-2">
-                  Categories {baseL1Count} <span className="material-symbols-outlined text-[20px] text-gray-400">arrow_forward</span> {currentL1Count}
+                  Categories {currentL1Count} <span className="material-symbols-outlined text-[20px] text-gray-400">arrow_forward</span> {projectedL1Count}
                 </div>
                 <div className="text-[10px] text-[#f8cb46] tracking-wider uppercase font-semibold">New Category Adoption this Session</div>
               </div>
