@@ -150,6 +150,9 @@ export default function DemoPage() {
   const [developerDrawerOpen, setDeveloperDrawerOpen] = useState(false);
   const [showReason, setShowReason] = useState(true);
   const [expandedDiscovery, setExpandedDiscovery] = useState(false);
+  
+  // Mobile UI controls
+  const [isMobileCartOpen, setIsMobileCartOpen] = useState(false);
 
   // Derived metrics
   const baseL1Count = persona.purchased_l1s.length;
@@ -271,6 +274,7 @@ export default function DemoPage() {
       recordC60(sku.l1_category);
     }
     fireEngine(newCart);
+    setIsMobileCartOpen(true);
   }, [cart, cartSkuIds, earnedL1s, fireEngine, currentOccasionId, persona.purchased_l1s]);
 
   const handleRemoveFromCart = useCallback((skuId: string) => {
@@ -334,7 +338,7 @@ export default function DemoPage() {
             <span className="font-label-semibold text-label-semibold text-secondary">8 minutes</span>
             <span className="text-[10px] text-on-surface-variant uppercase tracking-wider">Fast Delivery</span>
           </div>
-          <button className="bg-primary-container text-on-primary-container px-4 py-2.5 rounded-lg flex items-center gap-3 hover:bg-opacity-90 transition-all active:scale-95">
+          <button onClick={() => setIsMobileCartOpen(prev => !prev)} className="bg-primary-container text-on-primary-container px-4 py-2.5 rounded-lg flex items-center gap-3 hover:bg-opacity-90 transition-all active:scale-95">
             <span className="material-symbols-outlined" data-icon="shopping_cart">shopping_cart</span>
             <div className="flex flex-col items-start leading-tight">
               <span className="font-label-semibold text-label-semibold">{cart.length} items</span>
@@ -452,9 +456,9 @@ export default function DemoPage() {
         </section>
 
         {/* Right Rail (Cart + Occasion) - Bottom Sheet on Mobile */}
-        <aside className="fixed bottom-0 left-0 w-full h-auto max-h-[70vh] z-50 flex flex-col bg-surface-container-lowest shadow-[0_-4px_24px_rgba(0,0,0,0.15)] rounded-t-2xl border-t border-surface-variant lg:static lg:sticky lg:right-0 lg:top-[100px] lg:w-[320px] lg:h-[calc(100vh-100px)] lg:max-h-none lg:border-t-0 lg:border-l lg:rounded-none lg:shadow-none lg:pb-10 transition-transform">
+        <aside className={`fixed bottom-0 left-0 w-full h-auto max-h-[70vh] z-50 flex flex-col bg-surface-container-lowest shadow-[0_-4px_24px_rgba(0,0,0,0.15)] rounded-t-2xl border-t border-surface-variant lg:static lg:sticky lg:right-0 lg:top-[100px] lg:w-[320px] lg:h-[calc(100vh-100px)] lg:max-h-none lg:border-t-0 lg:border-l lg:rounded-none lg:shadow-none lg:pb-10 transition-transform duration-300 ${isMobileCartOpen ? "translate-y-0" : "translate-y-full lg:translate-y-0"}`}>
           {/* Mobile Handle */}
-          <div className="w-full flex justify-center py-2 lg:hidden flex-shrink-0">
+          <div className="w-full flex justify-center py-2 lg:hidden flex-shrink-0 cursor-pointer" onClick={() => setIsMobileCartOpen(false)}>
             <div className="w-12 h-1.5 bg-on-surface-variant/20 rounded-full"></div>
           </div>
           
