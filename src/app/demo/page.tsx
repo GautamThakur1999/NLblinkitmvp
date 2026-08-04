@@ -325,7 +325,7 @@ export default function DemoPage() {
           </div>
         </div>
         
-        <div className="flex-1 max-w-2xl px-stack_loose">
+        <div className="hidden md:block flex-1 max-w-2xl px-stack_loose">
           <div className="relative w-full">
             <span className="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant">search</span>
             <input className="w-full h-10 pl-10 pr-4 bg-surface-container-low border border-outline-variant rounded-lg focus:outline-none focus:ring-1 focus:ring-primary-container text-body font-body" placeholder="Search for atta, milk, eggs..." type="text" />
@@ -354,10 +354,10 @@ export default function DemoPage() {
       </div>
 
       {/* Main Content */}
-      <main className="max-w-[1280px] mx-auto flex gap-0 min-h-[calc(100vh-100px)] w-full">
+      <main className="max-w-[1280px] mx-auto flex flex-col lg:flex-row gap-0 min-h-[calc(100vh-100px)] w-full">
         
         {/* Left Column (Main Shopping) */}
-        <section className="flex-1 p-gutter border-r border-surface-variant overflow-y-auto pb-24 hide-scrollbar">
+        <section className="flex-1 p-gutter lg:border-r border-surface-variant overflow-y-auto pb-[60vh] lg:pb-24 hide-scrollbar">
           
           {/* Order Again */}
           <div className="mb-stack_loose">
@@ -454,8 +454,12 @@ export default function DemoPage() {
           
         </section>
 
-        {/* Right Rail (Cart + Occasion) */}
-        <aside className="w-[320px] h-[calc(100vh-100px)] sticky right-0 top-[100px] bg-surface-container-lowest flex flex-col border-l border-surface-variant z-40 pb-10">
+        {/* Right Rail (Cart + Occasion) - Bottom Sheet on Mobile */}
+        <aside className="fixed bottom-0 left-0 w-full h-[60vh] z-50 flex flex-col bg-surface-container-lowest shadow-[0_-4px_24px_rgba(0,0,0,0.15)] rounded-t-2xl border-t border-surface-variant lg:static lg:sticky lg:right-0 lg:top-[100px] lg:w-[320px] lg:h-[calc(100vh-100px)] lg:border-t-0 lg:border-l lg:rounded-none lg:shadow-none lg:pb-10 transition-transform">
+          {/* Mobile Handle */}
+          <div className="w-full flex justify-center py-2 lg:hidden flex-shrink-0">
+            <div className="w-12 h-1.5 bg-on-surface-variant/20 rounded-full"></div>
+          </div>
           
           {/* Top Half: My Basket */}
           <section className="flex flex-col flex-shrink-0 max-h-[50%] min-h-[30%] border-b border-surface-variant overflow-hidden">
