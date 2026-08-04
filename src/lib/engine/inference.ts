@@ -18,7 +18,8 @@ export async function getLiveOccasion(cart: Sku[], personaL1s: string[]): Promis
 The user just added the following items to their cart: ${cartStr}.
 Infer the underlying occasion.
 
-Select exactly 2 cross-category suggestions to surface. 
+Select up to 2 cross-category suggestions to surface. 
+If no facts strongly match the occasion, return an empty array for suggestions [].
 You must ONLY select suggestions using Fact IDs from the following approved fact set:
 ${factsStr}
 
