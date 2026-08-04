@@ -21,6 +21,12 @@
     { "sku_id": "sku_oil_01", "name": "Coconut Oil", "l1_category": "Personal Care", "price": 120, "original_price": 120, "in_stock": true, "is_veg": null },
     { "sku_id": "sku_electrolyte_01", "name": "Electrolyte Drink", "l1_category": "Beverages", "price": 35, "original_price": 35, "in_stock": true, "is_veg": true },
     { "sku_id": "sku_glasses_01", "name": "Disposable Glasses", "l1_category": "Home & Office", "price": 40, "original_price": 40, "in_stock": true, "is_veg": null },
-    { "sku_id": "sku_paracetamol_01", "name": "Paracetamol 500mg", "l1_category": "Pharma", "price": 20, "original_price": 20, "in_stock": true, "is_veg": true }
+    { "sku_id": "sku_paracetamol_01", "name": "Paracetamol 500mg", "l1_category": "Pharma", "price": 20, "original_price": 20, "in_stock": true, "is_veg": true },
+    { "sku_id": "sku_egg_boiler_01", "name": "Electric Egg Boiler", "l1_category": "Home & Office", "price": 350, "original_price": 450, "in_stock": true, "is_veg": null },
+    { "sku_id": "sku_egg_holder_01", "name": "Ceramic Egg Holder", "l1_category": "Home & Office", "price": 150, "original_price": 150, "in_stock": true, "is_veg": null },
+    { "sku_id": "sku_milk_frother_01", "name": "Handheld Milk Frother", "l1_category": "Home & Office", "price": 199, "original_price": 299, "in_stock": true, "is_veg": null },
+    { "sku_id": "sku_lactase_01", "name": "Lactase Enzyme Tablets", "l1_category": "Pharma", "price": 250, "original_price": 250, "in_stock": true, "is_veg": true },
+    { "sku_id": "sku_digestive_drops_01", "name": "Digestive Enzyme Drops", "l1_category": "Pharma", "price": 120, "original_price": 150, "in_stock": true, "is_veg": true },
+    { "sku_id": "sku_kitchen_towel_01", "name": "Absorbent Kitchen Towels", "l1_category": "Cleaning", "price": 110, "original_price": 110, "in_stock": true, "is_veg": null }
   ]
 }

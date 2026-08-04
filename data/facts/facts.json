@@ -39,6 +39,30 @@
     "fact_baby_solids": {
       "text": "First-solids month is messy",
       "target_l1": "Cleaning"
+    },
+    "fact_egg_boiler": {
+      "text": "Perfect boiled eggs in minutes",
+      "target_l1": "Home & Office"
+    },
+    "fact_egg_holder": {
+      "text": "Keep eggs safe from rolling",
+      "target_l1": "Home & Office"
+    },
+    "fact_milk_frother": {
+      "text": "Cafe style frothy milk at home",
+      "target_l1": "Home & Office"
+    },
+    "fact_lactose_intol": {
+      "text": "Help digest heavy dairy",
+      "target_l1": "Pharma"
+    },
+    "fact_heavy_meal": {
+      "text": "Digestive support after a heavy meal",
+      "target_l1": "Pharma"
+    },
+    "fact_milk_spills": {
+      "text": "Quick cleanup for kitchen spills",
+      "target_l1": "Cleaning"
     }
   }
 }

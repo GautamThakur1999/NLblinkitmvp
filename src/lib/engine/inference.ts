@@ -79,6 +79,12 @@ DO NOT output any other text. Only JSON.`;
         fact_party_glasses: "sku_glasses_01",
         fact_lint_roller: "sku_lint_roller_01",
         fact_baby_solids: "sku_stain_remover_01",
+        fact_egg_boiler: "sku_egg_boiler_01",
+        fact_egg_holder: "sku_egg_holder_01",
+        fact_milk_frother: "sku_milk_frother_01",
+        fact_lactose_intol: "sku_lactase_01",
+        fact_heavy_meal: "sku_digestive_drops_01",
+        fact_milk_spills: "sku_kitchen_towel_01",
       };
       const resolvedSku = FACT_TO_SKU[sug.fact_id] ?? null;
       if (!resolvedSku) return { ...sug, sku_id: "sku_placeholder" };
