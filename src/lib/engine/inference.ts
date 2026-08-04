@@ -49,7 +49,7 @@ DO NOT output any other text. Only JSON.`;
         "Content-Type": "application/json"
       },
       body: JSON.stringify({
-        model: "llama-3.1-8b-instant", // fast model for sub 300ms
+        model: "llama-3.3-70b-versatile", // upgraded to 70B for better reasoning while maintaining Groq's low latency
         messages: [{ role: "user", content: prompt }],
         response_format: { type: "json_object" },
         temperature: 0.1
