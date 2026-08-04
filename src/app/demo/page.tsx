@@ -1,8 +1,15 @@
 "use client";
 
-import { useState, useCallback, useRef } from "react";
+import { useState, useCallback, useRef, Suspense } from "react";
+import { useSearchParams } from "next/navigation";
 import catalogueData from "@data/catalogue/catalogue.json";
 import personasData from "@data/users/personas.json";
+
+function DebugWrapper({ children }: { children: React.ReactNode }) {
+  const searchParams = useSearchParams();
+  if (searchParams.get("debug") !== "1") return null;
+  return <>{children}</>;
+}
 
 // ── Types ─────────────────────────────────────────────────────────────────────
 type Sku = {
@@ -715,8 +722,10 @@ export default function DemoPage() {
         </div>
       )}
 
-      {/* Developer Drawer (Bottom overlay replacing left rail metrics) */}
-      <div className={`fixed bottom-0 left-0 w-full bg-[#1b1c1b] text-white transition-all duration-300 z-50 flex flex-col border-t border-surface-variant/30 ${developerDrawerOpen ? "h-64" : "h-12"}`}>
+      {/* Developer Telemetry Drawer */}
+      <Suspense fallback={null}>
+        <DebugWrapper>
+          <div className={`fixed bottom-0 left-0 w-full bg-[#111] border-t border-[#333] z-[100] transition-all duration-300 flex flex-col ${developerDrawerOpen ? "h-[240px]" : "h-12"}`}>
         {/* Drawer Header / Bar */}
         <div className="h-12 flex items-center justify-between px-gutter cursor-pointer" onClick={() => setDeveloperDrawerOpen(!developerDrawerOpen)}>
           <div className="flex items-center gap-3">
@@ -823,8 +832,9 @@ export default function DemoPage() {
             </div>
           </div>
         )}
-      </div>
-
+          </div>
+        </DebugWrapper>
+      </Suspense>
     </div>
   );
 }
